@@ -35,10 +35,10 @@ namespace LMS
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddDbContext<LMSContext>(options =>
                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped <ICustomerService,CustomerService>().Reverse();
 
             services.AddSwaggerGen(c =>
             {
@@ -46,6 +46,9 @@ namespace LMS
             });
             services.AddControllers();
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+           // services.AddTransient<ICustomerService, CustomerService>();
+
             //  services.AddScoped(typeof(ScopeServices));
            // services.AddScoped<typeof(ICustomerService),typeof(CustomerService)>().Reverse();
 
