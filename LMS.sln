@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS", "LMS\LMS.csproj", "{A221CB42-16C4-4DBC-93F9-0C733663F94E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "LMS\API.csproj", "{A221CB42-16C4-4DBC-93F9-0C733663F94E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{D94C9F60-6F7C-4ED8-A487-4F8723DA10E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{D94C9F60-6F7C-4ED8-A487-4F8723DA10E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{C9CF9ADA-5C23-47B6-87E0-4584E108B0F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{C9CF9ADA-5C23-47B6-87E0-4584E108B0F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

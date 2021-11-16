@@ -6,6 +6,6 @@ namespace Domian.Entities
 {
     public class Base
     {
-        long ID { get; set; }
+        long ID { get; set; } 
     }
 }
