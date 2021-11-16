@@ -12,6 +12,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Swashbuckle;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using Domain.Entities;
+using Domain.Models;
+using Domain.IServices;
+using Domain.Services;
+using Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS
 {
@@ -27,13 +34,26 @@ namespace LMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<LMSContext>(options =>
+                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped <ICustomerService,CustomerService>().Reverse();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             services.AddControllers();
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+            //  services.AddScoped(typeof(ScopeServices));
+           // services.AddScoped<typeof(ICustomerService),typeof(CustomerService)>().Reverse();
 
         }
+
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
