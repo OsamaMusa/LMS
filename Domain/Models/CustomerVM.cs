@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class CustomerVM
+    public class CustomerVM : BaseVM
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
