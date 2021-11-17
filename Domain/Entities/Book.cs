@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Domian.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain.Entities
 {
-    class Book
+    class Book:Base
     {
-        public int Bookid { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
         public int Avilable { get; set; }

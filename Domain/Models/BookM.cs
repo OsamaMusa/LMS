@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class BookM
+    public class BookM:BaseVM
     {
-        public int BookId { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
         public int Avilable { get; set; }
