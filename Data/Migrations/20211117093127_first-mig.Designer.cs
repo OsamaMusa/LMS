@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20211116100517_first-mig")]
+    [Migration("20211117093127_first-mig")]
     partial class firstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,13 +34,13 @@ namespace Data.Migrations
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("firstName")
+                    b.Property<string>("fullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("joinDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("lastName")
+                    b.Property<string>("phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

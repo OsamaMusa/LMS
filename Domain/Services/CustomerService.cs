@@ -42,9 +42,14 @@ namespace Domain.Services
             return  _mapper.Map < CustomerVM > (_customerRepository.getCustomerByID(ID));
         }
 
-        public Task<bool> updateCustomerByID(long ID, CustomerVM customer)
+        public Task<bool> updateCustomerByID(long ID, Customer customer)
         {
             return _customerRepository.updateCustomerByID(ID,customer);
+        }
+
+        public Task<bool> updateCustomerByID(long id, CustomerVM customer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

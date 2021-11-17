@@ -13,8 +13,8 @@ namespace Data.Migrations
                 {
                     ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(nullable: true),
-                    lastName = table.Column<string>(nullable: true),
+                    fullName = table.Column<string>(nullable: true),
+                    phone = table.Column<string>(nullable: true),
                     address = table.Column<string>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     joinDate = table.Column<DateTime>(nullable: false)
