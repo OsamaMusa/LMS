@@ -8,7 +8,7 @@ namespace Domain.Services
 {
     public class BookS : IBookS
     {
-        public bool addNewBook(string Title, string Author, float Price, int TotalNum, int Avilable)
+        public bool addNewBook(BookM book)
         {
             return true;
         }

@@ -6,50 +6,53 @@ using System.Threading.Tasks;
 using Domain.Services;
 using Microsoft.Extensions.Logging;
 using Domain.IServices;
+using Domain.Models;
 
 namespace API.Controllers
 {
   
     public class BookController : Controller
     {
-        private readonly IBookS _service;
-        private readonly ILogger _logger;
-        public BookController( ILogger logger)
+        IBookS _service;
+        ILogger _logger;
+        public BookController(/*ILogger logger*/)
         {
             _service = new BookS();
-            this._logger = logger;
+           // this._logger = logger;
+
         }
-        public IActionResult Index()
-        {
-            return Ok();
-        }
-        public IActionResult ShowAll()
+        
+        [HttpGet("/AllBooks")]
+        public IActionResult GetAll()
         {
             return Json(_service.getAllBooks());
         }
-        public IActionResult ShowAvilable()
+
+        [HttpGet("/AvilableBooks")]
+        public IActionResult GetAvilable()
         {
-            return Json(_service.getAllAvilableBooks());
+            return Json(_service.getAllBooks());
         }
-        public IActionResult GetById(int Id)
+        [HttpGet("{Id}")]
+         public IActionResult Get(int Id)
+         {
+             return Json(_service.getBookById(Id));
+         }
+        [HttpDelete("{Id}")]
+        public IActionResult Delete(int Id)
         {
-            return Json(_service.getBookById(Id));
-        }
-        [HttpDelete]
-        public IActionResult Remove(int Id)
-        {
-            var obj = new { Sucess = _service.removeBook(Id) };
+            var obj = new { Success = _service.removeBook(Id) };
             return Json(obj);
         }
         [HttpPost]
-        public IActionResult AddNew(string Title, string Author, float Price, int TotalNum, int Avilable, int PubId,string Address, string Name)
+        public IActionResult Post([FromBody] BookM book)
         {
-            return Json(_service.addNewBook(Title,Author,Price,TotalNum,Avilable));
+            return Json(_service.addNewBook(book));
         }
-        [HttpPut]
-        public IActionResult AddBook(int Id)
+        [HttpPut("{Id}")]
+        public IActionResult Put(int Id)
         {
-            var obj = new{ Sucess= _service.addBook(Id) };
+            var obj = new { Success = _service.addBook(Id) };
             return Json(obj); ;
         }
     }
