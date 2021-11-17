@@ -8,11 +8,11 @@ namespace Domain.Entities
 {
     class BookCustomer
     {
-        [ForeignKey("Book")]
+        [Key, Column(Order = 1)]
         public int BookId { get; set; }
 
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        [Key, Column(Order = 2)]
+        public int MemberId { get; set; }
         public Book Book { get; set; }
         public Customer Customer { get; set; }
         public DateTime reserveTime { get; set; }
