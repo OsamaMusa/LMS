@@ -19,6 +19,8 @@ using Domain.IServices;
 using Domain.Services;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Domain.IRepositories;
+using Data.Repositories;
 
 namespace LMS
 {
@@ -36,21 +38,29 @@ namespace LMS
         {
 
 
+            services.AddControllersWithViews();
+            services.AddSession();
+                 
             services.AddDbContext<LMSContext>(options =>
                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             services.AddControllers();
-            services.AddAutoMapper(typeof(AutoMapperProfile));
 
-           // services.AddTransient<ICustomerService, CustomerService>();
+            //services.AddAutoMapper(typeof(AutoMapperProfile));
+            //services.AddAutoMapper(c => c.AddProfile<AutoMapperProfile>(), typeof(Startup));
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             //  services.AddScoped(typeof(ScopeServices));
-           // services.AddScoped<typeof(ICustomerService),typeof(CustomerService)>().Reverse();
+
+
 
         }
 

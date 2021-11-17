@@ -3,14 +3,16 @@ using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.IServices
 {
     public interface ICustomerService
     {
-        public IEnumerable<CustomerVM> getAllCustomers();
-        public CustomerVM getCustomerByID(long ID);
-        public bool deleteCustomerByID(long ID);
-        public bool addCustomer(CustomerVM customer);
+        public Task<IEnumerable<CustomerVM>> getAllCustomers();
+        public Task<CustomerVM> getCustomerByID(long ID);
+        public Task<bool> deleteCustomerByID(long ID);
+        public Task<bool> addCustomer(CustomerVM customer);
+        Task<bool> updateCustomerByID(long id, CustomerVM customer);
     }
 }
