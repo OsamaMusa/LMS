@@ -39,6 +39,7 @@ namespace LMS
 
 
             services.AddControllersWithViews();
+
             services.AddSession();
                  
             services.AddDbContext<LMSContext>(options =>
@@ -50,14 +51,19 @@ namespace LMS
             });
             services.AddControllers();
 
-            //services.AddAutoMapper(typeof(AutoMapperProfile));
-            //services.AddAutoMapper(c => c.AddProfile<AutoMapperProfile>(), typeof(Startup));
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+   
+            var config = new AutoMapper.MapperConfiguration(c =>
+            {
+                c.AddProfile(new AutoMapperProfile());
+            });
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddMvc();
             //  services.AddScoped(typeof(ScopeServices));
 
 

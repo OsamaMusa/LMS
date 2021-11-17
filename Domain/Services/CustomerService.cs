@@ -44,7 +44,7 @@ namespace Domain.Services
 
         public Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
-            return _customerRepository.updateCustomerByID(ID,customer);
+            return _customerRepository.updateCustomerByID(ID, _mapper.Map < Customer > (customer));
         }
     }
 }
