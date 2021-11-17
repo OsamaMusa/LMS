@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Services;
+using Microsoft.Extensions.Logging;
+using Domain.IServices;
 
 namespace API.Controllers
 {
   
     public class BookController : Controller
     {
-        BookS service;
-        public BookController()
+        private readonly IBookS _service;
+        private readonly ILogger _logger;
+        public BookController( ILogger logger)
         {
-            service = new BookS();
+            _service = new BookS();
+            this._logger = logger;
         }
         public IActionResult Index()
         {
@@ -21,19 +25,32 @@ namespace API.Controllers
         }
         public IActionResult ShowAll()
         {
-            return Json(service.getAllBooks());
+            return Json(_service.getAllBooks());
         }
         public IActionResult ShowAvilable()
         {
-            return Json(service.getAllAvilableBooks());
+            return Json(_service.getAllAvilableBooks());
         }
         public IActionResult GetById(int Id)
         {
-            return Json(service.getBookById(Id));
+            return Json(_service.getBookById(Id));
         }
+        [HttpDelete]
         public IActionResult Remove(int Id)
         {
-            return Json(service.removeBook(Id));
+            var obj = new { Sucess = _service.removeBook(Id) };
+            return Json(obj);
+        }
+        [HttpPost]
+        public IActionResult AddNew(string Title, string Author, float Price, int TotalNum, int Avilable, int PubId,string Address, string Name)
+        {
+            return Json(_service.addNewBook(Title,Author,Price,TotalNum,Avilable));
+        }
+        [HttpPut]
+        public IActionResult AddBook(int Id)
+        {
+            var obj = new{ Sucess= _service.addBook(Id) };
+            return Json(obj); ;
         }
     }
 }

@@ -8,11 +8,14 @@ namespace Domain.Services
 {
     public class BookS : IBookS
     {
-        public bool addBook(string Title, string Author, float Price, int TotalNum, int Avilable)
+        public bool addNewBook(string Title, string Author, float Price, int TotalNum, int Avilable)
         {
             return true;
         }
-
+        public bool addBook(int Id)
+        {
+            return true;
+        }
         public List<BookM> getAllAvilableBooks()
         {
             return new List<BookM>() ;
@@ -28,9 +31,9 @@ namespace Domain.Services
             return new BookM();
         }
 
-        public string removeBook(int Id)
+        public bool removeBook(int Id)
         {
-            return "Success";
+            return true;
         }
 
         public bool reserveBook(int Id)

@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    class Book : Base
+
+    class Book:Base
     {
-     
+
         public string Author { get; set; }
         public string Title { get; set; }
         public int Avilable { get; set; }
