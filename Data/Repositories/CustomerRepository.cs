@@ -55,17 +55,19 @@ namespace Data.Repositories
             return GetExistingCustomer(ID).FirstOrDefault();
         }
 
-        public async Task<bool> updateCustomerByID(long ID, CustomerVM customer)
+        public async Task<bool> updateCustomerByID(long ID, Customer customer)
         {
             Customer item = GetExistingCustomer(ID).FirstOrDefault();
             if (item != null)
             {
-                item = _mapper.Map<Customer>(customer);
+                
                 _context.Customers.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
+
+     
     }
 }

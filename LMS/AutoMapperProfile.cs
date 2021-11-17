@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Domain.Models;
+using System;
+using System.Collections.Generic;
 
 namespace LMS
 {
@@ -8,8 +10,8 @@ namespace LMS
     {
         public AutoMapperProfile()
         {
-            CreateMap<CustomerVM, Customer>();
-         
+            CreateMap<Customer, CustomerVM>().ReverseMap();
         }
+
     }
 }
