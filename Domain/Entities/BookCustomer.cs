@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domian.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,13 +7,13 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    class BookCustomer
+    class BookCustomer :Base
     {
         [ForeignKey("Book")]
-        public int BookId { get; set; }
+        public long BookId { get; set; }
 
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public long CustomerId { get; set; }
         public Book Book { get; set; }
         public Customer Customer { get; set; }
         public DateTime reserveTime { get; set; }
