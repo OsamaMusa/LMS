@@ -26,13 +26,13 @@ namespace API.Controllers
         [HttpGet("/AllBooks")]
         public IActionResult GetAll()
         {
-            return Json(_service.getAllBooks());
+            return Json(_service.getAllBooks().Result);
         }
 
         [HttpGet("/AvilableBooks")]
         public IActionResult GetAvilable()
         {
-            return Json(_service.getAllBooks());
+            return Json(_service.getAllAvilableBooks().Result);
         }
         [HttpGet("{Id}")]
          public IActionResult Get(int Id)
@@ -40,21 +40,21 @@ namespace API.Controllers
              return Json(_service.getBookById(Id).Result);
          }
         [HttpDelete("{Id}")]
-       /* public IActionResult Delete(int Id)
+        public IActionResult Delete(int Id)
         {
             var obj = new { Success = _service.removeBook(Id) };
             return Json(obj);
-        }*/
+        }
         [HttpPost]
         public Task<bool> Post([FromBody] BookM book)
         {
             return _service.addNewBook(book);
         }
-        /*[HttpPut("{Id}")]
+        [HttpPut("{Id}")]
         public IActionResult Put(int Id)
         {
             var obj = new { Success = _service.addBook(Id) };
             return Json(obj);
-        }*/
+        }
     }
 }

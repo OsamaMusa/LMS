@@ -59,8 +59,8 @@ namespace Data.Repositories
         
 
         private IQueryable<BookCustomer> GetExistingBookCustomer(long ID) =>
-
          _context.BookCustomer.Where(r => r.ID == ID).AsNoTracking();
+
         private IQueryable<BookCustomer> GetExistingBookCustomer_B_C_ID(long CID, long BID) =>
        _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID).AsNoTracking();
 

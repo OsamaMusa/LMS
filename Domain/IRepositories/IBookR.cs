@@ -14,5 +14,6 @@ namespace Domain.IRepositories
         
         public Task<bool> addBookAsync(Book book);
         public Task<IEnumerable<BookM>> getAllAvailable();
+        public Task<bool> UpdateBookAsync(Book book);
     }
 }
