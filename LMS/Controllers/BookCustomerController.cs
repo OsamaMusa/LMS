@@ -60,10 +60,10 @@ namespace API.Controllers
         }
 
         // DELETE api/<BookCustomerController>/5
-/*        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         public Task<bool> Delete(long id)
         {
             return _service.deleteBookCustomerByID(id);
-        }*/
+        }
     }
 }
