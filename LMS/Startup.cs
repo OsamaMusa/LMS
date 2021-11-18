@@ -53,14 +53,22 @@ namespace LMS
             //services.AddAutoMapper(typeof(AutoMapperProfile));
             //services.AddAutoMapper(c => c.AddProfile<AutoMapperProfile>(), typeof(Startup));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+           // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-
+            
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IBookR, BookR>();
+            services.AddTransient<IBookS, BookS>();
             //  services.AddScoped(typeof(ScopeServices));
 
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
 
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
         }
 

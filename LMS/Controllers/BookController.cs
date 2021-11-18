@@ -10,14 +10,15 @@ using Domain.Models;
 
 namespace API.Controllers
 {
-  
+    [ApiController]
+    [Route("[controller]")]
     public class BookController : Controller
     {
         IBookS _service;
         ILogger _logger;
-        public BookController(/*ILogger logger*/)
+        public BookController(/*ILogger logger*/ IBookS service)
         {
-            _service = new BookS();
+            _service = service;
            // this._logger = logger;
 
         }
@@ -36,24 +37,24 @@ namespace API.Controllers
         [HttpGet("{Id}")]
          public IActionResult Get(int Id)
          {
-             return Json(_service.getBookById(Id));
+             return Json(_service.getBookById(Id).Result);
          }
         [HttpDelete("{Id}")]
-        public IActionResult Delete(int Id)
+       /* public IActionResult Delete(int Id)
         {
             var obj = new { Success = _service.removeBook(Id) };
             return Json(obj);
-        }
+        }*/
         [HttpPost]
-        public IActionResult Post([FromBody] BookM book)
+        public Task<bool> Post([FromBody] BookM book)
         {
-            return Json(_service.addNewBook(book));
+            return _service.addNewBook(book);
         }
-        [HttpPut("{Id}")]
+        /*[HttpPut("{Id}")]
         public IActionResult Put(int Id)
         {
             var obj = new { Success = _service.addBook(Id) };
-            return Json(obj); ;
-        }
+            return Json(obj);
+        }*/
     }
 }
