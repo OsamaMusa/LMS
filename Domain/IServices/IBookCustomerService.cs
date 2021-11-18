@@ -10,6 +10,7 @@ namespace Domain.IServices
     {
         public Task<IEnumerable<BookCustomerVM>> getAllBookCustomers();
         public Task<BookCustomerVM> getBookCustomerByID(long ID);
+        public Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID, long BID);
         public Task<bool> deleteBookCustomerByID(long ID);
         public Task<bool> addBookCustomer(BookCustomerVM customer);
        public Task<bool> updateBookCustomerByID(long id, BookCustomerVM customer);

@@ -10,10 +10,10 @@ namespace Domain.IRepositories
 
    public  interface ICustomerRepository 
     {
-        public  Task<IEnumerable<Customer>> getAllCustomers();
-        public  Task<Customer> getCustomerByID(long ID);
+        public  Task<IEnumerable<CustomerVM>> getAllCustomers();
+        public  Task<CustomerVM> getCustomerByID(long ID);
         public Task<bool> deleteCustomerByID(long ID);
-        public Task<bool> addCustomerAsync(Customer customer);
-        Task<bool> updateCustomerByID(long iD, Customer customer);
+        public Task<bool> addCustomerAsync(CustomerVM customer);
+        Task<bool> updateCustomerByID(long iD, CustomerVM customer);
     }
 }
