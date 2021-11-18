@@ -13,12 +13,14 @@ namespace Domain.Services
     public class BookCustomerService : IBookCustomerService
     {
         private readonly IBookCustomerRepository _bookCustomerRepository;
-        private readonly IMapper _mapper;
+        private readonly IBookR bookR;
+        private readonly ICustomerRepository _customerRepository;
 
-        public BookCustomerService(IBookCustomerRepository bookCustomerRepository, IMapper mapper)
+        public BookCustomerService(IBookCustomerRepository bookCustomerRepository ,IBookR bookR,ICustomerRepository customerRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
-            this._mapper = mapper;
+            this.bookR = bookR;
+            this._customerRepository = customerRepository;
         }
         public Task<bool> addBookCustomer(BookCustomerVM bookCustomer)
         {
@@ -36,18 +38,43 @@ namespace Domain.Services
             return _bookCustomerRepository.deleteBookCustomerBy_B_C_ID(CustomerID, BookID);
         }
 
-        public  Task<IEnumerable<BookCustomerVM>> getAllBookCustomers() 
+        public  Task<IEnumerable<BookCustomerDetailsVM>> getAllBookCustomers() 
         {
             return _bookCustomerRepository.getAllBookCustomers();
         }
 
+        public  bool reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM)
+        {
+            BookM bookM = bookR.getBookByID(reserveBookCustomerVM.BookId).Result;
+            CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
+            if (customerVM != null && bookM != null && bookM.Avilable > 0)
+            {
+                bookM.Avilable = bookM.Avilable - 1;
+                bookR.UpdateBookAsync(bookM);
+                return _bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM);
+            }
+            return false;
 
-        public  Task<BookCustomerVM> getBookCustomerByID(long ID)
+        }
+        public bool returnBookCustomer(returnBookCustomerVM reserveBookCustomerVM)
+        {
+            BookM bookM = bookR.getBookByID(reserveBookCustomerVM.BookId).Result;
+            CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
+            if (customerVM !=null && bookM != null )
+            {
+                bookM.Avilable = bookM.Avilable + 1;
+                bookR.UpdateBookAsync(bookM);
+                return _bookCustomerRepository.returnBookCustomer(reserveBookCustomerVM);
+            }
+            return false;
+
+        }
+        public  Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
 
             return _bookCustomerRepository.getBookCustomerByID(ID);
         }
-        public  Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public  Task<BookCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
 
             return _bookCustomerRepository.getBookCustomerBy_C_B_ID(CID,BID);
@@ -57,6 +84,18 @@ namespace Domain.Services
         {
             return _bookCustomerRepository.updateBookCustomerByID(ID, customer);
         }
-     
+
+        public bool returnBookCustomerByID(long iD, returnBookCustomerVM bookCustomer)
+        {
+            BookM bookM = bookR.getBookByID(bookCustomer.BookId).Result;
+            CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
+            if (customerVM != null && bookM != null)
+            {
+                bookM.Avilable = bookM.Avilable + 1;
+                bookR.UpdateBookAsync(bookM);
+                return _bookCustomerRepository.returnBookCustomer(bookCustomer);
+            }
+            return false;
+        }
     }
 }

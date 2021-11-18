@@ -32,7 +32,9 @@ namespace API.Controllers
             return _service.getAllAvilableBooks().Result;
         }
         [HttpGet]
+
          public BookM Get(long Id)
+
          {
              return _service.getBookById(Id).Result;
          }
