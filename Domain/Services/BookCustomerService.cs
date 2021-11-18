@@ -13,12 +13,11 @@ namespace Domain.Services
     public class BookCustomerService : IBookCustomerService
     {
         private readonly IBookCustomerRepository _bookCustomerRepository;
-        private readonly IMapper _mapper;
 
-        public BookCustomerService(IBookCustomerRepository bookCustomerRepository, IMapper mapper)
+        public BookCustomerService(IBookCustomerRepository bookCustomerRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
-            this._mapper = mapper;
+      
         }
         public Task<bool> addBookCustomer(BookCustomerVM bookCustomer)
         {
@@ -36,18 +35,18 @@ namespace Domain.Services
             return _bookCustomerRepository.deleteBookCustomerBy_B_C_ID(CustomerID, BookID);
         }
 
-        public  Task<IEnumerable<BookCustomerVM>> getAllBookCustomers() 
+        public  Task<IEnumerable<BookCustomerDetailsVM>> getAllBookCustomers() 
         {
             return _bookCustomerRepository.getAllBookCustomers();
         }
 
 
-        public  Task<BookCustomerVM> getBookCustomerByID(long ID)
+        public  Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
 
             return _bookCustomerRepository.getBookCustomerByID(ID);
         }
-        public  Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public  Task<BookCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
 
             return _bookCustomerRepository.getBookCustomerBy_C_B_ID(CID,BID);
@@ -57,6 +56,6 @@ namespace Domain.Services
         {
             return _bookCustomerRepository.updateBookCustomerByID(ID, customer);
         }
-     
+
     }
 }

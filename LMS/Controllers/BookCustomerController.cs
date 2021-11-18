@@ -23,7 +23,7 @@ namespace API.Controllers
 
         // GET: api/<BookCustomerController>
         [HttpGet]
-        public Task<IEnumerable<BookCustomerVM>> GetAll()
+        public Task<IEnumerable<BookCustomerDetailsVM>> GetAll()
         {
             var items = _service.getAllBookCustomers();
             return items;
@@ -31,7 +31,7 @@ namespace API.Controllers
 
         // GET api/<BookCustomerController>/5
         [HttpGet("{id}")]
-        public Task<BookCustomerVM> getBookCustomer(long id)
+        public Task<BookCustomerDetailsVM> getBookCustomer(long id)
         {
             return _service.getBookCustomerByID(id);
         }
