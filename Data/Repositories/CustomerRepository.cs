@@ -6,6 +6,7 @@ using Domain.Models;
 using Domian.Entities;
 using HotChocolate;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Data.Repositories
         }
 
         private IQueryable<Customer> GetExistingCustomer(long ID) =>
-         _context.Customers.Where(r => r.ID == ID);
+         _context.Customers.Where(r => r.ID == ID).AsNoTracking();
 
         public async Task<IEnumerable<CustomerVM>> getAllCustomers()
         {
