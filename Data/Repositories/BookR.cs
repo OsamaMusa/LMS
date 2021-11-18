@@ -29,15 +29,13 @@ namespace Data.Repositories
         {
             return  _context.Books.Where(r => r.ID == ID);
         }
-        public async Task<bool> addBookAsync(Book book)
+        public async Task<bool> addBookAsync(BookM book)
         {
-             await _context.Books.AddAsync(book);
+
+             await _context.Books.AddAsync(_mapper.Map<Book>(book));
              await _context.SaveChangesAsync();
             return true;
         }
-
-       
-
         public async Task<IEnumerable<BookM>> getAllBooks()
         {
             return _mapper.Map<List<Book>, List<BookM>>(_context.Books.ToList());
@@ -52,13 +50,13 @@ namespace Data.Repositories
             return _mapper.Map<BookM>(GetExistingBook(ID).FirstOrDefault());
         }
 
-        public async Task<bool> UpdateBookAsync(Book book)
+        public async Task<bool> UpdateBookAsync(BookM book)
         { 
             
             if (book != null)
             {
 
-                _context.Books.Update(book);
+                _context.Books.Update(_mapper.Map<Book>(book));
                 await _context.SaveChangesAsync();
                 return true;
             }
