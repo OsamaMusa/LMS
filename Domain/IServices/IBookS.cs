@@ -10,11 +10,11 @@ namespace Domain.IServices
     {
         Task<BookM> getBookById(long Id);
         Task<bool> addNewBook(BookM book);
-       // public Task<bool> addBook(int Id);
+        public Task<bool> addBook(long Id);
         Task<IEnumerable<BookM>> getAllBooks();
         Task<IEnumerable<BookM>> getAllAvilableBooks();
-        /*bool removeBook(int Id);
-        bool reserveBook(int Id);
+        Task<bool> removeBook(int Id);
+        /*bool reserveBook(int Id);
         bool returnBook(int Id);*/
     }
 }

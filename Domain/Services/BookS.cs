@@ -22,10 +22,13 @@ namespace Domain.Services
         {
             return _repo.addBookAsync(_mapper.Map<Book>(book));
         }
-       /* public Task<bool> addBook(int Id)
+        public Task<bool> addBook(long Id)
         {
-            return _repo.addBookAsync(Id);
-        }*/
+            BookM book = _repo.getBookByID(Id).Result;
+            book.Avilable += 1;
+            book.TotalNum += 1;
+            return _repo.UpdateBookAsync(_mapper.Map<Book>(book));
+        }
         public Task<IEnumerable<BookM>> getAllAvilableBooks()
         {
             return _repo.getAllAvailable() ;
@@ -41,19 +44,27 @@ namespace Domain.Services
             return _repo.getBookByID(Id);
         }
 
-       /* public Task<bool> removeBook(int Id)
+        public Task<bool> removeBook(int Id)
         {
-            return true;
+            BookM book = getBookById(Id).Result;
+            if(book.TotalNum>0 && book.Avilable > 0)
+            {
+                book.Avilable -= 1;
+                book.TotalNum -= 1;
+                return _repo.UpdateBookAsync(_mapper.Map<Book>(book));
+            }
+
+            return Task.FromResult(false);
         }
 
-        public Task<bool> reserveBook(int Id)
-        {
-            return true;
-        }
+        /* public Task<bool> reserveBook(int Id)
+         {
+             return true;
+         }
 
-        public Task<bool> returnBook(int Id)
-        {
-            return true;
-        }*/
+         public Task<bool> returnBook(int Id)
+         {
+             return true;
+         }*/
     }
 }

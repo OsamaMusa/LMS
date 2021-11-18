@@ -36,19 +36,6 @@ namespace Data.Repositories
             return true;
         }
 
-        public async Task<bool> deleteBookByID(long ID)
-        {
-            Book item = GetExistingBook(ID).FirstOrDefault();
-            if (item != null)
-            {
-                _context.Books.Remove(item);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            return false;
-
-        }
-
        
 
         public async Task<IEnumerable<BookM>> getAllBooks()
