@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
+
     public class Book:Base
     {
         public string Author { get; set; }

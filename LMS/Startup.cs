@@ -50,17 +50,17 @@ namespace LMS
             });
             services.AddControllers();
 
-            //services.AddAutoMapper(typeof(AutoMapperProfile));
-            //services.AddAutoMapper(c => c.AddProfile<AutoMapperProfile>(), typeof(Startup));
-
-           // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
+
             services.AddTransient<IBookR, BookR>();
             services.AddTransient<IBookS, BookS>();
-            //  services.AddScoped(typeof(ScopeServices));
+   
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IBookCustomerService, BookCustomerService>();
+            services.AddTransient<IBookCustomerRepository, BookCustomerRepository>();
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

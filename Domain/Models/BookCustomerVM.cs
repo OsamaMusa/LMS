@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    class BookMemberM
+    public class BookCustomerVM
     {
         public long BookId { get; set; }
         public long MemberId { get; set; }
