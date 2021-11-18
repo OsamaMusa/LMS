@@ -14,5 +14,7 @@ namespace Domain.IServices
         public Task<bool> deleteBookCustomerByID(long ID);
         public Task<bool> addBookCustomer(BookCustomerVM customer);
        public Task<bool> updateBookCustomerByID(long id, BookCustomerVM customer);
+        bool reserveBookCustomer(reserveBookCustomerVM bookCustomer);
+        bool returnBookCustomerByID(long iD, returnBookCustomerVM bookCustomer);
     }
 }

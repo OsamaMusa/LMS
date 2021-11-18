@@ -101,7 +101,28 @@ namespace Data.Repositories
             }
             return false;
         }
+        public bool reserveBookCustomer(reserveBookCustomerVM bookCustomer)
+        {
+            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            _context.BookCustomer.AddAsync(item);
+            _context.SaveChangesAsync();
+            return true;
 
-  
+
+        }
+        public  bool returnBookCustomer(returnBookCustomerVM bookCustomer)
+        {
+           
+            BookCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            if (item != null)
+            {
+                item = _mapper.Map<BookCustomer>(bookCustomer);
+                _context.BookCustomer.Update(item);
+                _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
     }
 }

@@ -34,7 +34,7 @@ namespace API.Controllers
         {
             return _service.getAllAvilableBooks().Result;
         }
-        [HttpGet("{Id}")]
+        [HttpGet]
          public BookM Get(int Id)
          {
              return _service.getBookById(Id).Result;

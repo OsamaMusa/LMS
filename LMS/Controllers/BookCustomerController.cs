@@ -37,11 +37,19 @@ namespace API.Controllers
         }
 
         // POST api/<BookCustomerController>
-        [HttpPost]
-        public Task<bool> Post(BookCustomerVM bookCustomer)
+        [HttpPost("/ReserveBook")]
+        public bool ReserveBook(reserveBookCustomerVM bookCustomer)
         {
-            return _service.addBookCustomer(bookCustomer);
+            bookCustomer.reserveTime = DateTime.UtcNow ;
+            return _service.reserveBookCustomer(bookCustomer);
         }
+        [HttpPost("/ReturnBook")]
+        public async Task<bool> ReturnBook(returnBookCustomerVM bookCustomer)
+        {
+            bookCustomer.isReturned = true;
+            bookCustomer.returnedTime = DateTime.UtcNow;
+             return _service.returnBookCustomerByID(bookCustomer.ID , bookCustomer);
+        } 
 
         // PUT api/<BookCustomerController>/5
         [HttpPut("{id}")]
