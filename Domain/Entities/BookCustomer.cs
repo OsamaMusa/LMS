@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    class BookCustomer :Base
+    public class BookCustomer :Base
     {
         [ForeignKey("Book")]
         public long BookId { get; set; }

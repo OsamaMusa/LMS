@@ -18,6 +18,7 @@ namespace API.Controllers
         public CustomerController(ICustomerService service) {
             this._service = service;
         }
+
         [HttpGet]
         public Task<IEnumerable<CustomerVM>> getAllCustomers() {
             var items =  _service.getAllCustomers();
