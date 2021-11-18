@@ -1,49 +1,59 @@
-﻿using Domain.IServices;
+﻿using AutoMapper;
+using Domain.Entities;
+using Domain.IRepositories;
+using Domain.IServices;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Services
 {
     public class BookS : IBookS
-    {
-        public bool addNewBook(string Title, string Author, float Price, int TotalNum, int Avilable)
+    { IBookR _repo;
+        private readonly IMapper _mapper;
+        public BookS(IBookR repo , IMapper mapper)
+        {
+            _repo = repo;
+            _mapper = mapper;
+        }
+        public Task<bool> addNewBook(BookM book)
+        {
+            return _repo.addBookAsync(_mapper.Map<Book>(book));
+        }
+       /* public Task<bool> addBook(int Id)
+        {
+            return _repo.addBookAsync(Id);
+        }*/
+        public Task<IEnumerable<BookM>> getAllAvilableBooks()
+        {
+            return _repo.getAllAvailable() ;
+        }
+
+        public Task<IEnumerable<BookM>> getAllBooks()
+        {
+            return _repo.getAllBooks() ;
+        }
+
+        public Task<BookM> getBookById(long Id)
+        {
+            return _repo.getBookByID(Id);
+        }
+
+       /* public Task<bool> removeBook(int Id)
         {
             return true;
         }
-        public bool addBook(int Id)
-        {
-            return true;
-        }
-        public List<BookM> getAllAvilableBooks()
-        {
-            return new List<BookM>() ;
-        }
 
-        public List<BookM> getAllBooks()
-        {
-            return new List<BookM>() ;
-        }
-
-        public BookM getBookById(int Id)
-        {
-            return new BookM();
-        }
-
-        public bool removeBook(int Id)
+        public Task<bool> reserveBook(int Id)
         {
             return true;
         }
 
-        public bool reserveBook(int Id)
+        public Task<bool> returnBook(int Id)
         {
             return true;
-        }
-
-        public bool returnBook(int Id)
-        {
-            return true;
-        }
+        }*/
     }
 }

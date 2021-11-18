@@ -51,12 +51,16 @@ namespace LMS
             services.AddControllers();
 
 
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-           
+            
+
+            services.AddTransient<IBookR, BookR>();
+            services.AddTransient<IBookS, BookS>();
+   
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IBookCustomerService, BookCustomerService>();
             services.AddTransient<IBookCustomerRepository, BookCustomerRepository>();
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -65,8 +69,6 @@ namespace LMS
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-
-
 
         }
 
