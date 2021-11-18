@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         // GET: api/<BookCustomerController>
-        [HttpGet]
+        [HttpGet("getReservations")]
         public Task<IEnumerable<BookCustomerDetailsVM>> GetAll()
         {
             var items = _service.getAllBookCustomers();
@@ -30,8 +30,8 @@ namespace API.Controllers
         }
 
         // GET api/<BookCustomerController>/5
-        [HttpGet("{id}")]
-        public Task<BookCustomerDetailsVM> getBookCustomer(long id)
+        [HttpGet("getReserve/{id}")]
+        public Task<BookCustomerDetailsVM> getReservations(long id)
         {
             return _service.getBookCustomerByID(id);
         }
@@ -52,18 +52,18 @@ namespace API.Controllers
         } 
 
         // PUT api/<BookCustomerController>/5
-        [HttpPut("{id}")]
-        public Task<bool> Put(long id, BookCustomerVM bookCustomer)
+        [HttpPut("updateReserve/{id}")]
+        public Task<bool> updateReserve(long id, BookCustomerVM bookCustomer)
         {
             return _service.updateBookCustomerByID(id, bookCustomer);
 
         }
 
         // DELETE api/<BookCustomerController>/5
-        [HttpDelete("{id}")]
+/*        [HttpDelete("{id}")]
         public Task<bool> Delete(long id)
         {
             return _service.deleteBookCustomerByID(id);
-        }
+        }*/
     }
 }
