@@ -8,10 +8,10 @@ namespace LMS
     {
         public AutoMapperProfile()
         {
-            CreateMap<CustomerVM, Customer>();
-            CreateMap<Customer, CustomerVM>();
-            CreateMap<Book, BookM>();
-            CreateMap<BookM, Book>();
+            CreateMap<CustomerVM, Customer>().ReverseMap();
+            CreateMap<BookM, Book>().ReverseMap();
+            CreateMap<BookCustomerVM, BookCustomer>().ReverseMap();
+            CreateMap<BookCustomerDetailsVM, BookCustomer>().ReverseMap();
         }
     }
 }

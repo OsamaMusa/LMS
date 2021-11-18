@@ -24,7 +24,8 @@ namespace Data.Repositories
         }
         public async Task<bool> addBookCustomerAsync(BookCustomerVM bookCustomer)
         {
-            await _context.BookCustomer.AddAsync(_mapper.Map<BookCustomer>(bookCustomer));
+            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            await _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -64,18 +65,27 @@ namespace Data.Repositories
        _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID).AsNoTracking();
 
 
-        public async Task<IEnumerable<BookCustomerVM>> getAllBookCustomers()
+        public async Task<IEnumerable<BookCustomerDetailsVM>> getAllBookCustomers()
         {
-            return _mapper.Map<IEnumerable<BookCustomerVM>>(_context.BookCustomer.ToList());
+            return _mapper.Map<IEnumerable<BookCustomerDetailsVM>>(_context.BookCustomer
+                .Include(e=>e.Book)
+                .Include(e=>e.Customer)
+                .ToList());
         }
 
-        public async Task<BookCustomerVM> getBookCustomerByID(long ID)
+        public async Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
-            return _mapper.Map<BookCustomerVM>(GetExistingBookCustomer(ID).FirstOrDefault());
+            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer(ID)
+                .Include(e => e.Book).
+                Include(e => e.Customer)
+                .FirstOrDefault());
         }
-        public async Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public async Task<BookCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
-            return _mapper.Map<BookCustomerVM>(GetExistingBookCustomer_B_C_ID(CID,BID).FirstOrDefault());
+            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer_B_C_ID(CID,BID)
+                .Include(e => e.Book)
+                .Include(e => e.Customer)
+                .FirstOrDefault());
         }
 
 
