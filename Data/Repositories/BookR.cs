@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -27,7 +28,7 @@ namespace Data.Repositories
         }
         private IQueryable<Book> GetExistingBook(long ID)
         {
-            return  _context.Books.Where(r => r.ID == ID);
+            return  _context.Books.Where(r => r.ID == ID).AsNoTracking();
         }
         public async Task<bool> addBookAsync(BookM book)
         {

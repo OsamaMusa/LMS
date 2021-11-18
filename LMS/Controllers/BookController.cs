@@ -15,12 +15,9 @@ namespace API.Controllers
     public class BookController : Controller
     {
         IBookS _service;
-        ILogger _logger;
-        public BookController(/*ILogger logger*/ IBookS service)
+        public BookController( IBookS service)
         {
             _service = service;
-           // this._logger = logger;
-
         }
         
         [HttpGet("/AllBooks")]
@@ -34,13 +31,13 @@ namespace API.Controllers
         {
             return _service.getAllAvilableBooks().Result;
         }
-        [HttpGet("{Id}")]
-         public BookM Get(int Id)
+        [HttpGet]
+         public BookM Get(long Id)
          {
              return _service.getBookById(Id).Result;
          }
-        [HttpDelete("{Id}")]
-        public bool Delete(int Id)
+        [HttpDelete]
+        public bool Delete(long Id)
         {
            
             return _service.removeBook(Id).Result;
@@ -50,7 +47,7 @@ namespace API.Controllers
         {
             return _service.addNewBook(book).Result;
         }
-        [HttpPut("{Id}")]
+        [HttpPut]
         public bool Put(BookM book)
         {
             return _service.editBook(book).Result;
