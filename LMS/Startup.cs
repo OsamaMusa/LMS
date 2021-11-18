@@ -39,7 +39,6 @@ namespace LMS
 
 
             services.AddControllersWithViews();
-
             services.AddSession();
                  
             services.AddDbContext<LMSContext>(options =>
@@ -52,19 +51,20 @@ namespace LMS
             services.AddControllers();
 
 
-
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+           
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-   
-            var config = new AutoMapper.MapperConfiguration(c =>
-            {
-                c.AddProfile(new AutoMapperProfile());
-            });
-            var mapper = config.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddTransient<IBookCustomerService, BookCustomerService>();
+            services.AddTransient<IBookCustomerRepository, BookCustomerRepository>();
 
-            services.AddMvc();
-            //  services.AddScoped(typeof(ScopeServices));
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
 
 
