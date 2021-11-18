@@ -24,37 +24,36 @@ namespace API.Controllers
         }
         
         [HttpGet("/AllBooks")]
-        public IActionResult GetAll()
+        public IEnumerable<BookM> GetAll()
         {
-            return Json(_service.getAllBooks().Result);
+            return _service.getAllBooks().Result;
         }
 
         [HttpGet("/AvilableBooks")]
-        public IActionResult GetAvilable()
+        public IEnumerable<BookM> GetAvilable()
         {
-            return Json(_service.getAllAvilableBooks().Result);
+            return _service.getAllAvilableBooks().Result;
         }
         [HttpGet("{Id}")]
-         public IActionResult Get(int Id)
+         public BookM Get(int Id)
          {
-             return Json(_service.getBookById(Id).Result);
+             return _service.getBookById(Id).Result;
          }
         [HttpDelete("{Id}")]
-        public IActionResult Delete(int Id)
+        public bool Delete(int Id)
         {
-            var obj = new { Success = _service.removeBook(Id) };
-            return Json(obj);
+           
+            return _service.removeBook(Id).Result;
         }
         [HttpPost]
-        public Task<bool> Post([FromBody] BookM book)
+        public bool Post([FromBody] BookM book)
         {
-            return _service.addNewBook(book);
+            return _service.addNewBook(book).Result;
         }
         [HttpPut("{Id}")]
-        public IActionResult Put(int Id)
+        public bool Put(BookM book)
         {
-            var obj = new { Success = _service.addBook(Id) };
-            return Json(obj);
+            return _service.editBook(book).Result;
         }
     }
 }
