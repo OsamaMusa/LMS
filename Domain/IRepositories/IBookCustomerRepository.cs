@@ -9,10 +9,12 @@ namespace Domain.IRepositories
 {
     public interface IBookCustomerRepository
     {
-        public Task<IEnumerable<BookCustomer>> getAllBookCustomers();
-        public Task<BookCustomer> getBookCustomerByID(long ID);
+        public Task<IEnumerable<BookCustomerVM>> getAllBookCustomers();
+        public Task<BookCustomerVM> getBookCustomerByID(long ID);
+        public Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID);
         public Task<bool> deleteBookCustomerByID(long ID);
-        public Task<bool> addBookCustomerAsync(BookCustomer bookCustomer);
-        public Task<bool> updateBookCustomerByID(long ID, BookCustomer customer);
+        public  Task<bool> deleteBookCustomerBy_B_C_ID(long CID, long BID);
+        public Task<bool> addBookCustomerAsync(BookCustomerVM bookCustomer);
+        public Task<bool> updateBookCustomerByID(long ID, BookCustomerVM customer);
     }
 }

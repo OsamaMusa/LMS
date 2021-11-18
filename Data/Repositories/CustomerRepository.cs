@@ -20,12 +20,13 @@ namespace Data.Repositories
         private readonly LMSContext _context;
         private readonly IMapper _mapper;
 
-        public CustomerRepository(LMSContext context ) {
+        public CustomerRepository(LMSContext context , IMapper mapper ) {
             this._context = context;
+            this._mapper = mapper;
         }
-        public async Task<bool> addCustomerAsync(Customer customer)
+        public async Task<bool> addCustomerAsync(CustomerVM customer)
         {
-            await _context.Customers.AddAsync(customer);
+            await _context.Customers.AddAsync(_mapper.Map<Customer>(customer));
             await _context.SaveChangesAsync();
             return true;
         }
@@ -45,22 +46,22 @@ namespace Data.Repositories
         private IQueryable<Customer> GetExistingCustomer(long ID) =>
          _context.Customers.Where(r => r.ID == ID);
 
-        public async Task<IEnumerable<Customer>> getAllCustomers()
+        public async Task<IEnumerable<CustomerVM>> getAllCustomers()
         {
-            return  _context.Customers.ToList();
+            return  _mapper.Map<IEnumerable<CustomerVM>>(_context.Customers.ToList());
         }
 
-        public async Task<Customer> getCustomerByID(long ID)
+        public async Task<CustomerVM> getCustomerByID(long ID)
         {
-            return GetExistingCustomer(ID).FirstOrDefault();
+            return _mapper.Map<CustomerVM>(GetExistingCustomer(ID).FirstOrDefault());
         }
 
-        public async Task<bool> updateCustomerByID(long ID, Customer customer)
+        public async Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
             Customer item = GetExistingCustomer(ID).FirstOrDefault();
             if (item != null)
             {
-                
+                item = _mapper.Map<Customer>(customer);
                 _context.Customers.Update(item);
                 await _context.SaveChangesAsync();
                 return true;

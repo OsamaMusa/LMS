@@ -22,7 +22,7 @@ namespace Domain.Services
         }
         public Task<bool> addBookCustomer(BookCustomerVM bookCustomer)
         {
-            return _bookCustomerRepository.addBookCustomerAsync(_mapper.Map<BookCustomer>(bookCustomer));
+            return _bookCustomerRepository.addBookCustomerAsync(bookCustomer);
 
         }
 
@@ -31,28 +31,32 @@ namespace Domain.Services
             return _bookCustomerRepository.deleteBookCustomerByID(ID);
         }
 
-        
-        public async Task<IEnumerable<CustomerVM>> getAllbookCustomers()
+        public Task<bool> deleteBookCustomerBy_B_C_ID(long CustomerID,long BookID)
         {
-            return _mapper.Map<IEnumerable<CustomerVM>>(_bookCustomerRepository.getAllBookCustomers());
+            return _bookCustomerRepository.deleteBookCustomerBy_B_C_ID(CustomerID, BookID);
         }
 
-        public Task<IEnumerable<BookCustomerVM>> getAllBookCustomers()
+        public  Task<IEnumerable<BookCustomerVM>> getAllBookCustomers() 
         {
-            throw new NotImplementedException();
+            return _bookCustomerRepository.getAllBookCustomers();
         }
 
-        public async Task<BookCustomerVM> getBookCustomerByID(long ID)
+
+        public  Task<BookCustomerVM> getBookCustomerByID(long ID)
         {
-            
-            return _mapper.Map<BookCustomerVM>(_bookCustomerRepository.getBookCustomerByID(ID));
+
+            return _bookCustomerRepository.getBookCustomerByID(ID);
+        }
+        public  Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        {
+
+            return _bookCustomerRepository.getBookCustomerBy_C_B_ID(CID,BID);
         }
 
         public Task<bool> updateBookCustomerByID(long ID, BookCustomerVM customer)
         {
-            return _bookCustomerRepository.updateBookCustomerByID(ID, _mapper.Map<BookCustomer>(customer));
+            return _bookCustomerRepository.updateBookCustomerByID(ID, customer);
         }
-
      
     }
 }

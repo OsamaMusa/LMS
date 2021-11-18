@@ -23,7 +23,7 @@ namespace Domain.Services
         }
         public Task<bool> addCustomer(CustomerVM customer)
         {
-            return _customerRepository.addCustomerAsync(_mapper.Map<Customer>(customer));
+            return _customerRepository.addCustomerAsync(customer);
 
         }
 
@@ -32,24 +32,20 @@ namespace Domain.Services
             return _customerRepository.deleteCustomerByID(ID); 
         }
 
-        public async  Task<IEnumerable<CustomerVM>> getAllCustomers()
+        public   Task<IEnumerable<CustomerVM>> getAllCustomers()
         {
-            return _mapper.Map<IEnumerable<CustomerVM>>(_customerRepository.getAllCustomers());
+            return _customerRepository.getAllCustomers();
         }
 
-        public  async Task<CustomerVM> getCustomerByID(long ID)
+        public  Task<CustomerVM> getCustomerByID(long ID)
         {
-            return  _mapper.Map < CustomerVM > (_customerRepository.getCustomerByID(ID));
+            return _customerRepository.getCustomerByID(ID);
         }
 
-        public Task<bool> updateCustomerByID(long ID, Customer customer)
+  
+        public Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
-            return _customerRepository.updateCustomerByID(ID,customer);
-        }
-
-        public Task<bool> updateCustomerByID(long id, CustomerVM customer)
-        {
-            throw new NotImplementedException();
+            return _customerRepository.updateCustomerByID(ID, customer);
         }
     }
 }
