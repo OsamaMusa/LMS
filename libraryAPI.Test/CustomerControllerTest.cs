@@ -65,19 +65,14 @@ namespace libraryAPI.Test
             var result = _controller.getAllCustomers().Result;
             Assert.NotNull(result);
             Assert.IsType<List<CustomerVM>>(result);
-            double max = int.MinValue;
             double min = int.MaxValue;
             foreach (CustomerVM book in result)
             {
-                if (book.ID > max)
-                    max = book.ID;
                 if (book.ID < min)
                     min = book.ID;
             }
-            bool condition1 = max > 0;
-            bool condition2 = min > 0;
+            bool condition1 = min > 0;
             Assert.True(condition1);
-            Assert.True(condition2);
 
         }
         [Fact]
@@ -89,7 +84,6 @@ namespace libraryAPI.Test
             Assert.IsType <CustomerVM>(result);
             bool condition1 = result.ID == testNum;
             Assert.True(condition1);
-
         }
       
         [Fact]

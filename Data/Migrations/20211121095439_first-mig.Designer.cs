@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20211118130308_test1")]
-    partial class test1
+    [Migration("20211121095439_first-mig")]
+    partial class firstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,35 @@ namespace Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            Author = "Yazan",
+                            Avilable = 10,
+                            Price = 10f,
+                            Title = "Book One",
+                            TotalNum = 10
+                        },
+                        new
+                        {
+                            ID = 2L,
+                            Author = "Osama",
+                            Avilable = 10,
+                            Price = 10f,
+                            Title = "Book Two",
+                            TotalNum = 10
+                        },
+                        new
+                        {
+                            ID = 3L,
+                            Author = "Lamya",
+                            Avilable = 10,
+                            Price = 10f,
+                            Title = "Book Three",
+                            TotalNum = 10
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.BookCustomer", b =>
@@ -104,6 +133,17 @@ namespace Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            BirthDate = new DateTime(2021, 11, 21, 9, 54, 39, 19, DateTimeKind.Utc).AddTicks(5585),
+                            address = "Ramallah",
+                            fullName = "Osama",
+                            joinDate = new DateTime(2021, 11, 21, 9, 54, 39, 19, DateTimeKind.Utc).AddTicks(5905),
+                            phone = "059"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.BookCustomer", b =>

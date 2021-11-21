@@ -33,7 +33,7 @@ namespace libraryAPI.Test
 
             _mapper = mapperConfig.CreateMapper();
             var dbOption = new DbContextOptionsBuilder<LMSContext>()
-     .UseSqlServer("Server=SD-PC-W10-YJARR\\SQLEXPRESS;Database=LMS;Trusted_Connection=True;");
+     .UseSqlServer("Server=SD-LP-W10-OMUSA;Database=LMS;Trusted_Connection=True;");
             var context = new LMSContext(dbOption.Options);
             _repo = new BookR(context, _mapper);
             _service = new BookS(_repo,_mapper);
