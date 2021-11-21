@@ -57,7 +57,9 @@ namespace Data.Repositories
             if (book != null)
             {
 
-                _context.Books.Update(_mapper.Map<Book>(book));
+                Book item = GetExistingBook(book.ID).FirstOrDefault();
+                item = _mapper.Map<Book>(book);
+                 _context.Books.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
             }

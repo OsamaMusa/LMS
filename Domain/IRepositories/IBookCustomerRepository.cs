@@ -16,7 +16,7 @@ namespace Domain.IRepositories
         public  Task<bool> deleteBookCustomerBy_B_C_ID(long CID, long BID);
         public Task<bool> addBookCustomerAsync(BookCustomerVM bookCustomer);
         public Task<bool> updateBookCustomerByID(long ID, BookCustomerVM customer);
-        public bool reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM);
-       public  bool returnBookCustomer(returnBookCustomerVM returnBookCustomerVM);
+        public Task<bool> reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM);
+       public  Task<bool> returnBookCustomer(returnBookCustomerVM returnBookCustomerVM);
     }
 }

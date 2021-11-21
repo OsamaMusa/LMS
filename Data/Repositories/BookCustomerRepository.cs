@@ -101,18 +101,17 @@ namespace Data.Repositories
             }
             return false;
         }
-        public bool reserveBookCustomer(reserveBookCustomerVM bookCustomer)
+        public async Task<bool> reserveBookCustomer(reserveBookCustomerVM bookCustomer)
         {
             var item = _mapper.Map<BookCustomer>(bookCustomer);
             _context.BookCustomer.AddAsync(item);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
 
 
         }
-        public  bool returnBookCustomer(returnBookCustomerVM bookCustomer)
-        {
-           
+        public async Task<bool> returnBookCustomer(returnBookCustomerVM bookCustomer)
+        {          
             BookCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
             if (item != null)
             {
@@ -120,7 +119,7 @@ namespace Data.Repositories
                 item = _mapper.Map<BookCustomer>(bookCustomer);
                 item.reserveTime = resevedTime;
                 _context.BookCustomer.Update(item);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;

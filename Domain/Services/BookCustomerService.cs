@@ -49,26 +49,30 @@ namespace Domain.Services
             CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
             if (customerVM != null && bookM != null && bookM.Avilable > 0)
             {
-                bookM.Avilable = bookM.Avilable - 1;
-                bookR.UpdateBookAsync(bookM);
-                return _bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM);
+                bookM.Avilable -= 1;
+                if (_bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM).Result)
+                {
+                    if(bookR.UpdateBookAsync(bookM).Result)
+                       return true;
+                }
             }
             return false;
 
         }
-        public bool returnBookCustomer(returnBookCustomerVM reserveBookCustomerVM)
+ /*       public bool returnBookCustomer(returnBookCustomerVM reserveBookCustomerVM)
         {
             BookM bookM = bookR.getBookByID(reserveBookCustomerVM.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
             if (customerVM !=null && bookM != null )
             {
-                bookM.Avilable = bookM.Avilable + 1;
+                bookM.Avilable += 1;
+                _bookCustomerRepository.returnBookCustomer(reserveBookCustomerVM);
                 bookR.UpdateBookAsync(bookM);
-                return _bookCustomerRepository.returnBookCustomer(reserveBookCustomerVM);
+                return true;
             }
             return false;
 
-        }
+        }*/
         public  Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
 
@@ -89,11 +93,12 @@ namespace Domain.Services
         {
             BookM bookM = bookR.getBookByID(bookCustomer.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
-            if (customerVM != null && bookM != null)
+            if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
             {
-                bookM.Avilable = bookM.Avilable + 1;
-                bookR.UpdateBookAsync(bookM);
-                return _bookCustomerRepository.returnBookCustomer(bookCustomer);
+                bookM.Avilable += 1;
+                if( _bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
+                  if( bookR.UpdateBookAsync(bookM).Result)
+                    return true;
             }
             return false;
         }
