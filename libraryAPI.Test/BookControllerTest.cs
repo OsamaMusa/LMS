@@ -45,15 +45,14 @@ namespace libraryAPI.Test
         {
             bool AllAdded = true;
             bool result;
-            for (int i = 0; i < 10; i++)
-            {
-                result = _controller.Post(new BookM() { Title = "book" + i, Author = "yazan", Avilable = 1, TotalNum = 1 });
+      
+                result = _controller.Post(new BookM() { Title = "book" , Author = "yazan", Avilable = 1, TotalNum = 1 });
 
                 if (!result)
                 {
                     AllAdded = false;
                 }
-            }
+            
             Assert.True(AllAdded);
 
         }
@@ -125,6 +124,20 @@ namespace libraryAPI.Test
             bool condition1 = result1.ID == testNum;
             Assert.Equal("PutTest", result1.Title);
             Assert.True(condition1);
+        }
+        [Fact]
+        public void DeleteTest()
+        {
+            int testNum = 1;
+            BookM book = _controller.Get(testNum);
+            Assert.NotNull(book);
+            Assert.IsType<BookM>(book);
+            var result = _controller.Delete(testNum);
+            Assert.True(result);
+            var result1 = _controller.Get(testNum);
+            bool condition1 = result1.Avilable == 0;
+            Assert.True(condition1);
+
         }
     }
 }

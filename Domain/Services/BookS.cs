@@ -42,8 +42,7 @@ namespace Domain.Services
             BookM book = getBookById(Id).Result;
             if(book.TotalNum>0 && book.Avilable > 0)
             {
-                book.Avilable -= 1;
-                book.TotalNum -= 1;
+                book.Avilable = 0;
                 return _repo.UpdateBookAsync(book);
             }
 

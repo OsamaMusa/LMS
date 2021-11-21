@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class BookCustomerVM :BaseVM
+    public class ReserveBookByCustomerVM :BaseVM
     {
         
         public long BookId { get; set; }

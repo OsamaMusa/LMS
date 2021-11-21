@@ -12,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class BookCustomerRepository : IBookCustomerRepository
+    public class ReserveBookByCustomerRepository : IReserveBookByCustomerRepository
     {
         private readonly LMSContext _context;
         private readonly IMapper _mapper;
 
-        public BookCustomerRepository(LMSContext context ,IMapper mapper)
+        public ReserveBookByCustomerRepository(LMSContext context ,IMapper mapper)
         {
             this._context = context;
             this._mapper = mapper;
         }
-        public async Task<bool> addBookCustomerAsync(BookCustomerVM bookCustomer)
+        public async Task<bool> addBookCustomerAsync(ReserveBookByCustomerVM bookCustomer)
         {
-            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            var item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
             await _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
@@ -33,7 +33,7 @@ namespace Data.Repositories
          public async Task<bool> deleteBookCustomerBy_B_C_ID(long CID,long BID)
          {
 
-            BookCustomer item = GetExistingBookCustomer_B_C_ID(CID,BID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingBookCustomer_B_C_ID(CID,BID).FirstOrDefault();
            
             if (item != null)
             {
@@ -46,7 +46,7 @@ namespace Data.Repositories
         }
         public async Task<bool> deleteBookCustomerByID(long ID)
         {
-            BookCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
             if (item != null)
             {
                 _context.BookCustomer.Remove(item);
@@ -58,43 +58,43 @@ namespace Data.Repositories
         }
         
 
-        private IQueryable<BookCustomer> GetExistingBookCustomer(long ID) =>
+        private IQueryable<ReserveBookByCustomer> GetExistingBookCustomer(long ID) =>
          _context.BookCustomer.Where(r => r.ID == ID).AsNoTracking();
 
-        private IQueryable<BookCustomer> GetExistingBookCustomer_B_C_ID(long CID, long BID) =>
+        private IQueryable<ReserveBookByCustomer> GetExistingBookCustomer_B_C_ID(long CID, long BID) =>
        _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID).AsNoTracking();
 
 
-        public async Task<IEnumerable<BookCustomerDetailsVM>> getAllBookCustomers()
+        public async Task<IEnumerable<ReserveBookByCustomerDetailsVM>> getAllBookCustomers()
         {
-            return _mapper.Map<IEnumerable<BookCustomerDetailsVM>>(_context.BookCustomer
+            return _mapper.Map<IEnumerable<ReserveBookByCustomerDetailsVM>>(_context.BookCustomer
                 .Include(e=>e.Book)
                 .Include(e=>e.Customer)
                 .ToList());
         }
 
-        public async Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
+        public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
         {
-            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer(ID)
+            return _mapper.Map<ReserveBookByCustomerDetailsVM>(GetExistingBookCustomer(ID)
                 .Include(e => e.Book).
                 Include(e => e.Customer)
                 .FirstOrDefault());
         }
-        public async Task<BookCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
-            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer_B_C_ID(CID,BID)
+            return _mapper.Map<ReserveBookByCustomerDetailsVM>(GetExistingBookCustomer_B_C_ID(CID,BID)
                 .Include(e => e.Book)
                 .Include(e => e.Customer)
                 .FirstOrDefault());
         }
 
 
-        public async Task<bool> updateBookCustomerByID(long ID, BookCustomerVM bookCustomer)
+        public async Task<bool> updateBookCustomerByID(long ID, ReserveBookByCustomerVM bookCustomer)
         {
-            BookCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
             if (item != null)
             {
-                item = _mapper.Map<BookCustomer>(bookCustomer);
+                item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
                 _context.BookCustomer.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
@@ -103,7 +103,7 @@ namespace Data.Repositories
         }
         public async Task<bool> reserveBookCustomer(reserveBookCustomerVM bookCustomer)
         {
-            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            var item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
             _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
@@ -112,11 +112,11 @@ namespace Data.Repositories
         }
         public async Task<bool> returnBookCustomer(returnBookCustomerVM bookCustomer)
         {          
-            BookCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
             if (item != null)
             {
                 DateTime resevedTime = item.reserveTime;
-                item = _mapper.Map<BookCustomer>(bookCustomer);
+                item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
                 item.reserveTime = resevedTime;
                 _context.BookCustomer.Update(item);
                 await _context.SaveChangesAsync();

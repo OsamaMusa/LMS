@@ -58,8 +58,8 @@ namespace LMS
    
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IBookCustomerService, BookCustomerService>();
-            services.AddTransient<IBookCustomerRepository, BookCustomerRepository>();
+            services.AddTransient<IReserveBookByCustomerService, ReserveBookByCustomerService>();
+            services.AddTransient<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
 
 
             var mapperConfig = new MapperConfiguration(mc =>

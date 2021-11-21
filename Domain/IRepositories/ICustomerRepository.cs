@@ -14,6 +14,6 @@ namespace Domain.IRepositories
         public  Task<CustomerVM> getCustomerByID(long ID);
         public Task<bool> deleteCustomerByID(long ID);
         public Task<bool> addCustomerAsync(CustomerVM customer);
-        Task<bool> updateCustomerByID(long iD, CustomerVM customer);
+        public Task<bool> updateCustomerByID(long iD, CustomerVM customer);
     }
 }

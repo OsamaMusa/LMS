@@ -46,15 +46,14 @@ namespace libraryAPI.Test
         {
             bool AllAdded = true;
             bool result;
-            for (int i = 0; i < 10; i++)
-            {
-                result = _controller.addCustomer(new CustomerVM() { BirthDate = DateTime.UtcNow ,address="Ramallah",fullName="Test",joinDate=DateTime.UtcNow,phone="059"}).Result;
+        
+                result = _controller.addCustomer(new CustomerVM() { BirthDate = DateTime.UtcNow ,address="Ramallah",fullName="Test",joinDate=DateTime.UtcNow,phone="059" }).Result;
 
                 if (!result)
                 {
                     AllAdded = false;
                 }
-            }
+           
             Assert.True(AllAdded);
 
         }
@@ -85,7 +84,7 @@ namespace libraryAPI.Test
             bool condition1 = result.ID == testNum;
             Assert.True(condition1);
         }
-      
+
         [Fact]
         public void PutTest()
         {
@@ -101,6 +100,20 @@ namespace libraryAPI.Test
             bool condition1 = result1.ID == testNum;
             Assert.Equal("PutTest", result1.fullName);
             Assert.True(condition1);
+        }
+        [Fact]
+        public void DeleteTest()
+        {
+            int testNum = 1;
+            CustomerVM customer = _controller.getCustomer(testNum).Result;
+            Assert.NotNull(customer);
+            Assert.IsType<CustomerVM>(customer);
+            
+            var result = _controller.deleteCustomer(testNum);
+            Assert.True(result.Result);
+            var result1 = _controller.getCustomer(testNum).Result;
+            Assert.Null(result1);
+           
         }
     }
 }
