@@ -50,29 +50,18 @@ namespace Domain.Services
             if (customerVM != null && bookM != null && bookM.Avilable > 0)
             {
                 bookM.Avilable -= 1;
+
                 if (_bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM).Result)
                 {
                     if(bookR.UpdateBookAsync(bookM).Result)
                        return true;
                 }
+
             }
             return false;
 
         }
- /*       public bool returnBookCustomer(returnBookCustomerVM reserveBookCustomerVM)
-        {
-            BookM bookM = bookR.getBookByID(reserveBookCustomerVM.BookId).Result;
-            CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
-            if (customerVM !=null && bookM != null )
-            {
-                bookM.Avilable += 1;
-                _bookCustomerRepository.returnBookCustomer(reserveBookCustomerVM);
-                bookR.UpdateBookAsync(bookM);
-                return true;
-            }
-            return false;
 
-        }*/
         public  Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
 
@@ -96,9 +85,15 @@ namespace Domain.Services
             if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
             {
                 bookM.Avilable += 1;
+<<<<<<< HEAD
                 if( _bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
                   if( bookR.UpdateBookAsync(bookM).Result)
                     return true;
+=======
+                _bookCustomerRepository.returnBookCustomer(bookCustomer);
+                bookR.UpdateBookAsync(bookM);
+                return true;
+>>>>>>> efc96dccff2ec1b556eb5e5e3f1c0135fb6f02f0
             }
             return false;
         }
