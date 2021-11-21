@@ -56,7 +56,7 @@ namespace Domain.Services
                     if(bookR.UpdateBookAsync(bookM).Result)
                        return true;
                 }
-
+>>>>>>>>> Temporary merge branch 2
             }
             return false;
 
@@ -85,15 +85,15 @@ namespace Domain.Services
             if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
             {
                 bookM.Avilable += 1;
-<<<<<<< HEAD
-                if( _bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
-                  if( bookR.UpdateBookAsync(bookM).Result)
-                    return true;
-=======
+<<<<<<<<< Temporary merge branch 1
                 _bookCustomerRepository.returnBookCustomer(bookCustomer);
                 bookR.UpdateBookAsync(bookM);
                 return true;
->>>>>>> efc96dccff2ec1b556eb5e5e3f1c0135fb6f02f0
+=========
+                if( _bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
+                  if( bookR.UpdateBookAsync(bookM).Result)
+                    return true;
+>>>>>>>>> Temporary merge branch 2
             }
             return false;
         }
