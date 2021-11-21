@@ -18,15 +18,23 @@ namespace Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+          
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Books.Add(new Book { Title = "Book One", Author = "Yazan", Price = 10, TotalNum = 10, Avilable = 10 });
-            Books.Add(new Book { Title = "Book Two", Author = "Osama", Price = 10, TotalNum = 10, Avilable = 10 });
-            Books.Add(new Book { Title = "Book Three", Author = "Lamya", Price = 10, TotalNum = 10, Avilable = 10 });
-            Customers.Add(new Customer { fullName="Osama",BirthDate=DateTime.UtcNow,address="Ramallah",joinDate=DateTime.UtcNow,phone="059"});
+            modelBuilder.Entity<Book>()
+                .HasData(
+                  new Book {ID=1, Title = "Book One", Author = "Yazan", Price = 10, TotalNum = 10, Avilable = 10 },
+                  new Book {ID=2, Title = "Book Two", Author = "Osama", Price = 10, TotalNum = 10, Avilable = 10 },
+                  new Book {ID=3, Title = "Book Three", Author = "Lamya", Price = 10, TotalNum = 10, Avilable = 10 }
+
+              );
+            modelBuilder.Entity<Customer>()
+                   .HasData(
+                          new Customer {ID=1, fullName = "Osama", BirthDate = DateTime.UtcNow, address = "Ramallah", joinDate = DateTime.UtcNow, phone = "059" }
+                );
+          
         }
         //entities
     }
