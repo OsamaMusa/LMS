@@ -13,6 +13,6 @@ namespace Domain.IServices
         public Task<CustomerVM> getCustomerByID(long ID);
         public Task<bool> deleteCustomerByID(long ID);
         public Task<bool> addCustomer(CustomerVM customer);
-        Task<bool> updateCustomerByID(long id, CustomerVM customer);
+        public Task<bool> updateCustomerByID(long id, CustomerVM customer);
     }
 }

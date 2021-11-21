@@ -21,6 +21,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Domain.IRepositories;
 using Data.Repositories;
+using API;
 
 namespace LMS
 {
@@ -37,7 +38,6 @@ namespace LMS
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddControllersWithViews();
             services.AddSession();
                  
@@ -49,19 +49,7 @@ namespace LMS
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             services.AddControllers();
-
-
-            
-
-            services.AddTransient<IBookR, BookR>();
-            services.AddTransient<IBookS, BookS>();
-   
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IBookCustomerService, BookCustomerService>();
-            services.AddTransient<IBookCustomerRepository, BookCustomerRepository>();
-
-
+            services.AddApplicationServices(Configuration);
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfile());
@@ -71,9 +59,6 @@ namespace LMS
             services.AddSingleton(mapper);
 
         }
-
-
-
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

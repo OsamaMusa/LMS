@@ -6,24 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookCustomerController : ControllerBase
+    public class ReserveBookByCustomerController : ControllerBase
     {
 
-        private readonly IBookCustomerService _service;
+        private readonly IReserveBookByCustomerService _service;
 
-        public BookCustomerController(IBookCustomerService service) {
+        public ReserveBookByCustomerController(IReserveBookByCustomerService service) {
             this._service = service;
         }
 
         // GET: api/<BookCustomerController>
         [HttpGet("getReservations")]
-        public Task<IEnumerable<BookCustomerDetailsVM>> GetAll()
+        public Task<IEnumerable<ReserveBookByCustomerDetailsVM>> GetAll()
         {
             var items = _service.getAllBookCustomers();
             return items;
@@ -31,14 +30,14 @@ namespace API.Controllers
 
         // GET api/<BookCustomerController>/5
         [HttpGet("getReserve/{id}")]
-        public Task<BookCustomerDetailsVM> getReservations(long id)
+        public Task<ReserveBookByCustomerDetailsVM> getReservationsByID(long id)
         {
             return _service.getBookCustomerByID(id);
         }
 
         // POST api/<BookCustomerController>
         [HttpPost("/ReserveBook")]
-        public bool ReserveBook(reserveBookCustomerVM bookCustomer)
+        public async Task<bool> ReserveBook(reserveBookCustomerVM bookCustomer)
         {
             bookCustomer.reserveTime = DateTime.UtcNow ;
             return _service.reserveBookCustomer(bookCustomer);
@@ -53,7 +52,7 @@ namespace API.Controllers
 
         // PUT api/<BookCustomerController>/5
         [HttpPut("updateReserve/{id}")]
-        public Task<bool> updateReserve(long id, BookCustomerVM bookCustomer)
+        public Task<bool> updateReserve(long id, ReserveBookByCustomerVM bookCustomer)
         {
             return _service.updateBookCustomerByID(id, bookCustomer);
 
