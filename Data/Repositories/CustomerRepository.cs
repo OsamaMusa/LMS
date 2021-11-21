@@ -59,6 +59,7 @@ namespace Data.Repositories
 
         public async Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
+
             Customer item = GetExistingCustomer(ID).FirstOrDefault();
             if (item != null)
             {
