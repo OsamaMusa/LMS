@@ -49,7 +49,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<CustomerVM>> getAllCustomers()
         {
-            return  _mapper.Map<IEnumerable<CustomerVM>>(_context.Customers.ToList());
+            return  _mapper.Map<IEnumerable<CustomerVM>>(_context.Customers.ToListAsync());
         }
 
         public async Task<CustomerVM> getCustomerByID(long ID)
