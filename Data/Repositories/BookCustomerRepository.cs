@@ -3,6 +3,7 @@ using Data.Context;
 using Domain.Entities;
 using Domain.IRepositories;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,8 @@ namespace Data.Repositories
         }
         public async Task<bool> addBookCustomerAsync(BookCustomerVM bookCustomer)
         {
-            await _context.BookCustomer.AddAsync(_mapper.Map<BookCustomer>(bookCustomer));
+            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            await _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -57,22 +59,33 @@ namespace Data.Repositories
         
 
         private IQueryable<BookCustomer> GetExistingBookCustomer(long ID) =>
-         _context.BookCustomer.Where(r => r.ID == ID);
+         _context.BookCustomer.Where(r => r.ID == ID).AsNoTracking();
+
         private IQueryable<BookCustomer> GetExistingBookCustomer_B_C_ID(long CID, long BID) =>
-       _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID);
+       _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID).AsNoTracking();
 
-        public async Task<IEnumerable<BookCustomerVM>> getAllBookCustomers()
+
+        public async Task<IEnumerable<BookCustomerDetailsVM>> getAllBookCustomers()
         {
-            return _mapper.Map<IEnumerable<BookCustomerVM>>(_context.BookCustomer.ToList());
+            return _mapper.Map<IEnumerable<BookCustomerDetailsVM>>(_context.BookCustomer
+                .Include(e=>e.Book)
+                .Include(e=>e.Customer)
+                .ToList());
         }
 
-        public async Task<BookCustomerVM> getBookCustomerByID(long ID)
+        public async Task<BookCustomerDetailsVM> getBookCustomerByID(long ID)
         {
-            return _mapper.Map<BookCustomerVM>(GetExistingBookCustomer(ID).FirstOrDefault());
+            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer(ID)
+                .Include(e => e.Book).
+                Include(e => e.Customer)
+                .FirstOrDefault());
         }
-        public async Task<BookCustomerVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public async Task<BookCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
-            return _mapper.Map<BookCustomerVM>(GetExistingBookCustomer_B_C_ID(CID,BID).FirstOrDefault());
+            return _mapper.Map<BookCustomerDetailsVM>(GetExistingBookCustomer_B_C_ID(CID,BID)
+                .Include(e => e.Book)
+                .Include(e => e.Customer)
+                .FirstOrDefault());
         }
 
 
@@ -88,7 +101,28 @@ namespace Data.Repositories
             }
             return false;
         }
+        public bool reserveBookCustomer(reserveBookCustomerVM bookCustomer)
+        {
+            var item = _mapper.Map<BookCustomer>(bookCustomer);
+            _context.BookCustomer.AddAsync(item);
+            _context.SaveChangesAsync();
+            return true;
 
-  
+
+        }
+        public  bool returnBookCustomer(returnBookCustomerVM bookCustomer)
+        {
+           
+            BookCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            if (item != null)
+            {
+                item = _mapper.Map<BookCustomer>(bookCustomer);
+                _context.BookCustomer.Update(item);
+                _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
     }
 }
