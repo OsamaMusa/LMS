@@ -95,10 +95,9 @@ namespace Domain.Services
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
             if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
             {
-                bookM.Avilable += 1;
-                if( _bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
-                  if( bookR.UpdateBookAsync(bookM).Result)
-                    return true;
+                bookM.Avilable = bookM.Avilable + 1;
+                bookR.UpdateBookAsync(bookM);
+                return _bookCustomerRepository.returnBookCustomer(bookCustomer);
             }
             return false;
         }
