@@ -18,8 +18,10 @@ namespace API
 
             services.AddTransient<IBookR, BookR>();
             services.AddTransient<IBookS, BookS>();
+
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+
             services.AddTransient<IReserveBookByCustomerService, ReserveBookByCustomerService>();
             services.AddTransient<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
 
