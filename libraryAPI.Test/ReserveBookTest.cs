@@ -18,15 +18,16 @@ using Domain.Models;
 
 namespace libraryAPI.Test
 {
-    public class ReserveTest
+    public class ReserveBookTest
     {
         ReserveBookByCustomerController _controller;
         IReserveBookByCustomerService _service;
         IReserveBookByCustomerRepository _repo;
         IBookR bookRepository;
         ICustomerRepository customerRepository;
-         IMapper _mapper;
-        public ReserveTest()
+        IMapper _mapper;
+
+        public ReserveBookTest()
         {
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -45,8 +46,9 @@ namespace libraryAPI.Test
             _controller = new ReserveBookByCustomerController(_service);
 
         }
+
         [Fact]
-        public void ReserveBookTest()
+        public void ReserveTest()
         {
             bool AllAdded = true;
             bool result;
@@ -61,8 +63,9 @@ namespace libraryAPI.Test
             Assert.True(AllAdded);
 
         }
+
         [Fact]
-        public void ReturnBookTest()
+        public void ReturnTest()
         {
             bool AllAdded = true;
             bool result;
@@ -76,8 +79,9 @@ namespace libraryAPI.Test
             Assert.True(AllAdded);
 
         }
+
         [Fact]
-        public void GetAllTest()
+        public void GetAllReservationsTest()
         {
 
             var result = _controller.GetAll().Result;
@@ -93,8 +97,9 @@ namespace libraryAPI.Test
             Assert.True(condition1);
 
         }
+
         [Fact]
-        public void GetTest()
+        public void GetReserveTest()
         {
             int testNum = 1;
             var result = _controller.getReservationsByID(testNum).Result;
