@@ -89,9 +89,9 @@ namespace Domain.Services
             {
                 bookM.Avilable += 1;
 
-                _bookCustomerRepository.returnBookCustomer(bookCustomer);
-                _bookRepository.UpdateBookAsync(bookM);
-                return true;
+                if(_bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
+                    if(_bookRepository.UpdateBookAsync(bookM).Result)
+                       return true;
 
             }
             return false;
