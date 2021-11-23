@@ -45,6 +45,8 @@ namespace Domain.Services
 
         public  bool reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM)
         {
+            if (reserveBookCustomerVM == null)
+                return false;
             BookM bookM = _bookRepository.getBookByID(reserveBookCustomerVM.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
             if (customerVM != null && bookM != null && bookM.Avilable > 0 )
@@ -79,15 +81,17 @@ namespace Domain.Services
 
         public bool returnBookCustomerByID(long iD, returnBookCustomerVM bookCustomer)
         {
+            if (bookCustomer == null)
+                return false;
             BookM bookM = _bookRepository.getBookByID(bookCustomer.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
             if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
             {
                 bookM.Avilable += 1;
 
-                _bookCustomerRepository.returnBookCustomer(bookCustomer);
-                _bookRepository.UpdateBookAsync(bookM);
-                return true;
+                if(_bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
+                    if(_bookRepository.UpdateBookAsync(bookM).Result)
+                       return true;
 
             }
             return false;
