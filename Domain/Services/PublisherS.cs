@@ -2,36 +2,47 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Domain.IRepositories;
 using Domain.IServices;
 using Domain.Models;
 
 namespace Domain.Services
 {
-   public class PublisherS : IPublisherS
+    public class PublisherS : IPublisherS
     {
+        private readonly IPublisherR _Repository;
+        private readonly IMapper _Mapper;
+
+        public PublisherS(IPublisherR publisherR, IMapper mapper)
+        {
+            _Repository = publisherR;
+            _Mapper = mapper;
+        }
+
         public Task<bool> AddNewPublisher(PublisherVM publisher)
         {
-            throw new NotImplementedException();
+            return _Repository.AddNewPublisherAsync(publisher);
         }
 
         public Task<bool> DeletePublisher(long id)
         {
-            throw new NotImplementedException();
+            return _Repository.DeletePublisher(id);
         }
 
         public Task<IEnumerable<PublisherVM>> GetAllPublishers()
         {
-            throw new NotImplementedException();
+            return _Repository.GetAllPublishers();
         }
 
         public Task<PublisherVM> GetPublisherById(long id)
         {
-            throw new NotImplementedException();
+            return _Repository.GetPublisherById(id);
         }
 
         public Task<bool> UpdatePublisher(long id, PublisherVM publisher)
         {
-            throw new NotImplementedException();
+            return _Repository.UpdatePublisher(id, publisher);
         }
     }
 }

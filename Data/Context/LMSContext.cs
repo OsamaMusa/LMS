@@ -37,7 +37,7 @@ namespace Data.Context
                 );
 
             modelBuilder.Entity<Publisher>().HasData(
-                new Publisher { ID = 1, Adress = "Palestine-Nablus", Name = "LamyaH", PhoneNo = "0000" }
+                new Publisher { ID = 1, Address = "Palestine-Nablus", Name = "LamyaH", PhoneNo = "0000" }
 
                 );
 
