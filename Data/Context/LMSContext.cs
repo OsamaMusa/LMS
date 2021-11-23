@@ -14,6 +14,7 @@ namespace Data.Context
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<ReserveBookByCustomer> BookCustomer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +34,11 @@ namespace Data.Context
             modelBuilder.Entity<Customer>()
                    .HasData(
                           new Customer {ID=1, fullName = "Osama", BirthDate = DateTime.UtcNow, address = "Ramallah", joinDate = DateTime.UtcNow, phone = "059"  }
+                );
+
+            modelBuilder.Entity<Publisher>().HasData(
+                new Publisher { ID = 1, Adress = "Palestine-Nablus", Name = "LamyaH", PhoneNo = "0000" }
+
                 );
 
 

@@ -24,6 +24,8 @@ namespace API
 
             services.AddTransient<IReserveBookByCustomerService, ReserveBookByCustomerService>();
             services.AddTransient<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
+            services.AddTransient<IPublisherR, PublisherR>();
+            services.AddTransient<IPublisherS, PublisherS>();
 
 
             return services;
