@@ -43,7 +43,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<PublisherVM>> GetAllPublishers()
         {
-            return _mapper.Map<List<Publisher>, List<PublisherVM>>(_context.Publishers.ToList());
+            return _mapper.Map<List<Publisher>, List<PublisherVM>>(_context.Publishers.Include(e=>e.Books).ToList());
         }
 
         public async Task<PublisherVM> GetPublisherById(long id)
@@ -68,7 +68,7 @@ namespace Data.Repositories
 
 
         private IQueryable<Publisher> GetExistingPublisher(long ID) =>
-       _context.Publishers.Where(r => r.ID == ID).AsNoTracking();
+       _context.Publishers.Where(r => r.ID == ID).Include(e => e.Books).AsNoTracking();
     }
 
 

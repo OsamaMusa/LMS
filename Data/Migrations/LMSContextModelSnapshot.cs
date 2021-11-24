@@ -41,7 +41,12 @@ namespace Data.Migrations
                     b.Property<int>("TotalNum")
                         .HasColumnType("int");
 
+                    b.Property<long>("publisherID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("publisherID");
 
                     b.ToTable("Books");
 
@@ -53,7 +58,8 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book One",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         },
                         new
                         {
@@ -62,7 +68,8 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book Two",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         },
                         new
                         {
@@ -71,7 +78,8 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book Three",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         });
                 });
 
@@ -108,10 +116,10 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 23, 20, 56, 19, 720, DateTimeKind.Utc).AddTicks(6821),
+                            BirthDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9154),
                             address = "Ramallah",
                             fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 23, 20, 56, 19, 720, DateTimeKind.Utc).AddTicks(8167),
+                            joinDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9428),
                             phone = "059"
                         });
                 });
@@ -175,6 +183,15 @@ namespace Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("BookCustomer");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Book", b =>
+                {
+                    b.HasOne("Domain.Entities.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("publisherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.ReserveBookByCustomer", b =>

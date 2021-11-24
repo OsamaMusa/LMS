@@ -24,13 +24,7 @@ namespace Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>()
-                .HasData(
-                  new Book {ID=1, Title = "Book One", Author = "Yazan", Price = 10, TotalNum = 10, Avilable = 10 },
-                  new Book {ID=2, Title = "Book Two", Author = "Osama", Price = 10, TotalNum = 10, Avilable = 10 },
-                  new Book {ID=3, Title = "Book Three", Author = "Lamya", Price = 10, TotalNum = 10, Avilable = 10 }
-
-              );
+            
             modelBuilder.Entity<Customer>()
                    .HasData(
                           new Customer {ID=1, fullName = "Osama", BirthDate = DateTime.UtcNow, address = "Ramallah", joinDate = DateTime.UtcNow, phone = "059"  }
@@ -40,6 +34,13 @@ namespace Data.Context
                 new Publisher { ID = 1, Adress = "Palestine-Nablus", Name = "LamyaH", PhoneNo = "0000" }
 
                 );
+            modelBuilder.Entity<Book>()
+                .HasData(
+                  new Book { ID = 1, Title = "Book One", Author = "Yazan", Price = 10, TotalNum = 10, Avilable = 10 ,publisherID =1},
+                  new Book { ID = 2, Title = "Book Two", Author = "Osama", Price = 10, TotalNum = 10, Avilable = 10, publisherID = 1 },
+                  new Book { ID = 3, Title = "Book Three", Author = "Lamya", Price = 10, TotalNum = 10, Avilable = 10, publisherID = 1 }
+
+              );
 
 
         }
