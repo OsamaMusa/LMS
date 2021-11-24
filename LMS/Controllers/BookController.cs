@@ -14,8 +14,8 @@ namespace API.Controllers
     [Route("[controller]")]
     public class BookController : Controller
     {
-        IBookS _service;
-        public BookController( IBookS service)
+        IBookService _service;
+        public BookController( IBookService service)
         {
             _service = service;
         }

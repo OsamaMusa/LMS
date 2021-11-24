@@ -21,8 +21,8 @@ namespace libraryAPI.Test
     public class BookControllerTest
     {
         BookController _controller;
-        IBookS _service;
-        IBookR _repo;
+        IBookService _service;
+        IBookRepository _repo;
         IMapper _mapper;
         public BookControllerTest()
         {
@@ -33,9 +33,9 @@ namespace libraryAPI.Test
 
             _mapper = mapperConfig.CreateMapper();
             var dbOption = new DbContextOptionsBuilder<LMSContext>()
-     .UseSqlServer("Server=SD-LP-W10-OMUSA;Database=LMS;Trusted_Connection=True;");
+                   .UseSqlServer("Server=SD-LP-W10-OMUSA;Database=LMS;Trusted_Connection=True;");
             var context = new LMSContext(dbOption.Options);
-            _repo = new BookR(context, _mapper);
+            _repo = new BookRepository(context, _mapper);
             _service = new BookS(_repo,_mapper);
             _controller = new BookController(_service);
 
@@ -46,7 +46,7 @@ namespace libraryAPI.Test
             bool AllAdded = true;
             bool result;
       
-                result = _controller.Post(new BookM() { Title = "book" , Author = "yazan", Avilable = 1, TotalNum = 1 });
+                result = _controller.Post(new BookM() { Title = "book" , Author = "yazan", Avilable = 1, TotalNum = 1 ,PublisherID=1 });
 
                 if (!result)
                 {
@@ -78,6 +78,7 @@ namespace libraryAPI.Test
             Assert.True(condition2);
             
         }
+
         [Fact]
         public void GetTest()
         {
@@ -89,6 +90,7 @@ namespace libraryAPI.Test
             Assert.True(condition1);
 
         }
+
         [Fact]
         public void GetAvilableTest()
         {
@@ -109,6 +111,7 @@ namespace libraryAPI.Test
             Assert.True(condition1);
             Assert.True(condition2);
         }
+
         [Fact]
         public void PutTest()
         {
@@ -125,6 +128,7 @@ namespace libraryAPI.Test
             Assert.Equal("PutTest", result1.Title);
             Assert.True(condition1);
         }
+
         [Fact]
         public void DeleteTest()
         {

@@ -101,15 +101,15 @@ namespace Data.Repositories
             }
             return false;
         }
+
         public async Task<bool> reserveBookCustomer(reserveBookCustomerVM bookCustomer)
         {
             var item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
             await _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
-
-
         }
+
         public async Task<bool> returnBookCustomer(returnBookCustomerVM bookCustomer)
         {          
             ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();

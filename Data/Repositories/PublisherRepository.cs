@@ -12,11 +12,11 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class PublisherR : IPublisherR
+    public class PublisherRepository : IPublisherRepository
     {
         private readonly LMSContext _context;
         private readonly IMapper _mapper;
-        public PublisherR(LMSContext context, IMapper mapper)
+        public PublisherRepository(LMSContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

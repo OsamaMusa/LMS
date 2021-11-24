@@ -51,6 +51,7 @@ namespace LMS
             services.AddControllers();
 
             services.AddApplicationServices(Configuration);
+
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfile());

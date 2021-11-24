@@ -11,9 +11,9 @@ namespace API.Controllers
     [Route("[controller]")]
     public class PublisherController: Controller
     {
-        private readonly IPublisherS _service;
+        private readonly IPublisherService _service;
 
-       public PublisherController(IPublisherS service)
+       public PublisherController(IPublisherService service)
 
         {
             _service = service;

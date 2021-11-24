@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.IServices
 {
-    public interface IBookS
+    public interface IBookService
     {
         Task<BookM> getBookById(long Id);
         Task<bool> addNewBook(BookM book);

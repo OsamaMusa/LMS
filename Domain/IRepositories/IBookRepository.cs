@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.IRepositories
 {
-    public interface IBookR
+    public interface IBookRepository
     {
         public Task<IEnumerable<BookM>> getAllBooks();
         public Task<BookM> getBookByID(long ID);

@@ -16,16 +16,17 @@ namespace API
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
 
-            services.AddTransient<IBookR, BookR>();
-            services.AddTransient<IBookS, BookS>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookService, BookS>();
 
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddTransient<IReserveBookByCustomerService, ReserveBookByCustomerService>();
-            services.AddTransient<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
-            services.AddTransient<IPublisherR, PublisherR>();
-            services.AddTransient<IPublisherS, PublisherS>();
+            services.AddScoped<IReserveBookByCustomerService, ReserveBookByCustomerService>();
+            services.AddScoped<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
+
+            services.AddScoped<IPublisherRepository, PublisherRepository>();
+            services.AddScoped<IPublisherService, PublisherS>();
 
 
             return services;

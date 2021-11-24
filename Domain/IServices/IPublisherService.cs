@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Domain.Models;
 namespace Domain.IServices
 {
-    public interface IPublisherS
+    public interface IPublisherService
     {
         Task<PublisherVM> GetPublisherById(long id);
         Task<IEnumerable<PublisherVM>> GetAllPublishers();

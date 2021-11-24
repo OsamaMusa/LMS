@@ -19,7 +19,7 @@ namespace API.Controllers
         public ReserveBookByCustomerController(IReserveBookByCustomerService service) {
             this._service = service;
         }
-
+        
         // GET: api/<BookCustomerController>
         [HttpGet("getReservations")]
         public Task<IEnumerable<ReserveBookByCustomerDetailsVM>> GetAll()

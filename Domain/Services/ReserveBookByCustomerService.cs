@@ -13,10 +13,10 @@ namespace Domain.Services
     public class ReserveBookByCustomerService : IReserveBookByCustomerService
     {
         private readonly IReserveBookByCustomerRepository _bookCustomerRepository;
-        private readonly IBookR _bookRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly ICustomerRepository _customerRepository;
 
-        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository ,IBookR bookRepository, ICustomerRepository customerRepository)
+        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository ,IBookRepository bookRepository, ICustomerRepository customerRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
             this._bookRepository = bookRepository;

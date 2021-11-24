@@ -16,12 +16,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
-    public class BookR:IBookR
+    public class BookRepository:IBookRepository
     {
         private readonly LMSContext _context;
         private readonly IMapper _mapper;
 
-        public BookR(LMSContext context , IMapper mapper)
+        public BookRepository(LMSContext context , IMapper mapper)
         {
             _mapper = mapper;
             this._context = context;

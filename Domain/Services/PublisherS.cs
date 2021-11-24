@@ -9,12 +9,12 @@ using Domain.Models;
 
 namespace Domain.Services
 {
-    public class PublisherS : IPublisherS
+    public class PublisherS : IPublisherService
     {
-        private readonly IPublisherR _Repository;
+        private readonly IPublisherRepository _Repository;
         private readonly IMapper _Mapper;
 
-        public PublisherS(IPublisherR publisherR, IMapper mapper)
+        public PublisherS(IPublisherRepository publisherR, IMapper mapper)
         {
             _Repository = publisherR;
             _Mapper = mapper;

@@ -23,7 +23,7 @@ namespace libraryAPI.Test
         ReserveBookByCustomerController _controller;
         IReserveBookByCustomerService _service;
         IReserveBookByCustomerRepository _repo;
-        IBookR bookRepository;
+        IBookRepository bookRepository;
         ICustomerRepository customerRepository;
         IMapper _mapper;
 
@@ -40,7 +40,7 @@ namespace libraryAPI.Test
             var context = new LMSContext(dbOption.Options);
 
             _repo = new ReserveBookByCustomerRepository(context, _mapper);
-            bookRepository = new BookR(context, _mapper);
+            bookRepository = new BookRepository(context, _mapper);
             customerRepository =  new CustomerRepository(context, _mapper);
             _service = new ReserveBookByCustomerService(_repo,bookRepository,customerRepository);
             _controller = new ReserveBookByCustomerController(_service);
