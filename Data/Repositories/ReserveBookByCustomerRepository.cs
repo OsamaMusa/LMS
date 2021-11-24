@@ -104,7 +104,7 @@ namespace Data.Repositories
         public async Task<bool> reserveBookCustomer(reserveBookCustomerVM bookCustomer)
         {
             var item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
-            _context.BookCustomer.AddAsync(item);
+            await _context.BookCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
 

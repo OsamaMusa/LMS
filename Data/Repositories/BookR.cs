@@ -28,7 +28,7 @@ namespace Data.Repositories
         }
         private IQueryable<Book> GetExistingBook(long ID)
         {
-            return  _context.Books.Where(r => r.ID == ID).AsNoTracking();
+            return  _context.Books.Where(r => r.ID == ID).Include(e=>e.Publisher).AsNoTracking();
         }
         public async Task<bool> addBookAsync(BookM book)
         {
@@ -39,11 +39,11 @@ namespace Data.Repositories
         }
         public async Task<IEnumerable<BookM>> getAllBooks()
         {
-            return _mapper.Map<List<Book>, List<BookM>>(_context.Books.ToList());
+            return _mapper.Map<List<Book>, List<BookM>>(_context.Books.Include(e => e.Publisher).ToList());
         }
         public async Task<IEnumerable<BookM>> getAllAvailable()
         {
-            return _mapper.Map<List<Book>, List<BookM>>(_context.Books.Where(r => r.Avilable >0 ).ToList());
+            return _mapper.Map<List<Book>, List<BookM>>(_context.Books.Where(r => r.Avilable >0 ).Include(e => e.Publisher).ToList());
         }
 
         public async Task<BookM> getBookByID(long ID)

@@ -39,14 +39,14 @@ namespace API.Controllers
         [HttpPost("/ReserveBook")]
         public async Task<bool> ReserveBook(reserveBookCustomerVM bookCustomer)
         {
-            bookCustomer.reserveTime = DateTime.UtcNow ;
+           // bookCustomer.reserveTime = DateTime.UtcNow ;
             return _service.reserveBookCustomer(bookCustomer);
         }
         [HttpPost("/ReturnBook")]
         public async Task<bool> ReturnBook(returnBookCustomerVM bookCustomer)
         {
             bookCustomer.isReturned = true;
-            bookCustomer.returnedTime = DateTime.UtcNow;
+           // bookCustomer.returnedTime = DateTime.UtcNow;
              return _service.returnBookCustomerByID(bookCustomer.ID , bookCustomer);
         } 
 
