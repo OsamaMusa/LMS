@@ -10,7 +10,7 @@ namespace Domain.Models
         public string Name { set; get; }
         public string PhoneNo { set; get; }
         public IEnumerable<BookM> Books { get; set; }
-
+        public long userID { get; set; }
 
     }
 }

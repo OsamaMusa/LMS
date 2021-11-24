@@ -69,15 +69,19 @@ namespace Data.Repositories
         {
             return _mapper.Map<IEnumerable<ReserveBookByCustomerDetailsVM>>(_context.BookCustomer
                 .Include(e=>e.Book)
-                .Include(e=>e.Customer)
+                .Include(e => e.Customer)
+                 .Include(e => e.ReservedUser)
+                .Include(e => e.ReturnedUser)
                 .ToList());
         }
 
         public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
         {
             return _mapper.Map<ReserveBookByCustomerDetailsVM>(GetExistingBookCustomer(ID)
-                .Include(e => e.Book).
-                Include(e => e.Customer)
+                .Include(e => e.Book)
+                .Include(e => e.Customer)
+                .Include(e => e.ReservedUser)
+                .Include(e => e.ReturnedUser)
                 .FirstOrDefault());
         }
         public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)

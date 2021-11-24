@@ -20,7 +20,10 @@ namespace LMS
             CreateMap<returnBookCustomerVM, ReserveBookByCustomer>().ReverseMap();
             
             CreateMap<ReserveBookByCustomerDetailsVM, ReserveBookByCustomer>().ReverseMap();
+
             CreateMap<PublisherVM, Publisher>().ReverseMap();
+
+            CreateMap<UserVM, Users>().ReverseMap();
 
 
         }
