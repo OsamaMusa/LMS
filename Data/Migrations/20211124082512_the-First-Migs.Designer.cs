@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20211121095439_first-mig")]
-    partial class firstmig
+    [Migration("20211124082512_the-First-Migs")]
+    partial class theFirstMigs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,7 +43,12 @@ namespace Data.Migrations
                     b.Property<int>("TotalNum")
                         .HasColumnType("int");
 
+                    b.Property<long>("publisherID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("publisherID");
 
                     b.ToTable("Books");
 
@@ -55,7 +60,8 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book One",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         },
                         new
                         {
@@ -64,7 +70,8 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book Two",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         },
                         new
                         {
@@ -73,11 +80,83 @@ namespace Data.Migrations
                             Avilable = 10,
                             Price = 10f,
                             Title = "Book Three",
-                            TotalNum = 10
+                            TotalNum = 10,
+                            publisherID = 1L
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.BookCustomer", b =>
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("joinDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            BirthDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9154),
+                            address = "Ramallah",
+                            fullName = "Osama",
+                            joinDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9428),
+                            phone = "059"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Publisher", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Publishers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            Adress = "Palestine-Nablus",
+                            Name = "LamyaH",
+                            PhoneNo = "0000"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.ReserveBookByCustomer", b =>
                 {
                     b.Property<long>("ID")
                         .ValueGeneratedOnAdd()
@@ -108,45 +187,16 @@ namespace Data.Migrations
                     b.ToTable("BookCustomer");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Customer", b =>
+            modelBuilder.Entity("Domain.Entities.Book", b =>
                 {
-                    b.Property<long>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("fullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("joinDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 21, 9, 54, 39, 19, DateTimeKind.Utc).AddTicks(5585),
-                            address = "Ramallah",
-                            fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 21, 9, 54, 39, 19, DateTimeKind.Utc).AddTicks(5905),
-                            phone = "059"
-                        });
+                    b.HasOne("Domain.Entities.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("publisherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.BookCustomer", b =>
+            modelBuilder.Entity("Domain.Entities.ReserveBookByCustomer", b =>
                 {
                     b.HasOne("Domain.Entities.Book", "Book")
                         .WithMany()

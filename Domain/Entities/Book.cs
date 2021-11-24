@@ -1,6 +1,7 @@
 ﻿using Domian.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain.Entities
@@ -13,6 +14,10 @@ namespace Domain.Entities
         public int Avilable { get; set; }
         public int TotalNum { get; set; }
         public float Price { get; set; }
+
+        [ForeignKey("Publisher")]
+        public long publisherID { get; set; }
+        public Publisher Publisher { get; set; }
 
     }
 }

@@ -11,6 +11,7 @@ namespace Domain.Models
         public int Avilable { get; set; }
         public int TotalNum { get; set; }
         public float Price { get; set; }
+        public long PublisherID { get; set; }
 
     }
 }

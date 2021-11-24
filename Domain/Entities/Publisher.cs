@@ -10,6 +10,7 @@ namespace Domain.Entities
         public string Adress { set; get; }
         public string Name { set; get; }
         public string PhoneNo { set; get; }
+        public IEnumerable<Book> Books { get; set; }
 
     }
 }

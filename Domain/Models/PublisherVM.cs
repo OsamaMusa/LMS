@@ -9,6 +9,7 @@ namespace Domain.Models
         public string Adress { set; get; }
         public string Name { set; get; }
         public string PhoneNo { set; get; }
+        public IEnumerable<BookM> Books { get; set; }
 
 
     }
