@@ -19,5 +19,10 @@ namespace Domain.Entities
         public long publisherID { get; set; }
         public Publisher Publisher { get; set; }
 
+
+        [ForeignKey("User")]
+        public long? userID { get; set; }
+        public Users User { get; set; }
+
     }
 }

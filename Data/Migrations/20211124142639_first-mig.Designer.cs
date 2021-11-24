@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20211124082512_the-First-Migs")]
-    partial class theFirstMigs
+    [Migration("20211124142639_first-mig")]
+    partial class firstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,9 +46,14 @@ namespace Data.Migrations
                     b.Property<long>("publisherID")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("userID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
 
                     b.HasIndex("publisherID");
+
+                    b.HasIndex("userID");
 
                     b.ToTable("Books");
 
@@ -61,7 +66,8 @@ namespace Data.Migrations
                             Price = 10f,
                             Title = "Book One",
                             TotalNum = 10,
-                            publisherID = 1L
+                            publisherID = 1L,
+                            userID = 1L
                         },
                         new
                         {
@@ -71,7 +77,8 @@ namespace Data.Migrations
                             Price = 10f,
                             Title = "Book Two",
                             TotalNum = 10,
-                            publisherID = 1L
+                            publisherID = 1L,
+                            userID = 1L
                         },
                         new
                         {
@@ -81,7 +88,8 @@ namespace Data.Migrations
                             Price = 10f,
                             Title = "Book Three",
                             TotalNum = 10,
-                            publisherID = 1L
+                            publisherID = 1L,
+                            userID = 1L
                         });
                 });
 
@@ -110,7 +118,18 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("totalAmount")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("userID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("userID");
 
                     b.ToTable("Customers");
 
@@ -118,11 +137,14 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9154),
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8448),
                             address = "Ramallah",
                             fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 24, 8, 25, 12, 432, DateTimeKind.Utc).AddTicks(9428),
-                            phone = "059"
+                            joinDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8781),
+                            phone = "059",
+                            status = true,
+                            totalAmount = 100L,
+                            userID = 1L
                         });
                 });
 
@@ -142,7 +164,12 @@ namespace Data.Migrations
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("userID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("userID");
 
                     b.ToTable("Publishers");
 
@@ -152,7 +179,8 @@ namespace Data.Migrations
                             ID = 1L,
                             Adress = "Palestine-Nablus",
                             Name = "LamyaH",
-                            PhoneNo = "0000"
+                            PhoneNo = "0000",
+                            userID = 1L
                         });
                 });
 
@@ -167,6 +195,12 @@ namespace Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ReserveUserID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ReturnedUserID")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("isReturned")
@@ -184,7 +218,62 @@ namespace Data.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("ReserveUserID");
+
+                    b.HasIndex("ReturnedUserID");
+
                     b.ToTable("BookCustomer");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Users", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(553),
+                            address = "Ramallah",
+                            department = "IT",
+                            fullName = "Admin",
+                            phone = "059"
+                        },
+                        new
+                        {
+                            ID = 2L,
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(1113),
+                            address = "Ramallah",
+                            department = "CS",
+                            fullName = "Customer Service",
+                            phone = "059"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Book", b =>
@@ -194,6 +283,24 @@ namespace Data.Migrations
                         .HasForeignKey("publisherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("userID");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("Domain.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("userID");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Publisher", b =>
+                {
+                    b.HasOne("Domain.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("userID");
                 });
 
             modelBuilder.Entity("Domain.Entities.ReserveBookByCustomer", b =>
@@ -209,6 +316,14 @@ namespace Data.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.Users", "ReservedUser")
+                        .WithMany()
+                        .HasForeignKey("ReserveUserID");
+
+                    b.HasOne("Domain.Entities.Users", "ReturnedUser")
+                        .WithMany()
+                        .HasForeignKey("ReturnedUserID");
                 });
 #pragma warning restore 612, 618
         }

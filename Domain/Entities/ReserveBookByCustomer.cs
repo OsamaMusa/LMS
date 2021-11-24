@@ -20,5 +20,15 @@ namespace Domain.Entities
         public bool isReturned { get; set; }
         public DateTime returnedTime { get; set; }
 
+        [ForeignKey("ReservedUser")]
+        public long? ReserveUserID { get; set; }
+
+        public Users ReservedUser { get; set; }
+
+        [ForeignKey("ReturnedUser")]
+        public long? ReturnedUserID { get; set; }
+     
+        public Users ReturnedUser { get; set; }
+     
     }
 }

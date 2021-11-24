@@ -12,6 +12,9 @@ namespace Domain.Models
         public DateTime reserveTime { get; set; }
         public bool isReturned { get; set; }
         public DateTime returnedTime { get; set; }
+        public long ReserveUserID { get; set; }
+        public long ReturnedUserID { get; set; }
+
 
     }
 }

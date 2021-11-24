@@ -11,6 +11,9 @@ namespace Domain.Models
         public string address { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime joinDate { get; set; }
+        public long totalAmount { get; set; }
+        public bool status { get; set; }
+        public long userID { get; set; }
 
     }
 }
