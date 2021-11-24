@@ -8,6 +8,7 @@ using AutoMapper;
 using Data.Context;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Data.Repositories
 {
@@ -18,34 +19,56 @@ namespace Data.Repositories
         public PublisherR(LMSContext context, IMapper mapper)
         {
             _context = context;
-            _mapper  = mapper;
+            _mapper = mapper;
         }
         public async Task<bool> AddNewPublisherAsync(PublisherVM publisher)
         {
-            await _context.Publishers.AddAsync(_mapper.Map < Publisher > (publisher));
+            await _context.Publishers.AddAsync(_mapper.Map<Publisher>(publisher));
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public Task<bool> DeletePublisher(long id)
+        public async Task<bool> DeletePublisher(long id)
         {
-            throw new NotImplementedException();
+            Publisher item = GetExistingPublisher(id).FirstOrDefault();
+            if (item != null)
+            {
+                _context.Publishers.Remove(item);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+
         }
 
-        public Task<IEnumerable<PublisherVM>> GetAllPublishers()
+        public async Task<IEnumerable<PublisherVM>> GetAllPublishers()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<List<Publisher>, List<PublisherVM>>(_context.Publishers.ToList());
         }
 
-        public Task<PublisherVM> GetPublisherById(long id)
+        public async Task<PublisherVM> GetPublisherById(long id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<PublisherVM>(GetExistingPublisher(id).FirstOrDefault());
         }
 
-        public Task<bool> UpdatePublisher(long id, PublisherVM publisher)
+
+        public async Task<bool> UpdatePublisher(long id, PublisherVM publisher)
         {
-            throw new NotImplementedException();
+            Publisher item = GetExistingPublisher(id).FirstOrDefault();
+            if (item != null)
+            {
+                item = _mapper.Map<Publisher>(publisher);
+                _context.Publishers.Update(item);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
+
+
+
+        private IQueryable<Publisher> GetExistingPublisher(long ID) =>
+       _context.Publishers.Where(r => r.ID == ID).AsNoTracking();
     }
 
 

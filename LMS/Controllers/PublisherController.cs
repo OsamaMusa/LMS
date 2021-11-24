@@ -13,7 +13,8 @@ namespace API.Controllers
     {
         private readonly IPublisherS _service;
 
-        public PublisherController(IPublisherS service)
+       public PublisherController(IPublisherS service)
+
         {
             _service = service;
         }
