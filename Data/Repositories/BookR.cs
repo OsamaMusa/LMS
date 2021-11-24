@@ -39,6 +39,7 @@ namespace Data.Repositories
         }
         public async Task<IEnumerable<BookM>> getAllBooks()
         {
+
             return _mapper.Map<List<Book>, List<BookM>>(_context.Books.ToList());
         }
         public async Task<IEnumerable<BookM>> getAllAvailable()
@@ -52,12 +53,13 @@ namespace Data.Repositories
         }
 
         public async Task<bool> UpdateBookAsync(BookM book)
-        { 
-            
+        {
+
             if (book != null)
             {
-
-                _context.Books.Update(_mapper.Map<Book>(book));
+                Book item = GetExistingBook(book.ID).FirstOrDefault();
+                item = _mapper.Map<Book>(book);
+                _context.Books.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
             }
