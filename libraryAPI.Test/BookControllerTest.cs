@@ -36,7 +36,7 @@ namespace libraryAPI.Test
                    .UseSqlServer("Server=SD-LP-W10-OMUSA;Database=LMS;Trusted_Connection=True;");
             var context = new LMSContext(dbOption.Options);
             _repo = new BookRepository(context, _mapper);
-            _service = new BookS(_repo,_mapper);
+            _service = new BookService(_repo,_mapper);
             _controller = new BookController(_service);
 
         }

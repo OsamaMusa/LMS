@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20211125112957_first-mig")]
+    [Migration("20211125132110_first-mig")]
     partial class firstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,15 +137,43 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(9902),
+                            BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(6387),
                             address = "Ramallah",
                             fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 25, 11, 29, 56, 897, DateTimeKind.Utc).AddTicks(192),
+                            joinDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(6694),
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
                             userID = 1L
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.FinanceTransactions", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ReserveID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UserID")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("totalAmount")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ReserveID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("FinanceTransactions");
                 });
 
             modelBuilder.Entity("Domain.Entities.Publisher", b =>
@@ -191,10 +219,10 @@ namespace Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("BookId")
+                    b.Property<long?>("BookId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<long?>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("ReservedUserID")
@@ -259,7 +287,7 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(2584),
+                            BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 340, DateTimeKind.Utc).AddTicks(9578),
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
@@ -268,7 +296,7 @@ namespace Data.Migrations
                         new
                         {
                             ID = 2L,
-                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(3070),
+                            BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(71),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
@@ -296,6 +324,17 @@ namespace Data.Migrations
                         .HasForeignKey("userID");
                 });
 
+            modelBuilder.Entity("Domain.Entities.FinanceTransactions", b =>
+                {
+                    b.HasOne("Domain.Entities.ReserveBookByCustomer", "Reserve")
+                        .WithMany()
+                        .HasForeignKey("ReserveID");
+
+                    b.HasOne("Domain.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
             modelBuilder.Entity("Domain.Entities.Publisher", b =>
                 {
                     b.HasOne("Domain.Entities.Users", "User")
@@ -307,15 +346,11 @@ namespace Data.Migrations
                 {
                     b.HasOne("Domain.Entities.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("Domain.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Domain.Entities.Users", "ReservedUser")
                         .WithMany()

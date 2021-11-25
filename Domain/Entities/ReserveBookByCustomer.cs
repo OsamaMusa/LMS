@@ -10,10 +10,10 @@ namespace Domain.Entities
     public class ReserveBookByCustomer :Base
     {
         [ForeignKey("Book")]
-        public long BookId { get; set; }
+        public long? BookId { get; set; }
 
         [ForeignKey("Customer")]
-        public long CustomerId { get; set; }
+        public long? CustomerId { get; set; }
         public Book Book { get; set; }
         public Customer Customer { get; set; }
         public DateTime reserveTime { get; set; }

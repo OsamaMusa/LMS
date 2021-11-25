@@ -15,12 +15,14 @@ namespace Domain.Services
         private readonly IReserveBookByCustomerRepository _bookCustomerRepository;
         private readonly IBookRepository _bookRepository;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IFinanceRepository _financeRepository;
 
-        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository ,IBookRepository bookRepository, ICustomerRepository customerRepository)
+        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository ,IBookRepository bookRepository, ICustomerRepository customerRepository,IFinanceRepository financeRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
             this._bookRepository = bookRepository;
             this._customerRepository = customerRepository;
+            this._financeRepository = financeRepository;
         }
         public Task<bool> addBookCustomer(ReserveBookByCustomerVM bookCustomer)
         {
@@ -79,13 +81,14 @@ namespace Domain.Services
             return _bookCustomerRepository.updateBookCustomerByID(ID, customer);
         }
 
-        public bool returnBookCustomerByID(long iD, returnBookCustomerVM bookCustomer)
+        public bool returnBookCustomerByID(long Id, returnBookCustomerVM bookCustomer)
         {
             if (bookCustomer == null)
                 return false;
             BookM bookM = _bookRepository.getBookByID(bookCustomer.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
-            if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(iD).Result.isReturned)
+            FinanceTransactionsVM financeTransactions = _financeRepository.getTransByReservationID(Id).Result;
+            if (customerVM != null && bookM != null && !_bookCustomerRepository.getBookCustomerByID(Id).Result.isReturned && financeTransactions != null)
             {
                 bookM.Avilable += 1;
 

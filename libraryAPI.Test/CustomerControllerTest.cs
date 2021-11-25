@@ -23,6 +23,7 @@ namespace libraryAPI.Test
         CustomerController _controller;
         ICustomerService _service;
         ICustomerRepository _repo;
+        private FinanceRepository financeRepository;
         IMapper _mapper;
         public CustomerControllerTest()
         {
@@ -37,7 +38,9 @@ namespace libraryAPI.Test
             var context = new LMSContext(dbOption.Options);
 
             _repo = new CustomerRepository(context,_mapper);
-            _service = new CustomerService(_repo, _mapper);
+            financeRepository = new FinanceRepository(context, _mapper);
+
+            _service = new CustomerService(_repo);
             _controller = new CustomerController(_service);
 
         }

@@ -25,6 +25,7 @@ namespace libraryAPI.Test
         IReserveBookByCustomerRepository _repo;
         IBookRepository bookRepository;
         ICustomerRepository customerRepository;
+        private FinanceRepository financeRepository;
         IMapper _mapper;
 
         public ReserveBookTest()
@@ -41,8 +42,9 @@ namespace libraryAPI.Test
 
             _repo = new ReserveBookByCustomerRepository(context, _mapper);
             bookRepository = new BookRepository(context, _mapper);
-            customerRepository =  new CustomerRepository(context, _mapper);
-            _service = new ReserveBookByCustomerService(_repo,bookRepository,customerRepository);
+            customerRepository = new CustomerRepository(context, _mapper);
+            financeRepository = new FinanceRepository(context, _mapper);
+            _service = new ReserveBookByCustomerService(_repo,bookRepository,customerRepository,financeRepository);
             _controller = new ReserveBookByCustomerController(_service);
 
         }
