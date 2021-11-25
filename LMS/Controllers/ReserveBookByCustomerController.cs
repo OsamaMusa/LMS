@@ -37,7 +37,7 @@ namespace API.Controllers
             var res =  _service.getBookCustomerByID(id).Result;
             if (res != null)
                 return Ok(res);
-            return BadRequest();
+            return NoContent();
         }
 
         // POST api/<BookCustomerController>
@@ -82,7 +82,7 @@ namespace API.Controllers
             var res=  _service.updateBookCustomerByID(id, bookCustomer).Result;
             if (res != null)
                 return Ok("Updated");
-            return BadRequest();
+            return NoContent();
 
         }
 
@@ -93,7 +93,7 @@ namespace API.Controllers
             var res =  _service.deleteBookCustomerByID(id).Result;
             if (res != null)
                 return Ok("Deleted");
-            return BadRequest();
+            return NoContent();
         }
     }
 }
