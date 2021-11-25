@@ -22,47 +22,78 @@ namespace API.Controllers
         
         // GET: api/<BookCustomerController>
         [HttpGet("getReservations")]
-        public Task<IEnumerable<ReserveBookByCustomerDetailsVM>> GetAll()
+        public IActionResult GetAll()
         {
-            var items = _service.getAllBookCustomers();
-            return items;
+            var items = _service.getAllBookCustomers().Result;
+            if(items != null)
+               return Ok(items);
+            return BadRequest();
         }
 
         // GET api/<BookCustomerController>/5
         [HttpGet("getReserve/{id}")]
-        public Task<ReserveBookByCustomerDetailsVM> getReservationsByID(long id)
+        public IActionResult getReservationsByID(long id)
         {
-            return _service.getBookCustomerByID(id);
+            var res =  _service.getBookCustomerByID(id).Result;
+            if (res != null)
+                return Ok(res);
+            return BadRequest();
         }
 
         // POST api/<BookCustomerController>
         [HttpPost("/ReserveBook")]
-        public async Task<bool> ReserveBook(reserveBookCustomerVM bookCustomer)
+        public IActionResult ReserveBook(reserveBookCustomerVM bookCustomer)
         {
            // bookCustomer.reserveTime = DateTime.UtcNow ;
-            return _service.reserveBookCustomer(bookCustomer);
+            var res = _service.reserveBookCustomer(bookCustomer);
+            
+            if (res.CompareTo("NF") == 0)
+                return NotFound("Reserve Not Found");
+            else if (res.CompareTo("BNF") == 0)
+                return NotFound("Book Not Found");
+            else if (res.CompareTo("CNF") == 0)
+                return NotFound("Customer Not Found");
+            else
+                return Ok("Reserved");
+
         }
         [HttpPost("/ReturnBook")]
-        public async Task<bool> ReturnBook(returnBookCustomerVM bookCustomer)
+        public IActionResult ReturnBook(returnBookCustomerVM bookCustomer)
         {
-            bookCustomer.isReturned = true;
-           // bookCustomer.returnedTime = DateTime.UtcNow;
-             return _service.returnBookCustomerByID(bookCustomer.ID , bookCustomer);
+
+            var res = _service.returnBookCustomerByID( bookCustomer);
+            if (res.CompareTo("NF") == 0)
+                return NotFound("Returned Not Found");
+            else if (res.CompareTo("BNF") == 0)
+                return NotFound("Book Not Found");
+            else if (res.CompareTo("CNF") == 0)
+                return NotFound("Customer Not Found");
+            else if (res.CompareTo("FNA") == 0)
+                return BadRequest("Payment Required");
+            else
+                return Ok("Returned");
+           
         } 
 
         // PUT api/<BookCustomerController>/5
         [HttpPut("updateReserve/{id}")]
-        public Task<bool> updateReserve(long id, ReserveBookByCustomerVM bookCustomer)
+        public IActionResult updateReserve(long id, ReserveBookByCustomerVM bookCustomer)
         {
-            return _service.updateBookCustomerByID(id, bookCustomer);
+            var res=  _service.updateBookCustomerByID(id, bookCustomer).Result;
+            if (res != null)
+                return Ok("Updated");
+            return BadRequest();
 
         }
 
         // DELETE api/<BookCustomerController>/5
         [HttpDelete("{id}")]
-        public Task<bool> Delete(long id)
+        public IActionResult Delete(long id)
         {
-            return _service.deleteBookCustomerByID(id);
+            var res =  _service.deleteBookCustomerByID(id).Result;
+            if (res != null)
+                return Ok("Deleted");
+            return BadRequest();
         }
     }
 }
