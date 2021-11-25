@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Domain.IServices
         public Task<bool> deleteBookCustomerByID(long ID);
         public Task<bool> addBookCustomer(ReserveBookByCustomerVM customer);
        public Task<bool> updateBookCustomerByID(long id, ReserveBookByCustomerVM customer);
-        bool reserveBookCustomer(reserveBookCustomerVM bookCustomer);
-        bool returnBookCustomerByID(long iD, returnBookCustomerVM bookCustomer);
+       public string reserveBookCustomer(reserveBookCustomerVM bookCustomer);
+       public string returnBookCustomerByID( returnBookCustomerVM bookCustomer);
     }
 }
