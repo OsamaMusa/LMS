@@ -135,10 +135,17 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(6387),
                             address = "Ramallah",
                             fullName = "Osama",
                             joinDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(6694),
+=======
+                            BirthDate = new DateTime(2021, 11, 25, 11, 53, 22, 237, DateTimeKind.Utc).AddTicks(50),
+                            address = "Ramallah",
+                            fullName = "Osama",
+                            joinDate = new DateTime(2021, 11, 25, 11, 53, 22, 237, DateTimeKind.Utc).AddTicks(347),
+>>>>>>> f4a655f169efe7e4ee6a08bb7865521cb993cd62
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -285,7 +292,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 340, DateTimeKind.Utc).AddTicks(9578),
+=======
+                            BirthDate = new DateTime(2021, 11, 25, 11, 53, 22, 236, DateTimeKind.Utc).AddTicks(2830),
+>>>>>>> f4a655f169efe7e4ee6a08bb7865521cb993cd62
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
@@ -294,7 +305,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 2L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 13, 21, 10, 341, DateTimeKind.Utc).AddTicks(71),
+=======
+                            BirthDate = new DateTime(2021, 11, 25, 11, 53, 22, 236, DateTimeKind.Utc).AddTicks(3321),
+>>>>>>> f4a655f169efe7e4ee6a08bb7865521cb993cd62
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
