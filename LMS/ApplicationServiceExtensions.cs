@@ -17,7 +17,7 @@ namespace API
         {
 
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<IBookService, BookS>();
+            services.AddScoped<IBookService, BookService>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -26,7 +26,13 @@ namespace API
             services.AddScoped<IReserveBookByCustomerRepository, ReserveBookByCustomerRepository>();
 
             services.AddScoped<IPublisherRepository, PublisherRepository>();
-            services.AddScoped<IPublisherService, PublisherS>();
+            services.AddScoped<IPublisherService, PublisherService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IFinanceRepository, FinanceRepository>();
+            services.AddScoped<IFinanceService, FinanceService>();
 
 
             return services;

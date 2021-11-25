@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public class BookS : IBookService
+    public class BookService : IBookService
     { IBookRepository _repo;
         private readonly IMapper _mapper;
-        public BookS(IBookRepository repo , IMapper mapper)
+        public BookService(IBookRepository repo , IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

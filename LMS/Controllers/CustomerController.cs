@@ -25,14 +25,14 @@ namespace API.Controllers
             return items;
         }
         [HttpGet("{id}")]
-        public Task<CustomerVM> getCustomer(long id)
+        public  Task<CustomerVM> getCustomer(long id)
         {
             return _service.getCustomerByID(id);
         }
         [HttpDelete("{id}")]
-        public Task<bool> deleteCustomer(long id)
+        public Task<bool> deleteCustomer(long Id)
         {
-            return _service.deleteCustomerByID(id);
+            return _service.deleteCustomerByID(Id);
         }
         [HttpPut("{id}")]
         public Task<bool> updateCustomer(long id, CustomerVM customer)

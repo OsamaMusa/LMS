@@ -25,6 +25,9 @@ namespace LMS
 
             CreateMap<UserVM, Users>().ReverseMap();
 
+            CreateMap<InsertFinanceTransactionVM, FinanceTransactions>().ReverseMap();
+
+            CreateMap<FinanceTransactionsVM, FinanceTransactions>().ReverseMap();
 
         }
     }

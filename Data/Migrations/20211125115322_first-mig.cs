@@ -109,8 +109,8 @@ namespace Data.Migrations
                 {
                     ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BookId = table.Column<long>(nullable: false),
-                    CustomerId = table.Column<long>(nullable: false),
+                    BookId = table.Column<long>(nullable: true),
+                    CustomerId = table.Column<long>(nullable: true),
                     reserveTime = table.Column<DateTime>(nullable: false),
                     isReturned = table.Column<bool>(nullable: false),
                     returnedTime = table.Column<DateTime>(nullable: false),
@@ -125,13 +125,13 @@ namespace Data.Migrations
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_BookCustomer_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_BookCustomer_Users_ReservedUserID",
                         column: x => x.ReservedUserID,
@@ -146,20 +146,48 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "ID", "BirthDate", "address", "department", "fullName", "phone" },
-                values: new object[] { 1L, new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(2584), "Ramallah", "IT", "Admin", "059" });
+            migrationBuilder.CreateTable(
+                name: "FinanceTransactions",
+                columns: table => new
+                {
+                    ID = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<long>(nullable: true),
+                    ReserveID = table.Column<long>(nullable: true),
+                    totalAmount = table.Column<double>(nullable: false),
+                    time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FinanceTransactions", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_FinanceTransactions_BookCustomer_ReserveID",
+                        column: x => x.ReserveID,
+                        principalTable: "BookCustomer",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FinanceTransactions_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "ID", "BirthDate", "address", "department", "fullName", "phone" },
-                values: new object[] { 2L, new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(3070), "Ramallah", "CS", "Customer Service", "059" });
+                values: new object[] { 1L, new DateTime(2021, 11, 25, 11, 53, 22, 236, DateTimeKind.Utc).AddTicks(2830), "Ramallah", "IT", "Admin", "059" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "ID", "BirthDate", "address", "department", "fullName", "phone" },
+                values: new object[] { 2L, new DateTime(2021, 11, 25, 11, 53, 22, 236, DateTimeKind.Utc).AddTicks(3321), "Ramallah", "CS", "Customer Service", "059" });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "ID", "BirthDate", "address", "fullName", "joinDate", "phone", "status", "totalAmount", "userID" },
-                values: new object[] { 1L, new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(9902), "Ramallah", "Osama", new DateTime(2021, 11, 25, 11, 29, 56, 897, DateTimeKind.Utc).AddTicks(192), "059", true, 100L, 1L });
+                values: new object[] { 1L, new DateTime(2021, 11, 25, 11, 53, 22, 237, DateTimeKind.Utc).AddTicks(50), "Ramallah", "Osama", new DateTime(2021, 11, 25, 11, 53, 22, 237, DateTimeKind.Utc).AddTicks(347), "059", true, 100L, 1L });
 
             migrationBuilder.InsertData(
                 table: "Publishers",
@@ -217,6 +245,16 @@ namespace Data.Migrations
                 column: "userID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FinanceTransactions_ReserveID",
+                table: "FinanceTransactions",
+                column: "ReserveID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FinanceTransactions_UserID",
+                table: "FinanceTransactions",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Publishers_userID",
                 table: "Publishers",
                 column: "userID");
@@ -224,6 +262,9 @@ namespace Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FinanceTransactions");
+
             migrationBuilder.DropTable(
                 name: "BookCustomer");
 

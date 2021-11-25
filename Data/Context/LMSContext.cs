@@ -19,6 +19,7 @@ namespace Data.Context
 
         public DbSet<Book> Books { get; set; }
         public DbSet<ReserveBookByCustomer> BookCustomer { get; set; }
+        public DbSet<FinanceTransactions> FinanceTransactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
