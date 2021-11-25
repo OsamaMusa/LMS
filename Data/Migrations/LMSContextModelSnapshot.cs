@@ -135,10 +135,17 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 507, DateTimeKind.Utc).AddTicks(4277),
                             address = "Ramallah",
                             fullName = "Osama",
                             joinDate = new DateTime(2021, 11, 25, 7, 30, 0, 507, DateTimeKind.Utc).AddTicks(4565),
+=======
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8448),
+                            address = "Ramallah",
+                            fullName = "Osama",
+                            joinDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8781),
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -195,7 +202,11 @@ namespace Data.Migrations
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
+<<<<<<< HEAD
                     b.Property<long?>("ReservedUserID")
+=======
+                    b.Property<long?>("ReserveUserID")
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
                         .HasColumnType("bigint");
 
                     b.Property<long?>("ReturnedUserID")
@@ -216,7 +227,11 @@ namespace Data.Migrations
 
                     b.HasIndex("CustomerId");
 
+<<<<<<< HEAD
                     b.HasIndex("ReservedUserID");
+=======
+                    b.HasIndex("ReserveUserID");
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
 
                     b.HasIndex("ReturnedUserID");
 
@@ -257,7 +272,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 506, DateTimeKind.Utc).AddTicks(6899),
+=======
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(553),
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
@@ -266,7 +285,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 2L,
+<<<<<<< HEAD
                             BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 506, DateTimeKind.Utc).AddTicks(7464),
+=======
+                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(1113),
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
@@ -317,7 +340,11 @@ namespace Data.Migrations
 
                     b.HasOne("Domain.Entities.Users", "ReservedUser")
                         .WithMany()
+<<<<<<< HEAD
                         .HasForeignKey("ReservedUserID");
+=======
+                        .HasForeignKey("ReserveUserID");
+>>>>>>> e0a60081572d5d7d901270defa1ca83034938661
 
                     b.HasOne("Domain.Entities.Users", "ReturnedUser")
                         .WithMany()
