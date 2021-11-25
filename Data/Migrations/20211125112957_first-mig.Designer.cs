@@ -10,11 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(LMSContext))]
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
-    [Migration("20211125073000_first-mig")]
-=======
-    [Migration("20211124142639_first-mig")]
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
+    [Migration("20211125112957_first-mig")]
     partial class firstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,17 +137,10 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
-                            BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 507, DateTimeKind.Utc).AddTicks(4277),
+                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(9902),
                             address = "Ramallah",
                             fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 25, 7, 30, 0, 507, DateTimeKind.Utc).AddTicks(4565),
-=======
-                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8448),
-                            address = "Ramallah",
-                            fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(8781),
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
+                            joinDate = new DateTime(2021, 11, 25, 11, 29, 56, 897, DateTimeKind.Utc).AddTicks(192),
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -208,11 +197,7 @@ namespace Data.Migrations
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
                     b.Property<long?>("ReservedUserID")
-=======
-                    b.Property<long?>("ReserveUserID")
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
                         .HasColumnType("bigint");
 
                     b.Property<long?>("ReturnedUserID")
@@ -233,11 +218,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
                     b.HasIndex("ReservedUserID");
-=======
-                    b.HasIndex("ReserveUserID");
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
 
                     b.HasIndex("ReturnedUserID");
 
@@ -278,11 +259,7 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
-                            BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 506, DateTimeKind.Utc).AddTicks(6899),
-=======
-                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(553),
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
+                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(2584),
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
@@ -291,11 +268,7 @@ namespace Data.Migrations
                         new
                         {
                             ID = 2L,
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
-                            BirthDate = new DateTime(2021, 11, 25, 7, 30, 0, 506, DateTimeKind.Utc).AddTicks(7464),
-=======
-                            BirthDate = new DateTime(2021, 11, 24, 14, 26, 39, 61, DateTimeKind.Utc).AddTicks(1113),
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
+                            BirthDate = new DateTime(2021, 11, 25, 11, 29, 56, 896, DateTimeKind.Utc).AddTicks(3070),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
@@ -346,11 +319,7 @@ namespace Data.Migrations
 
                     b.HasOne("Domain.Entities.Users", "ReservedUser")
                         .WithMany()
-<<<<<<< HEAD:Data/Migrations/20211125073000_first-mig.Designer.cs
                         .HasForeignKey("ReservedUserID");
-=======
-                        .HasForeignKey("ReserveUserID");
->>>>>>> e0a60081572d5d7d901270defa1ca83034938661:Data/Migrations/20211124142639_first-mig.Designer.cs
 
                     b.HasOne("Domain.Entities.Users", "ReturnedUser")
                         .WithMany()

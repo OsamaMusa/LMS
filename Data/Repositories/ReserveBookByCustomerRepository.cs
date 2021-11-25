@@ -119,9 +119,9 @@ namespace Data.Repositories
             ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
             if (item != null)
             {
-                DateTime resevedTime = item.reserveTime;
-                item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
-                item.reserveTime = resevedTime;
+                //DateTime resevedTime = item.reserveTime;
+                item = _mapper.Map(bookCustomer,item);
+                //item.reserveTime = resevedTime;
                 _context.BookCustomer.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
