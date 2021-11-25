@@ -18,7 +18,7 @@ namespace Domain.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IFinanceRepository _financeRepository;
 
-        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository ,IBookRepository bookRepository, ICustomerRepository customerRepository,IFinanceRepository financeRepository)
+        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository, IBookRepository bookRepository, ICustomerRepository customerRepository, IFinanceRepository financeRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
             this._bookRepository = bookRepository;
@@ -36,51 +36,51 @@ namespace Domain.Services
             return _bookCustomerRepository.deleteBookCustomerByID(ID);
         }
 
-        public Task<bool> deleteBookCustomerBy_B_C_ID(long CustomerID,long BookID)
+        public Task<bool> deleteBookCustomerBy_B_C_ID(long CustomerID, long BookID)
         {
             return _bookCustomerRepository.deleteBookCustomerBy_B_C_ID(CustomerID, BookID);
         }
 
-        public  Task<IEnumerable<ReserveBookByCustomerDetailsVM>> getAllBookCustomers() 
+        public Task<IEnumerable<ReserveBookByCustomerDetailsVM>> getAllBookCustomers()
         {
             return _bookCustomerRepository.getAllBookCustomers();
         }
 
-        public  string reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM)
+        public string reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM)
         {
             if (reserveBookCustomerVM == null)
                 return "NF";
 
             BookM bookM = _bookRepository.getBookByID(reserveBookCustomerVM.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
-            if (customerVM == null )
-                return "CNF" ;
-            if(bookM == null )
+            if (customerVM == null)
+                return "CNF";
+            if (bookM == null)
                 return "BNF";
-            if(bookM.Avilable <= 0 )
+            if (bookM.Avilable <= 0)
                 return "NA";
 
-                bookM.Avilable -= 1;
+            bookM.Avilable -= 1;
 
-                if (_bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM).Result)
-                {
-                    if(_bookRepository.UpdateBookAsync(bookM).Result)
-                        return "R";
-                }
-            
+            if (_bookCustomerRepository.reserveBookCustomer(reserveBookCustomerVM).Result)
+            {
+                if (_bookRepository.UpdateBookAsync(bookM).Result)
+                    return "R";
+            }
+
             return "NF";
 
         }
 
-        public  Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
+        public Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
         {
 
             return _bookCustomerRepository.getBookCustomerByID(ID);
         }
-        public  Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
+        public Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID, long BID)
         {
 
-            return _bookCustomerRepository.getBookCustomerBy_C_B_ID(CID,BID);
+            return _bookCustomerRepository.getBookCustomerBy_C_B_ID(CID, BID);
         }
 
         public Task<bool> updateBookCustomerByID(long ID, ReserveBookByCustomerVM customer)
@@ -88,7 +88,7 @@ namespace Domain.Services
             return _bookCustomerRepository.updateBookCustomerByID(ID, customer);
         }
 
-        public string returnBookCustomerByID( returnBookCustomerVM bookCustomer)
+        public string returnBookCustomerByID(returnBookCustomerVM bookCustomer)
         {
             if (bookCustomer == null || _bookCustomerRepository.getBookCustomerBy_C_B_ID(bookCustomer.CustomerId, bookCustomer.BookId).Result == null)
                 return "NF";
@@ -96,20 +96,20 @@ namespace Domain.Services
             BookM bookM = _bookRepository.getBookByID(bookCustomer.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
             FinanceTransactionsVM financeTransactions = _financeRepository.getTransByReservationID(bookCustomer.BookId).Result;
-          
+
             if (customerVM == null)
                 return "CNF";
             if (bookM == null)
                 return "BNF";
             if (financeTransactions == null)
                 return "FNA";
-          
-                bookM.Avilable += 1;
 
-                if(_bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
-                    if(_bookRepository.UpdateBookAsync(bookM).Result)
-                       return "R";
-            
+            bookM.Avilable += 1;
+
+            if (_bookCustomerRepository.returnBookCustomer(bookCustomer).Result)
+                if (_bookRepository.UpdateBookAsync(bookM).Result)
+                    return "R";
+
             return "NF";
         }
     }
