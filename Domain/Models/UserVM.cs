@@ -17,6 +17,7 @@ namespace Domain.Models
 
         public DateTime BirthDate { get; set; }
         public long roleID { set; get; }
+        public string password { get; set; }
 
     }
 }

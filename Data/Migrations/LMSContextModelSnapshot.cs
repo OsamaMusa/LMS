@@ -138,11 +138,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4176),
+                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1021),
                             address = "Ramallah",
                             fullName = "Osama",
                             isBlocked = false,
-                            joinDate = new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4469),
+                            joinDate = new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1301),
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -388,6 +388,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -405,40 +408,44 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7150),
+                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(2068),
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
+                            password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
                             roleID = 1L
                         },
                         new
                         {
                             ID = 2L,
-                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7813),
+                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4492),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
+                            password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
                             roleID = 4L
                         },
                         new
                         {
                             ID = 3L,
-                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7843),
+                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4547),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Finance Service",
+                            password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
                             roleID = 3L
                         },
                         new
                         {
                             ID = 4L,
-                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7845),
+                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4552),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "CTO",
+                            password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
                             roleID = 2L
                         });

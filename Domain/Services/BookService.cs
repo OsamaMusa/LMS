@@ -68,7 +68,7 @@ namespace Domain.Services
                 long userId = -1;
                 if (user != null)
                     userId = user.roleID;
-                if (userId == ((int)(UserLookups.CTO)))
+                if (userId == ((int)(UserLookups.CTO))+1)
                 {
                     if (book.TotalNum > 0 && book.Avilable > 0)
                     {
@@ -90,7 +90,7 @@ namespace Domain.Services
                 long userId = -1;
                 if (user != null)
                     userId = user.roleID;
-                if (userId == ((int)(UserLookups.CTO)))
+                if (userId == ((int)(UserLookups.CTO))+1)
                 {
                     return _repo.UpdateBookAsync(book);
                 }

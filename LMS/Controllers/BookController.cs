@@ -7,9 +7,11 @@ using Domain.Services;
 using Microsoft.Extensions.Logging;
 using Domain.IServices;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class BookController : Controller

@@ -35,10 +35,10 @@ namespace Data.Context
 
             modelBuilder.Entity<Users>()
                  .HasData(
-                        new Users { ID = 1, fullName = "Admin", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "IT" ,roleID=1},
-                        new Users { ID = 2, fullName = "Customer Service", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 4 },
-                        new Users { ID = 3, fullName = "Finance Service", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 3 },
-                        new Users { ID = 4, fullName = "CTO", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 2 }
+                        new Users { ID = 1, fullName = "Admin", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "IT" ,roleID=1, password= EncoderPass("123456") },
+                        new Users { ID = 2, fullName = "Customer Service", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 4, password = EncoderPass("123456") },
+                        new Users { ID = 3, fullName = "Finance Service", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 3, password = EncoderPass("123456") },
+                        new Users { ID = 4, fullName = "CTO", BirthDate = DateTime.UtcNow, address = "Ramallah", phone = "059", department = "CS", roleID = 2, password = EncoderPass("123456") }
               );
             modelBuilder.Entity<Customer>()
                    .HasData(
@@ -76,6 +76,14 @@ namespace Data.Context
             );
 
 
+
+        }
+        private string EncoderPass(string pass)
+        {
+            if (String.IsNullOrEmpty(pass)) return "";
+            pass += "this is my custom Secret key for authnetication";
+            var result = Encoding.UTF8.GetBytes(pass);
+            return Convert.ToBase64String(result);
 
         }
         //entities

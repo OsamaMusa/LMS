@@ -24,6 +24,8 @@ namespace Domain.Entities
         [ForeignKey("permission")]
         public long? roleID { set; get; }
         public Role role { set; get; }
+        public string password { get; set; }
+
 
     }
 }
