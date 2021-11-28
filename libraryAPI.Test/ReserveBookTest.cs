@@ -44,7 +44,8 @@ namespace libraryAPI.Test
             bookRepository = new BookRepository(context, _mapper);
             customerRepository = new CustomerRepository(context, _mapper);
             financeRepository = new FinanceRepository(context, _mapper);
-            _service = new ReserveBookByCustomerService(_repo,bookRepository,customerRepository,financeRepository);
+            UserRepository userRepository = new UserRepository(context, _mapper);
+            _service = new ReserveBookByCustomerService(_repo,bookRepository,customerRepository,financeRepository,userRepository);
             _controller = new ReserveBookByCustomerController(_service);
 
         }

@@ -46,8 +46,9 @@ namespace API.Controllers
         {
            // bookCustomer.reserveTime = DateTime.UtcNow ;
             var res = _service.reserveBookCustomer(bookCustomer);
-            
-            if (res.CompareTo("NF") == 0)
+            if (res.CompareTo("AD") == 0)
+                return BadRequest("Acsess Denied");
+            else if (res.CompareTo("NF") == 0)
                 return NotFound("Reserve Not Found");
             else if (res.CompareTo("BNF") == 0)
                 return NotFound("Book Not Found");
@@ -62,7 +63,9 @@ namespace API.Controllers
         {
 
             var res = _service.returnBookCustomerByID( bookCustomer);
-            if (res.CompareTo("NF") == 0)
+            if (res.CompareTo("AD") == 0)
+                return BadRequest("Acsess Denied");
+            else if (res.CompareTo("NF") == 0)
                 return NotFound("Returned Not Found");
             else if (res.CompareTo("BNF") == 0)
                 return NotFound("Book Not Found");
@@ -76,7 +79,7 @@ namespace API.Controllers
         } 
 
         // PUT api/<BookCustomerController>/5
-        [HttpPut("updateReserve/{id}")]
+/*        [HttpPut("updateReserve/{id}")]
         public IActionResult updateReserve(long id, ReserveBookByCustomerVM bookCustomer)
         {
             var res=  _service.updateBookCustomerByID(id, bookCustomer).Result;
@@ -84,16 +87,16 @@ namespace API.Controllers
                 return Ok("Updated");
             return NoContent();
 
-        }
+        }*/
 
         // DELETE api/<BookCustomerController>/5
-        [HttpDelete("{id}")]
+/*        [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
             var res =  _service.deleteBookCustomerByID(id).Result;
             if (res != null)
                 return Ok("Deleted");
             return NoContent();
-        }
+        }*/
     }
 }

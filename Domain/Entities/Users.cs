@@ -22,7 +22,7 @@ namespace Domain.Entities
         public DateTime BirthDate { get; set; }
 
         [ForeignKey("permission")]
-        public long PermissionID { set; get; }
+        public long? PermissionID { set; get; }
 
         public Permission permission { set; get; }
 

@@ -14,6 +14,7 @@ namespace Domain.Models
         public long totalAmount { get; set; }
         public bool status { get; set; }
         public long userID { get; set; }
+        public long PermissionID { set; get; }
 
     }
 }

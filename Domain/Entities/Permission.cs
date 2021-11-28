@@ -12,7 +12,7 @@ namespace Domain.Entities
         public string Description { set; get; }
 
         [ForeignKey("role")]
-        public long RoleID { set; get; }
+        public long? RoleID { set; get; }
 
         public Role role { set; get; }
 

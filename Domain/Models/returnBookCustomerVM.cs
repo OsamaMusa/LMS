@@ -10,7 +10,7 @@ namespace Domain.Models
         public long CustomerId { get; set; }
         public bool isReturned { get; set; }
         public DateTime returnedTime { get; set; }
-        public long? ReturnedUserID { get; set; }
+        public long ReturnedUserID { get; set; }
 
     }
 }

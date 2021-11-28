@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.IRepositories;
 using Domain.IServices;
 using Domain.Models;
@@ -17,13 +18,16 @@ namespace Domain.Services
         private readonly IBookRepository _bookRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IFinanceRepository _financeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository, IBookRepository bookRepository, ICustomerRepository customerRepository, IFinanceRepository financeRepository)
+        public ReserveBookByCustomerService(IReserveBookByCustomerRepository bookCustomerRepository, IBookRepository bookRepository, ICustomerRepository customerRepository, IFinanceRepository financeRepository ,IUserRepository userRepository)
         {
             this._bookCustomerRepository = bookCustomerRepository;
             this._bookRepository = bookRepository;
             this._customerRepository = customerRepository;
             this._financeRepository = financeRepository;
+            this._userRepository = userRepository;
+
         }
         public Task<bool> addBookCustomer(ReserveBookByCustomerVM bookCustomer)
         {
@@ -48,11 +52,22 @@ namespace Domain.Services
 
         public string reserveBookCustomer(reserveBookCustomerVM reserveBookCustomerVM)
         {
+
             if (reserveBookCustomerVM == null)
                 return "NF";
 
             BookM bookM = _bookRepository.getBookByID(reserveBookCustomerVM.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(reserveBookCustomerVM.CustomerId).Result;
+
+
+            UserVM user = _userRepository.getUserByID(reserveBookCustomerVM.ReservedUserID).Result;
+            long userId = -1;
+            if (user != null)
+                userId = user.PermissionID;
+            if (userId != ((int)(UserLookups.libarian)) + 1)
+                return "AD";
+                   
+
             if (customerVM == null)
                 return "CNF";
             if (bookM == null)
@@ -96,6 +111,13 @@ namespace Domain.Services
             BookM bookM = _bookRepository.getBookByID(bookCustomer.BookId).Result;
             CustomerVM customerVM = _customerRepository.getCustomerByID(bookCustomer.CustomerId).Result;
             FinanceTransactionsVM financeTransactions = _financeRepository.getTransByReservationID(bookCustomer.BookId).Result;
+
+            UserVM user = _userRepository.getUserByID(bookCustomer.ReturnedUserID).Result;
+            long userId = -1;
+            if (user != null)
+                userId = user.PermissionID;
+            if (userId != ((int)(UserLookups.libarian)) + 1)
+                return "AD";
 
             if (customerVM == null)
                 return "CNF";

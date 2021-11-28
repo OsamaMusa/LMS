@@ -16,5 +16,7 @@ namespace Domain.Models
         public string address { get; set; }
 
         public DateTime BirthDate { get; set; }
+        public long PermissionID { set; get; }
+
     }
 }

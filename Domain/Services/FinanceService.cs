@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Enums;
+using Domain.IRepositories;
 using Domain.IServices;
 using Domain.Models;
 using System;
@@ -11,16 +12,27 @@ namespace Domain.Services
     public class FinanceService : IFinanceService
     {
         private readonly IFinanceRepository _repository;
+        private readonly IUserRepository _userRepository;
 
-        public FinanceService(IFinanceRepository repository)
+        public FinanceService(IFinanceRepository repository,IUserRepository userRepository)
         {
             this._repository = repository;
-
+            this._userRepository = userRepository;
         }
 
-        public Task<bool> addTransAsync(InsertFinanceTransactionVM transaction)
+        public async Task<bool> addTransAsync(InsertFinanceTransactionVM transaction)
         {
-            return this._repository.addTransAsync(transaction);
+            if (transaction != null)
+            {
+                UserVM user = _userRepository.getUserByID(transaction.UserID).Result;
+                long userId = -1;
+                if (user != null)
+                    userId = user.PermissionID;
+                if (userId == ((int)(UserLookups.Finance)) + 1)
+
+                    return await this._repository.addTransAsync(transaction);
+            }
+            return false;
         }
 
         public Task<bool> deleteTransAsync(long Id)
@@ -45,9 +57,19 @@ namespace Domain.Services
             return this._repository.getTransByReservationID(Id);
 
         }
-        public Task<bool> UpdateTransAsync(long Id, InsertFinanceTransactionVM transaction)
+        public async Task<bool> UpdateTransAsync(long Id, InsertFinanceTransactionVM transaction)
         {
-            return this._repository.UpdateTransAsync(Id,transaction);
+            if (transaction != null)
+            {
+                UserVM user = _userRepository.getUserByID(transaction.UserID).Result;
+                long userId = -1;
+                if (user != null)
+                    userId = user.PermissionID;
+                if (userId == ((int)(UserLookups.Finance)) + 1)
+
+                    return await this._repository.UpdateTransAsync(Id, transaction);
+            }
+            return false;
         }
     }
 }

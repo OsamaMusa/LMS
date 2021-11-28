@@ -30,11 +30,11 @@ namespace API.Controllers
         {
             return _service.getTransByID(id);
         }
-        [HttpDelete("{id}")]
+      /*  [HttpDelete("{id}")]
         public Task<bool> deleteUser(long id)
         {
             return _service.deleteTransAsync(id);
-        }
+        }*/
         [HttpPut("{id}")]
         public Task<bool> updateTrans(long id, InsertFinanceTransactionVM trans)
         {
