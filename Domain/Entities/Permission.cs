@@ -16,8 +16,5 @@ namespace Domain.Entities
 
         public Role role { set; get; }
 
-        public IEnumerable<Users> user { set; get; }
-
-        public IEnumerable<Customer> customer { set; get; }
     }
 }

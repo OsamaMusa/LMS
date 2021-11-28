@@ -53,15 +53,15 @@ namespace Data.Migrations
                     department = table.Column<string>(nullable: false),
                     address = table.Column<string>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    PermissionID = table.Column<long>(nullable: true)
+                    roleID = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Users_Permissions_PermissionID",
-                        column: x => x.PermissionID,
-                        principalTable: "Permissions",
+                        name: "FK_Users_Roles_roleID",
+                        column: x => x.roleID,
+                        principalTable: "Roles",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -80,17 +80,11 @@ namespace Data.Migrations
                     totalAmount = table.Column<long>(nullable: false),
                     status = table.Column<bool>(nullable: false),
                     userID = table.Column<long>(nullable: true),
-                    PermissionID = table.Column<long>(nullable: true)
+                    isBlocked = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Customers_Permissions_PermissionID",
-                        column: x => x.PermissionID,
-                        principalTable: "Permissions",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Customers_Users_userID",
                         column: x => x.userID,
@@ -224,19 +218,44 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "ID", "BirthDate", "PermissionID", "address", "department", "fullName", "phone" },
-                values: new object[] { 1L, new DateTime(2021, 11, 28, 7, 52, 35, 14, DateTimeKind.Utc).AddTicks(4886), null, "Ramallah", "IT", "Admin", "059" });
+                table: "Roles",
+                columns: new[] { "ID", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Admin Role", "Admin Role" },
+                    { 2L, "CTO Role", "CTO Role" },
+                    { 3L, "Finance Role", "Finance Role" },
+                    { 4L, "Librarian Role", "Librarian Role" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Permissions",
+                columns: new[] { "ID", "Description", "Name", "RoleID" },
+                values: new object[,]
+                {
+                    { 1L, "Admin Role", "Maintanance Users", 1L },
+                    { 2L, "Admin Role", "Show Entites Data", 1L },
+                    { 3L, "Admin Role", "Reports", 1L },
+                    { 6L, "CTO permission", "Maintanance & Data Entry", 2L },
+                    { 5L, "Finance permission", "Maintanance Finance Transactions", 3L },
+                    { 4L, "Librarian permission", "Maintanance Reservations", 4L }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "ID", "BirthDate", "PermissionID", "address", "department", "fullName", "phone" },
-                values: new object[] { 2L, new DateTime(2021, 11, 28, 7, 52, 35, 14, DateTimeKind.Utc).AddTicks(5382), null, "Ramallah", "CS", "Customer Service", "059" });
+                columns: new[] { "ID", "BirthDate", "address", "department", "fullName", "phone", "roleID" },
+                values: new object[,]
+                {
+                    { 1L, new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7150), "Ramallah", "IT", "Admin", "059", 1L },
+                    { 4L, new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7845), "Ramallah", "CS", "CTO", "059", 2L },
+                    { 3L, new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7843), "Ramallah", "CS", "Finance Service", "059", 3L },
+                    { 2L, new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7813), "Ramallah", "CS", "Customer Service", "059", 4L }
+                });
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "ID", "BirthDate", "PermissionID", "address", "fullName", "joinDate", "phone", "status", "totalAmount", "userID" },
-                values: new object[] { 1L, new DateTime(2021, 11, 28, 7, 52, 35, 15, DateTimeKind.Utc).AddTicks(1869), null, "Ramallah", "Osama", new DateTime(2021, 11, 28, 7, 52, 35, 15, DateTimeKind.Utc).AddTicks(2168), "059", true, 100L, 1L });
+                columns: new[] { "ID", "BirthDate", "address", "fullName", "isBlocked", "joinDate", "phone", "status", "totalAmount", "userID" },
+                values: new object[] { 1L, new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4176), "Ramallah", "Osama", false, new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4469), "059", true, 100L, 1L });
 
             migrationBuilder.InsertData(
                 table: "Publishers",
@@ -289,11 +308,6 @@ namespace Data.Migrations
                 column: "userID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_PermissionID",
-                table: "Customers",
-                column: "PermissionID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Customers_userID",
                 table: "Customers",
                 column: "userID");
@@ -319,15 +333,18 @@ namespace Data.Migrations
                 column: "userID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_PermissionID",
+                name: "IX_Users_roleID",
                 table: "Users",
-                column: "PermissionID");
+                column: "roleID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "FinanceTransactions");
+
+            migrationBuilder.DropTable(
+                name: "Permissions");
 
             migrationBuilder.DropTable(
                 name: "BookCustomer");
@@ -343,9 +360,6 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Permissions");
 
             migrationBuilder.DropTable(
                 name: "Roles");

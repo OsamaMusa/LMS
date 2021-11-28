@@ -30,8 +30,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(publisher.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _Repository.AddNewPublisherAsync(publisher);
             }
             return false;
@@ -45,8 +45,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(publisher.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _Repository.DeletePublisher(id);
             }
             return false;
@@ -69,8 +69,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(publisher.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _Repository.UpdatePublisher(id, publisher);
             }
             return false;

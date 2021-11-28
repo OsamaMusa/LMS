@@ -11,6 +11,8 @@ namespace Domain.Entities
         public string Description { set; get; }
 
        public  IEnumerable<Permission> permission { set; get; }
-        
+
+        public IEnumerable<Users> user { set; get; }
+
     }
 }

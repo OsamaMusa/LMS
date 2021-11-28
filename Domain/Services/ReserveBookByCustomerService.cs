@@ -63,14 +63,16 @@ namespace Domain.Services
             UserVM user = _userRepository.getUserByID(reserveBookCustomerVM.ReservedUserID).Result;
             long userId = -1;
             if (user != null)
-                userId = user.PermissionID;
-            if (userId != ((int)(UserLookups.libarian)) + 1)
+                userId = user.roleID;
+            if (userId != ((int)(UserLookups.Libarian)) + 1)
                 return "AD";
                    
 
             if (customerVM == null)
                 return "CNF";
-            if (bookM == null)
+            if (customerVM.isBlocked)
+                return "BL";
+             if (bookM == null)
                 return "BNF";
             if (bookM.Avilable <= 0)
                 return "NA";
@@ -115,8 +117,8 @@ namespace Domain.Services
             UserVM user = _userRepository.getUserByID(bookCustomer.ReturnedUserID).Result;
             long userId = -1;
             if (user != null)
-                userId = user.PermissionID;
-            if (userId != ((int)(UserLookups.libarian)) + 1)
+                userId = user.roleID;
+            if (userId != ((int)(UserLookups.Libarian)) + 1)
                 return "AD";
 
             if (customerVM == null)

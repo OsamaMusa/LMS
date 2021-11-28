@@ -8,16 +8,11 @@ namespace Domain.Enums
     {
 
         Admin,
-        MaintainEntities,
-        libarian,
+        CTO,
+        Libarian,
         Finance
 
     }
-    public enum CustomerLookups
-    {
-       
-            Reservations_are_allowed,
-            forbidden
-    }
+
     
 }

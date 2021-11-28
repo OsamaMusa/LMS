@@ -101,9 +101,6 @@ namespace Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("PermissionID")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -111,6 +108,9 @@ namespace Data.Migrations
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isBlocked")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("joinDate")
                         .HasColumnType("datetime2");
@@ -130,8 +130,6 @@ namespace Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PermissionID");
-
                     b.HasIndex("userID");
 
                     b.ToTable("Customers");
@@ -140,10 +138,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 7, 52, 35, 15, DateTimeKind.Utc).AddTicks(1869),
+                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4176),
                             address = "Ramallah",
                             fullName = "Osama",
-                            joinDate = new DateTime(2021, 11, 28, 7, 52, 35, 15, DateTimeKind.Utc).AddTicks(2168),
+                            isBlocked = false,
+                            joinDate = new DateTime(2021, 11, 28, 10, 5, 48, 231, DateTimeKind.Utc).AddTicks(4469),
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -200,6 +199,50 @@ namespace Data.Migrations
                     b.HasIndex("RoleID");
 
                     b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            Description = "Admin Role",
+                            Name = "Maintanance Users",
+                            RoleID = 1L
+                        },
+                        new
+                        {
+                            ID = 2L,
+                            Description = "Admin Role",
+                            Name = "Show Entites Data",
+                            RoleID = 1L
+                        },
+                        new
+                        {
+                            ID = 3L,
+                            Description = "Admin Role",
+                            Name = "Reports",
+                            RoleID = 1L
+                        },
+                        new
+                        {
+                            ID = 4L,
+                            Description = "Librarian permission",
+                            Name = "Maintanance Reservations",
+                            RoleID = 4L
+                        },
+                        new
+                        {
+                            ID = 5L,
+                            Description = "Finance permission",
+                            Name = "Maintanance Finance Transactions",
+                            RoleID = 3L
+                        },
+                        new
+                        {
+                            ID = 6L,
+                            Description = "CTO permission",
+                            Name = "Maintanance & Data Entry",
+                            RoleID = 2L
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Publisher", b =>
@@ -295,6 +338,32 @@ namespace Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1L,
+                            Description = "Admin Role",
+                            Name = "Admin Role"
+                        },
+                        new
+                        {
+                            ID = 2L,
+                            Description = "CTO Role",
+                            Name = "CTO Role"
+                        },
+                        new
+                        {
+                            ID = 3L,
+                            Description = "Finance Role",
+                            Name = "Finance Role"
+                        },
+                        new
+                        {
+                            ID = 4L,
+                            Description = "Librarian Role",
+                            Name = "Librarian Role"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Users", b =>
@@ -306,9 +375,6 @@ namespace Data.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<long?>("PermissionID")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -326,9 +392,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("roleID")
+                        .HasColumnType("bigint");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("PermissionID");
+                    b.HasIndex("roleID");
 
                     b.ToTable("Users");
 
@@ -336,20 +405,42 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 7, 52, 35, 14, DateTimeKind.Utc).AddTicks(4886),
+                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7150),
                             address = "Ramallah",
                             department = "IT",
                             fullName = "Admin",
-                            phone = "059"
+                            phone = "059",
+                            roleID = 1L
                         },
                         new
                         {
                             ID = 2L,
-                            BirthDate = new DateTime(2021, 11, 28, 7, 52, 35, 14, DateTimeKind.Utc).AddTicks(5382),
+                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7813),
                             address = "Ramallah",
                             department = "CS",
                             fullName = "Customer Service",
-                            phone = "059"
+                            phone = "059",
+                            roleID = 4L
+                        },
+                        new
+                        {
+                            ID = 3L,
+                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7843),
+                            address = "Ramallah",
+                            department = "CS",
+                            fullName = "Finance Service",
+                            phone = "059",
+                            roleID = 3L
+                        },
+                        new
+                        {
+                            ID = 4L,
+                            BirthDate = new DateTime(2021, 11, 28, 10, 5, 48, 230, DateTimeKind.Utc).AddTicks(7845),
+                            address = "Ramallah",
+                            department = "CS",
+                            fullName = "CTO",
+                            phone = "059",
+                            roleID = 2L
                         });
                 });
 
@@ -368,10 +459,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
-                    b.HasOne("Domain.Entities.Permission", "permission")
-                        .WithMany("customer")
-                        .HasForeignKey("PermissionID");
-
                     b.HasOne("Domain.Entities.Users", "User")
                         .WithMany()
                         .HasForeignKey("userID");
@@ -423,9 +510,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Users", b =>
                 {
-                    b.HasOne("Domain.Entities.Permission", "permission")
+                    b.HasOne("Domain.Entities.Role", "role")
                         .WithMany("user")
-                        .HasForeignKey("PermissionID");
+                        .HasForeignKey("roleID");
                 });
 #pragma warning restore 612, 618
         }

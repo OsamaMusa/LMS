@@ -32,9 +32,9 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(book.userID).Result;
                 long userId=-1;
                 if (user!=null)
-                     userId = user.PermissionID;
+                     userId = user.roleID;
 
-                if (userId == ((int)(UserLookups.MaintainEntities)) +1)
+                if (userId == ((int)(UserLookups.CTO)) +1)
                     return await _repo.addBookAsync(book);
 
             }
@@ -67,8 +67,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(book.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)))
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)))
                 {
                     if (book.TotalNum > 0 && book.Avilable > 0)
                     {
@@ -89,8 +89,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(book.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)))
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)))
                 {
                     return _repo.UpdateBookAsync(book);
                 }

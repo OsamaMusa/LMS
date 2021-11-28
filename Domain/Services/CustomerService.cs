@@ -30,8 +30,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(customer.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _customerRepository.addCustomerAsync(customer);
             }
             return false;
@@ -46,8 +46,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(customer.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _customerRepository.deleteCustomerByID(ID);
             }
             return false;
@@ -71,8 +71,8 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(customer.userID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
-                if (userId == ((int)(UserLookups.MaintainEntities)) + 1)
+                    userId = user.roleID;
+                if (userId == ((int)(UserLookups.CTO)) + 1)
                     return await _customerRepository.updateCustomerByID(ID, customer);
             }
             return false;

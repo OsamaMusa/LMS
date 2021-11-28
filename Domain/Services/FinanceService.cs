@@ -27,7 +27,7 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(transaction.UserID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
+                    userId = user.roleID;
                 if (userId == ((int)(UserLookups.Finance)) + 1)
 
                     return await this._repository.addTransAsync(transaction);
@@ -64,7 +64,7 @@ namespace Domain.Services
                 UserVM user = _userRepository.getUserByID(transaction.UserID).Result;
                 long userId = -1;
                 if (user != null)
-                    userId = user.PermissionID;
+                    userId = user.roleID;
                 if (userId == ((int)(UserLookups.Finance)) + 1)
 
                     return await this._repository.UpdateTransAsync(Id, transaction);

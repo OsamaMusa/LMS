@@ -54,6 +54,8 @@ namespace API.Controllers
                 return NotFound("Book Not Found");
             else if (res.CompareTo("CNF") == 0)
                 return NotFound("Customer Not Found");
+            else if (res.CompareTo("BL") == 0)
+                return BadRequest("Customer Was Blocked");
             else
                 return Ok("Reserved");
 
