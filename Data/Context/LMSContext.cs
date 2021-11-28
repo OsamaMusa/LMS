@@ -21,6 +21,9 @@ namespace Data.Context
         public DbSet<ReserveBookByCustomer> BookCustomer { get; set; }
         public DbSet<FinanceTransactions> FinanceTransactions { get; set; }
 
+        public DbSet<Role> Roles { set; get; }
+
+        public DbSet<Permission> Permissions { set; get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
           

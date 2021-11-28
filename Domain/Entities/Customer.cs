@@ -24,5 +24,9 @@ namespace Domain.Entities
         [ForeignKey("User")]
         public long? userID { get; set; }   
         public Users User { get; set; }
+        [ForeignKey("permission")]
+        public long PermissionID { set; get; }
+
+        public Permission permission { set; get; }
     }
 }

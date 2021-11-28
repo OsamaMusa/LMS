@@ -19,6 +19,11 @@ namespace Domain.Entities
         [Required]
         public string address { get; set; }
         public DateTime BirthDate { get; set; }
-       
+
+        [ForeignKey("permission")]
+        public long PermissionID { set; get; }
+
+        public Permission permission { set; get; }
+
     }
 }
