@@ -47,7 +47,8 @@ namespace Data.Repositories
         }
         public async Task<bool> deleteBookCustomerByID(long ID)
         {
-            ReserveBookByCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
+            //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == ID).FirstOrDefault();
             if (item != null)
             {
                 _context.BookCustomer.Remove(item);
@@ -57,10 +58,11 @@ namespace Data.Repositories
             return false;
 
         }
-        
 
-        private IQueryable<ReserveBookByCustomer> GetExistingBookCustomer(long ID) =>
-         _context.BookCustomer.Where(r => r.ID == ID).AsNoTracking();
+
+
+    /*    private IQueryable<ReserveBookByCustomer> GetExistingBookCustomer(long ID) =>
+         _context.BookCustomer.Where(r => r.ID == ID).AsNoTracking();*/
 
         private IQueryable<ReserveBookByCustomer> GetExistingBookCustomer_B_C_ID(long CID, long BID) =>
        _context.BookCustomer.Where(r => r.BookId == BID && r.CustomerId == CID).AsNoTracking();
@@ -77,41 +79,33 @@ namespace Data.Repositories
                     e => e.ReturnedUser
                     ).ToList());
 
-               /* _context.BookCustomer
-                .Include(e => e.Book)
-                .Include(e => e.Customer)
-                 .Include(e => e.ReservedUser)
-                .Include(e => e.ReturnedUser)
-                .ToList()); */
-        }
+            /* _context.BookCustomer
+             .Include(e => e.Book)
+             .Include(e => e.Customer)
+              .Include(e => e.ReservedUser)
+             .Include(e => e.ReturnedUser)
+             .ToList());*/
+     }
+    private IQueryable<ReserveBookByCustomer> GetExistingReserve(
+         Expression<Func<ReserveBookByCustomer, bool >> filterExpressions ,
+         params Expression<Func<ReserveBookByCustomer, object>>[] includeExpressions )
 
-        private IQueryable<ReserveBookByCustomer> GetExistingReserve(
-            Expression<Func<ReserveBookByCustomer, bool >> filterExpressions ,
-            params Expression<Func<ReserveBookByCustomer, object>>[] includeExpressions )
-
-        {
-            return includeExpressions
-                          .Aggregate<Expression<Func<ReserveBookByCustomer, object>>, IQueryable<ReserveBookByCustomer>>
-                      (_context.BookCustomer, (current, expression) => current.Include(expression)).Where(filterExpressions).AsNoTracking();
-        }
-
-        public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
-        {
-            return _mapper.Map<ReserveBookByCustomerDetailsVM>(
+     {
+         return includeExpressions
+                       .Aggregate<Expression<Func<ReserveBookByCustomer, object>>, IQueryable<ReserveBookByCustomer>>
+                   (_context.BookCustomer, (current, expression) => current.Include(expression)).Where(filterExpressions).AsNoTracking();
+     }
+     public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
+     {
+           return _mapper.Map<ReserveBookByCustomerDetailsVM>(
                  GetExistingReserve(
                     e=> true,
                     e => e.Book,
                     e => e.Customer,
                     e => e.ReservedUser,
                     e => e.ReturnedUser
-                    ).FirstOrDefault());
-
-               /* GetExistingBookCustomer(ID)
-                .Include(e => e.Book)
-                .Include(e => e.Customer)
-                .Include(e => e.ReservedUser)
-                .Include(e => e.ReturnedUser)
-                .FirstOrDefault());*/
+                    ).FirstOrDefault()); 
+       
         }
         public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
@@ -124,7 +118,8 @@ namespace Data.Repositories
 
         public async Task<bool> updateBookCustomerByID(long ID, ReserveBookByCustomerVM bookCustomer)
         {
-            ReserveBookByCustomer item = GetExistingBookCustomer(ID).FirstOrDefault();
+            //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == bookCustomer.ID).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
@@ -144,8 +139,10 @@ namespace Data.Repositories
         }
 
         public async Task<bool> returnBookCustomer(returnBookCustomerVM bookCustomer)
-        {          
-            ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+        {
+            //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == bookCustomer.ID).FirstOrDefault();
+
             if (item != null)
             {
                 item = _mapper.Map(bookCustomer,item);
@@ -155,6 +152,7 @@ namespace Data.Repositories
             }
             return false;
         }
+
 
     }
 }
