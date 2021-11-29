@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace Data.Repositories
 
         public async Task<bool> deleteCustomerByID(long ID)
         {
-            Customer item = GetExistingCustomer(ID).FirstOrDefault();
+            Customer item = GetExistingCustomer(e => e.ID == ID).FirstOrDefault();
             if (item != null) {
                  _context.Customers.Remove(item);
                 await _context.SaveChangesAsync();
@@ -44,8 +45,17 @@ namespace Data.Repositories
             
         }
 
-        private IQueryable<Customer> GetExistingCustomer(long ID) =>
-         _context.Customers.Where(r => r.ID == ID).AsNoTracking();
+/*        private IQueryable<Customer> GetExistingCustomer(long ID) =>
+         _context.Customers.Where(r => r.ID == ID).AsNoTracking();*/
+        private IQueryable<Customer> GetExistingCustomer(
+          Expression<Func<Customer, bool>> filterExpressions,
+          params Expression<Func<Customer, object>>[] includeExpressions)
+
+        {
+            return includeExpressions
+                          .Aggregate<Expression<Func<Customer, object>>, IQueryable<Customer>>
+                      (_context.Customers, (current, expression) => current.Include(expression)).Where(filterExpressions).AsNoTracking();
+        }
 
         public async Task<IEnumerable<CustomerVM>> getAllCustomers()
         {
@@ -54,13 +64,13 @@ namespace Data.Repositories
 
         public async Task<CustomerVM> getCustomerByID(long ID)
         {
-            return _mapper.Map<CustomerVM>(GetExistingCustomer(ID).FirstOrDefault());
+            return _mapper.Map<CustomerVM>(GetExistingCustomer(e=>e.ID==ID).FirstOrDefault());
         }
 
         public async Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
 
-            Customer item = GetExistingCustomer(ID).FirstOrDefault();
+            Customer item = GetExistingCustomer(e => e.ID == ID).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map<Customer>(customer);
