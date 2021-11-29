@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,22 +68,46 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<ReserveBookByCustomerDetailsVM>> getAllBookCustomers()
         {
-            return _mapper.Map<IEnumerable<ReserveBookByCustomerDetailsVM>>(_context.BookCustomer
-                .Include(e=>e.Book)
+            return _mapper.Map<IEnumerable<ReserveBookByCustomerDetailsVM>>(
+                GetExistingReserve(
+                    e => e.Book,
+                    e => e.Customer,
+                    e => e.ReservedUser,
+                    e => e.ReturnedUser
+                    ).ToList());
+
+               /* _context.BookCustomer
+                .Include(e => e.Book)
                 .Include(e => e.Customer)
                  .Include(e => e.ReservedUser)
                 .Include(e => e.ReturnedUser)
-                .ToList());
+                .ToList()); */
+        }
+
+        private IQueryable<ReserveBookByCustomer> GetExistingReserve(params Expression<Func<ReserveBookByCustomer, object>>[] includeExpressions )
+        {
+
+            return includeExpressions
+                          .Aggregate<Expression<Func<ReserveBookByCustomer, object>>, IQueryable<ReserveBookByCustomer>>
+                      (_context.BookCustomer, (current, expression) => current.Include(expression));
         }
 
         public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
         {
-            return _mapper.Map<ReserveBookByCustomerDetailsVM>(GetExistingBookCustomer(ID)
+            return _mapper.Map<ReserveBookByCustomerDetailsVM>(
+                 GetExistingReserve(
+                    e => e.Book,
+                    e => e.Customer,
+                    e => e.ReservedUser,
+                    e => e.ReturnedUser
+                    ).FirstOrDefault());
+
+               /* GetExistingBookCustomer(ID)
                 .Include(e => e.Book)
                 .Include(e => e.Customer)
                 .Include(e => e.ReservedUser)
                 .Include(e => e.ReturnedUser)
-                .FirstOrDefault());
+                .FirstOrDefault());*/
         }
         public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerBy_C_B_ID(long CID,long BID)
         {
