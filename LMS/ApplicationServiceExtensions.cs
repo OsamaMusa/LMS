@@ -34,6 +34,14 @@ namespace API
             services.AddScoped<IFinanceRepository, FinanceRepository>();
             services.AddScoped<IFinanceService, FinanceService>();
 
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IPermissionService, PermissionService>();
+
+            services.AddScoped<IAuthService,AuthService>();
+
 
             return services;
 
