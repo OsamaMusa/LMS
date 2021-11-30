@@ -29,6 +29,10 @@ namespace LMS
 
             CreateMap<FinanceTransactionsVM, FinanceTransactions>().ReverseMap();
 
+            CreateMap<RoleVM, Role>().ReverseMap();
+
+            CreateMap<PermissionVM, Permission>().ReverseMap();
+
         }
     }
 }
