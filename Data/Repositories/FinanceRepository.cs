@@ -33,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<bool> deleteTransAsync(long Id)
         {
-            FinanceTransactions item = GetExistingTrans(e=>e.ID==Id).FirstOrDefault();
+            FinanceTransactions item = Get(e=>e.ID==Id).FirstOrDefault();
             if (item != null)
             {
                 _context.FinanceTransactions.Remove(item);
@@ -44,7 +44,7 @@ namespace Data.Repositories
         }
         /*    private IQueryable<FinanceTransactions> GetExistingTrans(long ID) =>
                    _context.FinanceTransactions.Where(r => r.ID == ID).AsNoTracking();*/
-        private IQueryable<FinanceTransactions> GetExistingTrans(
+        private IQueryable<FinanceTransactions> Get(
          Expression<Func<FinanceTransactions, bool>> filterExpressions,
          params Expression<Func<FinanceTransactions, object>>[] includeExpressions)
 
@@ -57,7 +57,7 @@ namespace Data.Repositories
         public async Task<IEnumerable<FinanceTransactionsVM>> getAllTrans()
         {
             return _mapper.Map<IEnumerable<FinanceTransactionsVM>>(
-                GetExistingTrans(
+                Get(
                     e => true,
                     e => e.Reserve.Book,
                     e => e.Reserve.Customer,
@@ -79,7 +79,7 @@ namespace Data.Repositories
         public async Task<FinanceTransactionsVM> getTransByReservationID(long Id)
         {
             return _mapper.Map<FinanceTransactionsVM>(
-                   GetExistingTrans(
+                   Get(
                     e => e.ReserveID == Id,
                     e => e.Reserve.Book,
                     e => e.Reserve.Customer,
@@ -99,7 +99,7 @@ namespace Data.Repositories
             public async Task<FinanceTransactionsVM> getTransByID(long Id)
         {
             return _mapper.Map<FinanceTransactionsVM>(
-                 GetExistingTrans(
+                 Get(
                     e => e.ID == Id,
                     e => e.Reserve.Book,
                     e => e.Reserve.Customer,
@@ -120,7 +120,7 @@ namespace Data.Repositories
         public async Task<bool> UpdateTransAsync(long Id, InsertFinanceTransactionVM transaction)
         {
 
-            FinanceTransactions item = GetExistingTrans(e => e.ID == Id).FirstOrDefault();
+            FinanceTransactions item = Get(e => e.ID == Id).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map(transaction,item);

@@ -48,7 +48,7 @@ namespace Data.Repositories
         public async Task<bool> deleteBookCustomerByID(long ID)
         {
             //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
-            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == ID).FirstOrDefault();
+            ReserveBookByCustomer item = Get(e => e.ID == ID).FirstOrDefault();
             if (item != null)
             {
                 _context.BookCustomer.Remove(item);
@@ -71,7 +71,7 @@ namespace Data.Repositories
         public async Task<IEnumerable<ReserveBookByCustomerDetailsVM>> getAllBookCustomers()
         {
             return _mapper.Map<IEnumerable<ReserveBookByCustomerDetailsVM>>(
-                GetExistingReserve(
+                Get(
                     e => true,
                     e => e.Book,
                     e => e.Customer,
@@ -86,7 +86,7 @@ namespace Data.Repositories
              .Include(e => e.ReturnedUser)
              .ToList());*/
      }
-    private IQueryable<ReserveBookByCustomer> GetExistingReserve(
+    private IQueryable<ReserveBookByCustomer> Get(
          Expression<Func<ReserveBookByCustomer, bool >> filterExpressions ,
          params Expression<Func<ReserveBookByCustomer, object>>[] includeExpressions )
 
@@ -98,7 +98,7 @@ namespace Data.Repositories
      public async Task<ReserveBookByCustomerDetailsVM> getBookCustomerByID(long ID)
      {
            return _mapper.Map<ReserveBookByCustomerDetailsVM>(
-                 GetExistingReserve(
+                 Get(
                     e=> true,
                     e => e.Book,
                     e => e.Customer,
@@ -119,7 +119,7 @@ namespace Data.Repositories
         public async Task<bool> updateBookCustomerByID(long ID, ReserveBookByCustomerVM bookCustomer)
         {
             //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
-            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = Get(e => e.ID == bookCustomer.ID).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map<ReserveBookByCustomer>(bookCustomer);
@@ -141,7 +141,7 @@ namespace Data.Repositories
         public async Task<bool> returnBookCustomer(returnBookCustomerVM bookCustomer)
         {
             //ReserveBookByCustomer item = GetExistingBookCustomer(bookCustomer.ID).FirstOrDefault();
-            ReserveBookByCustomer item = GetExistingReserve(e => e.ID == bookCustomer.ID).FirstOrDefault();
+            ReserveBookByCustomer item = Get(e => e.ID == bookCustomer.ID).FirstOrDefault();
 
             if (item != null)
             {

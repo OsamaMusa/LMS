@@ -33,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<bool> deleteUserAsync(long Id)
         {
-            Users item = GetExistingUser(e => e.ID == Id).FirstOrDefault();
+            Users item = Get(e => e.ID == Id).FirstOrDefault();
             if (item != null)
             {
                 _context.Users.Remove(item);
@@ -45,7 +45,7 @@ namespace Data.Repositories
         /*        private IQueryable<Users> GetExistingUser(long ID) =>
                           _context.Users.Where(r => r.ID == ID).AsNoTracking();*/
 
-        private IQueryable<Users> GetExistingUser(
+        private IQueryable<Users> Get(
            Expression<Func<Users, bool>> filterExpressions,
            params Expression<Func<Users, object>>[] includeExpressions)
 
@@ -62,13 +62,13 @@ namespace Data.Repositories
 
         public async Task<UserVM> getUserByID(long Id)
         {
-            return _mapper.Map<UserVM>(GetExistingUser( e=>e.ID == Id).FirstOrDefault());
+            return _mapper.Map<UserVM>(Get( e=>e.ID == Id).FirstOrDefault());
         }
 
         public async Task<bool> UpdateUserAsync(long Id, UserVM user)
         {
 
-            Users item = GetExistingUser(e => e.ID == Id).FirstOrDefault();
+            Users item = Get(e => e.ID == Id).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map<Users>(user);

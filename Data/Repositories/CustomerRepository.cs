@@ -35,7 +35,7 @@ namespace Data.Repositories
 
         public async Task<bool> deleteCustomerByID(long ID)
         {
-            Customer item = GetExistingCustomer(e => e.ID == ID).FirstOrDefault();
+            Customer item = Get(e => e.ID == ID).FirstOrDefault();
             if (item != null) {
                  _context.Customers.Remove(item);
                 await _context.SaveChangesAsync();
@@ -47,7 +47,7 @@ namespace Data.Repositories
 
 /*        private IQueryable<Customer> GetExistingCustomer(long ID) =>
          _context.Customers.Where(r => r.ID == ID).AsNoTracking();*/
-        private IQueryable<Customer> GetExistingCustomer(
+        private IQueryable<Customer> Get(
           Expression<Func<Customer, bool>> filterExpressions,
           params Expression<Func<Customer, object>>[] includeExpressions)
 
@@ -64,13 +64,13 @@ namespace Data.Repositories
 
         public async Task<CustomerVM> getCustomerByID(long ID)
         {
-            return _mapper.Map<CustomerVM>(GetExistingCustomer(e=>e.ID==ID).FirstOrDefault());
+            return _mapper.Map<CustomerVM>(Get(e=>e.ID==ID).FirstOrDefault());
         }
 
         public async Task<bool> updateCustomerByID(long ID, CustomerVM customer)
         {
 
-            Customer item = GetExistingCustomer(e => e.ID == ID).FirstOrDefault();
+            Customer item = Get(e => e.ID == ID).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map<Customer>(customer);
