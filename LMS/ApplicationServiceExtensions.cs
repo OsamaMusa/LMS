@@ -1,4 +1,5 @@
-﻿using Data.Repositories;
+﻿using API.Authentications;
+using Data.Repositories;
 using Domain.IRepositories;
 using Domain.IServices;
 using Domain.Services;
@@ -33,6 +34,7 @@ namespace API
 
             services.AddScoped<IFinanceRepository, FinanceRepository>();
             services.AddScoped<IFinanceService, FinanceService>();
+
 
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IRoleRepository, RoleRepository>();

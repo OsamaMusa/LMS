@@ -39,8 +39,8 @@ namespace libraryAPI.Test
 
             _repo = new CustomerRepository(context,_mapper);
             financeRepository = new FinanceRepository(context, _mapper);
-
-            _service = new CustomerService(_repo);
+            IUserRepository userRepository = new UserRepository(context, _mapper);
+            _service = new CustomerService(_repo,userRepository);
             _controller = new CustomerController(_service);
 
         }

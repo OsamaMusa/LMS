@@ -1,5 +1,6 @@
 ﻿using Domain.IServices;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FinanceTransactionsController : ControllerBase
@@ -30,11 +32,11 @@ namespace API.Controllers
         {
             return _service.getTransByID(id);
         }
-        [HttpDelete("{id}")]
+      /*  [HttpDelete("{id}")]
         public Task<bool> deleteUser(long id)
         {
             return _service.deleteTransAsync(id);
-        }
+        }*/
         [HttpPut("{id}")]
         public Task<bool> updateTrans(long id, InsertFinanceTransactionVM trans)
         {

@@ -5,8 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.IServices;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PublisherController: Controller

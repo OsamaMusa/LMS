@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<bool> deleteTransAsync(long Id)
         {
-            FinanceTransactions item = GetExistingTrans(Id).FirstOrDefault();
+            FinanceTransactions item = GetExistingTrans(e=>e.ID==Id).FirstOrDefault();
             if (item != null)
             {
                 _context.FinanceTransactions.Remove(item);
@@ -41,50 +42,85 @@ namespace Data.Repositories
             }
             return false;
         }
-        private IQueryable<FinanceTransactions> GetExistingTrans(long ID) =>
-               _context.FinanceTransactions.Where(r => r.ID == ID).AsNoTracking();
+        /*    private IQueryable<FinanceTransactions> GetExistingTrans(long ID) =>
+                   _context.FinanceTransactions.Where(r => r.ID == ID).AsNoTracking();*/
+        private IQueryable<FinanceTransactions> GetExistingTrans(
+         Expression<Func<FinanceTransactions, bool>> filterExpressions,
+         params Expression<Func<FinanceTransactions, object>>[] includeExpressions)
+
+        {
+            return includeExpressions
+                          .Aggregate<Expression<Func<FinanceTransactions, object>>, IQueryable<FinanceTransactions>>
+                      (_context.FinanceTransactions, (current, expression) => current.Include(expression)).Where(filterExpressions).AsNoTracking();
+        }
 
         public async Task<IEnumerable<FinanceTransactionsVM>> getAllTrans()
         {
             return _mapper.Map<IEnumerable<FinanceTransactionsVM>>(
-                _context.FinanceTransactions
+                GetExistingTrans(
+                    e => true,
+                    e => e.Reserve.Book,
+                    e => e.Reserve.Customer,
+                    e => e.Reserve.ReservedUser,
+                    e => e.Reserve.ReturnedUser,
+                    e => e.User
+                    ).ToList());
+
+               /* _context.FinanceTransactions
                 .Include(e => e.Reserve).ThenInclude(e=>e.Book)
                 .Include(e => e.Reserve).ThenInclude(e => e.Customer)
                 .Include(e => e.Reserve).ThenInclude(e => e.ReservedUser)
                 .Include(e => e.Reserve).ThenInclude(e => e.ReturnedUser)
                 .Include(e => e.User)
                 .ToList()
-                );
+                );*/
         }
         
         public async Task<FinanceTransactionsVM> getTransByReservationID(long Id)
         {
             return _mapper.Map<FinanceTransactionsVM>(
-               _context.FinanceTransactions.Where(r => r.ReserveID == Id)
-               .Include(e => e.Reserve).ThenInclude(e => e.Book)
-               .Include(e => e.Reserve).ThenInclude(e => e.Customer)
-               .Include(e => e.Reserve).ThenInclude(e => e.ReservedUser)
-               .Include(e => e.Reserve).ThenInclude(e => e.ReturnedUser)
-               .Include(e => e.User)
-               .AsNoTracking()
-               .FirstOrDefault());
+                   GetExistingTrans(
+                    e => e.ReserveID == Id,
+                    e => e.Reserve.Book,
+                    e => e.Reserve.Customer,
+                    e => e.Reserve.ReservedUser,
+                    e => e.Reserve.ReturnedUser,
+                    e => e.User
+                    ).FirstOrDefault());
+            /* _context.FinanceTransactions.Where(r => r.ReserveID == Id)
+             .Include(e => e.Reserve).ThenInclude(e => e.Book)
+             .Include(e => e.Reserve).ThenInclude(e => e.Customer)
+             .Include(e => e.Reserve).ThenInclude(e => e.ReservedUser)
+             .Include(e => e.Reserve).ThenInclude(e => e.ReturnedUser)
+             .Include(e => e.User)
+             .AsNoTracking()
+             .FirstOrDefault());*/
         }
             public async Task<FinanceTransactionsVM> getTransByID(long Id)
         {
             return _mapper.Map<FinanceTransactionsVM>(
-                GetExistingTrans(Id)
+                 GetExistingTrans(
+                    e => e.ID == Id,
+                    e => e.Reserve.Book,
+                    e => e.Reserve.Customer,
+                    e => e.Reserve.ReservedUser,
+                    e => e.Reserve.ReturnedUser,
+                    e => e.User
+                    ).FirstOrDefault());
+
+                /*GetExistingTrans(Id)
                 .Include(e => e.Reserve).ThenInclude(e => e.Book)
                 .Include(e => e.Reserve).ThenInclude(e => e.Customer)
                 .Include(e => e.Reserve).ThenInclude(e => e.ReservedUser)
                 .Include(e => e.Reserve).ThenInclude(e => e.ReturnedUser)
                 .Include(e => e.User)
-                .FirstOrDefault());
+                .FirstOrDefault());*/
         }
 
         public async Task<bool> UpdateTransAsync(long Id, InsertFinanceTransactionVM transaction)
         {
 
-            FinanceTransactions item = GetExistingTrans(Id).FirstOrDefault();
+            FinanceTransactions item = GetExistingTrans(e => e.ID == Id).FirstOrDefault();
             if (item != null)
             {
                 item = _mapper.Map(transaction,item);

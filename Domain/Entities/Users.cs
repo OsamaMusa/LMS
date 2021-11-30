@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain.Entities
@@ -21,9 +22,10 @@ namespace Domain.Entities
         public DateTime BirthDate { get; set; }
 
         [ForeignKey("permission")]
-        public long PermissionID { set; get; }
+        public long? roleID { set; get; }
+        public Role role { set; get; }
+        public string password { get; set; }
 
-        public Permission permission { set; get; }
 
     }
 }
