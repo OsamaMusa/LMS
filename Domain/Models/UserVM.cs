@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,5 +20,6 @@ namespace Domain.Models
         public long roleID { set; get; }
         public string password { get; set; }
 
+      
     }
 }

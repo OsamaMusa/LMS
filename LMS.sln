@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "LMS\API.csproj", "{A221CB42-16C4-4DBC-93F9-0C733663F94E}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{C9CF9ADA-5C23-47B6-87E0-4584E108B0F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryAPI.Test", "libraryAPI.Test\libraryAPI.Test.csproj", "{CB0291D7-822C-4238-8271-F85C3EADC513}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryAPI.Test", "libraryAPI.Test\libraryAPI.Test.csproj", "{CB0291D7-822C-4238-8271-F85C3EADC513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject-LMS", "TestProject-LMS\TestProject-LMS.csproj", "{130F4E56-FC83-4FAD-883B-B6B7FF0DBFD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CB0291D7-822C-4238-8271-F85C3EADC513}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB0291D7-822C-4238-8271-F85C3EADC513}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0291D7-822C-4238-8271-F85C3EADC513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{130F4E56-FC83-4FAD-883B-B6B7FF0DBFD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{130F4E56-FC83-4FAD-883B-B6B7FF0DBFD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{130F4E56-FC83-4FAD-883B-B6B7FF0DBFD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{130F4E56-FC83-4FAD-883B-B6B7FF0DBFD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
