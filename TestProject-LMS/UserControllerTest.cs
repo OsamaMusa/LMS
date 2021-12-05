@@ -17,7 +17,7 @@ namespace TestProject_LMS
             MockUserService = new Mock<IUserService>();
         }
         [Fact]
-        public void GetUserByID_UserObject_UserExist()
+        public void UserController_GetUserByID_UserExist()
         {
             //Arrange 
            
@@ -37,7 +37,7 @@ namespace TestProject_LMS
         }
 
         [Fact]
-        public void GetUserByID_UserObject_UserNotExist()
+        public void UserController_GetUserByID_UserNotExist()
         {
 
             //Arrange 
