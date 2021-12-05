@@ -1,4 +1,4 @@
-﻿using API.Authentications;
+﻿ using API.Authentications;
 using AutoMapper;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -27,13 +27,13 @@ namespace API.Controllers
             }
 
 
-            // POST: api/Cars
-            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-            [AllowAnonymous]
-            [HttpGet]
-            public IActionResult SignIn(String userName, String password)
+        // POST: api/Cars
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [AllowAnonymous]
+        [HttpPost("/Auth")]
+        public IActionResult SignIn( SignInUserVM userVM)
             {
-                var result = _services.Authentication(userName, password);
+                var result = _services.Authentication(userVM.userName, userVM.password);
                 if (result != null)
                     return Ok(result);
                 return NotFound();
@@ -41,7 +41,7 @@ namespace API.Controllers
             }
 
             [AllowAnonymous]
-            [HttpPost]
+            [HttpPost("/sign-up")]
             public IActionResult SignUp(UserVM user)
             {
                 var result = _services.registerUserAsync(user);

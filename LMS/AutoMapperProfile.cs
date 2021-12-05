@@ -33,6 +33,8 @@ namespace LMS
 
             CreateMap<PermissionVM, Permission>().ReverseMap();
 
+            CreateMap<SignInUserVM, Users>().ReverseMap();
+
         }
     }
 }

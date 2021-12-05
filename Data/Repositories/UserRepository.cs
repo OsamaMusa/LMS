@@ -43,7 +43,8 @@ namespace Data.Repositories
             return false;
         }
         /*        private IQueryable<Users> GetExistingUser(long ID) =>
-                          _context.Users.Where(r => r.ID == ID).AsNoTracking();*/
+                          _context.Users.Where(r => r.ID == ID).AsNoTracking();
+        */
 
         private IQueryable<Users> Get(
            Expression<Func<Users, bool>> filterExpressions,
