@@ -27,10 +27,15 @@ namespace API.Controllers
         {     
             return _service.getAllUsers();
         }
-        [HttpGet("{id}")]
+     /*   [HttpGet("{id}")]
         public Task<UserVM> getUser(long id)
         {
             return _service.getUserByID(id);
+        }*/
+        [HttpGet("{username}")]
+        public Task<UserVM> getUserByUserName(string username)
+        {
+            return _service.getUserByUserName(username);
         }
         [HttpDelete("{id}")]
         public Task<bool> deleteUser(long id)

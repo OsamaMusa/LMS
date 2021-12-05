@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace TestProject_LMS
-{
+{6
     public class UserControllerTest
     {
         private readonly Mock<IUserService> MockUserService;

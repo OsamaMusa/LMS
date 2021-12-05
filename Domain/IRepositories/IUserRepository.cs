@@ -13,5 +13,6 @@ namespace Domain.IRepositories
         public Task<bool> deleteUserAsync(long Id);
         public Task<bool> addUserAsync(UserVM user);
         public Task<bool> UpdateUserAsync(long Id , UserVM user);
+        public Task<UserVM> getUserByUserName(string username);
     }
 }

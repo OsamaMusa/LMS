@@ -35,13 +35,20 @@ namespace Domain.Services
                 return _userRepository.getAllUsers();
             }
 
-            public Task<UserVM> getUserByID(long ID)
-            {
-                return _userRepository.getUserByID(ID);
-            }
+        public Task<UserVM> getUserByID(long ID)
+        {
+            return _userRepository.getUserByID(ID);
+        }
 
 
-            public  Task<bool> updateUserByID(long ID, UserVM user)
+
+        public Task<UserVM> getUserByUserName(string username)
+        {
+            return _userRepository.getUserByUserName(username);
+        }
+
+
+        public  Task<bool> updateUserByID(long ID, UserVM user)
             {
       
                 return  _userRepository.UpdateUserAsync(ID, user);
