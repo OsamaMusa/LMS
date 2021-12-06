@@ -32,6 +32,15 @@ namespace API.Controllers
         {
             return _service.getUserByID(id);
         }*/
+        [AllowAnonymous]
+        [HttpGet("check-username/{username}")]
+        public async Task<bool> checkUserName(string username)
+        {
+            var user = _service.getUserByUserName(username);
+            if( user.Result != null)
+                return true;
+            return false;
+        }
         [HttpGet("{username}")]
         public Task<UserVM> getUserByUserName(string username)
         {
@@ -47,6 +56,7 @@ namespace API.Controllers
         {
             return _service.updateUserByID(id, user);
         }
+        [AllowAnonymous]
         [HttpPost]
         public Task<bool> addUser(UserVM user)
         {

@@ -20,10 +20,19 @@ namespace Domain.Services
             }
            public Task<bool> addUser(UserVM user)
            {
+            user.password = encreptPassword(user.password);
             return _userRepository.addUserAsync(user);
            }
 
-            public  Task<bool> deleteUserByID(long ID)
+         private string encreptPassword(string password)
+         {
+            if (String.IsNullOrEmpty(password)) return "";
+            password += "this is my custom Secret key for authnetication";
+            var result = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(result);
+        }
+
+        public  Task<bool> deleteUserByID(long ID)
             {
            
                     return   _userRepository.deleteUserAsync(ID);
