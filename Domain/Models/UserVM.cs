@@ -8,7 +8,7 @@ namespace Domain.Models
     public class UserVM :BaseVM
     {
        
-        public string fullName { get; set; }
+        public string username { get; set; }
        
         public string phone { get; set; }
         

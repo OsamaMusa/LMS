@@ -48,7 +48,7 @@ namespace Data.Migrations
                 {
                     ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    fullName = table.Column<string>(nullable: false),
+                    username = table.Column<string>(nullable: false),
                     phone = table.Column<string>(nullable: false),
                     department = table.Column<string>(nullable: false),
                     address = table.Column<string>(nullable: false),
@@ -244,19 +244,19 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "ID", "BirthDate", "address", "department", "fullName", "password", "phone", "roleID" },
+                columns: new[] { "ID", "BirthDate", "address", "department", "password", "phone", "roleID", "username" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(2068), "Ramallah", "IT", "Admin", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 1L },
-                    { 4L, new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4552), "Ramallah", "CS", "CTO", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 2L },
-                    { 3L, new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4547), "Ramallah", "CS", "Finance Service", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 3L },
-                    { 2L, new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4492), "Ramallah", "CS", "Customer Service", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 4L }
+                    { 1L, new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(6490), "Ramallah", "IT", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 1L, "Admin" },
+                    { 4L, new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8559), "Ramallah", "CS", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 2L, "CTO" },
+                    { 3L, new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8554), "Ramallah", "CS", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 3L, "Finance Service" },
+                    { 2L, new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8500), "Ramallah", "CS", "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=", "059", 4L, "Customer Service" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "ID", "BirthDate", "address", "fullName", "isBlocked", "joinDate", "phone", "status", "totalAmount", "userID" },
-                values: new object[] { 1L, new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1021), "Ramallah", "Osama", false, new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1301), "059", true, 100L, 1L });
+                values: new object[] { 1L, new DateTime(2021, 12, 6, 9, 18, 12, 854, DateTimeKind.Utc).AddTicks(5102), "Ramallah", "Osama", false, new DateTime(2021, 12, 6, 9, 18, 12, 854, DateTimeKind.Utc).AddTicks(5385), "059", true, 100L, 1L });
 
             migrationBuilder.InsertData(
                 table: "Publishers",

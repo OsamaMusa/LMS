@@ -12,7 +12,7 @@ namespace Domain.Entities
 
 
         [Required]
-        public string fullName { get; set; }
+        public string username { get; set; }
         [Required]
         public string phone { get; set; }
         [Required]

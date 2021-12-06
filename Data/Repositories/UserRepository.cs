@@ -67,7 +67,7 @@ namespace Data.Repositories
         }
         public async Task<UserVM> getUserByUserName(string username)
         {
-            return _mapper.Map<UserVM>(Get(e => e.fullName == username).FirstOrDefault());
+            return _mapper.Map<UserVM>(Get(e => e.username == username).FirstOrDefault());
         }
 
         public async Task<bool> UpdateUserAsync(long Id, UserVM user)

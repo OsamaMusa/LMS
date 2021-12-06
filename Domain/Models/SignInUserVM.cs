@@ -6,7 +6,7 @@ namespace Domain.Models
 {
     public class SignInUserVM :BaseVM
     {
-        public string userName { get; set; }
+        public string username { get; set; }
         public string password { get; set; }
     }
 }

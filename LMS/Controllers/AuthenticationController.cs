@@ -33,7 +33,7 @@ namespace API.Controllers
         [HttpPost("/Auth")]
         public IActionResult SignIn( SignInUserVM userVM)
             {
-                var result = _services.Authentication(userVM.userName, userVM.password);
+                var result = _services.Authentication(userVM.username, userVM.password);
                 if (result != null)
                     return Ok(result);
                 return NotFound();

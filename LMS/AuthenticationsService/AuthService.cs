@@ -35,7 +35,7 @@ namespace API.Authentications
         public string Authentication(string username, string password)
         {
             password = EncoderPass(password);
-            if (users.Count < 1 || !users.Any(u => u.fullName == username && u.password == password))
+            if (users.Count < 1 || !users.Any(u => u.username == username && u.password == password))
                 return null;
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(Configuration["Key"]);

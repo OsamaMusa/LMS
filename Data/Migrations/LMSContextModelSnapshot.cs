@@ -138,11 +138,11 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1021),
+                            BirthDate = new DateTime(2021, 12, 6, 9, 18, 12, 854, DateTimeKind.Utc).AddTicks(5102),
                             address = "Ramallah",
                             fullName = "Osama",
                             isBlocked = false,
-                            joinDate = new DateTime(2021, 11, 28, 13, 17, 36, 863, DateTimeKind.Utc).AddTicks(1301),
+                            joinDate = new DateTime(2021, 12, 6, 9, 18, 12, 854, DateTimeKind.Utc).AddTicks(5385),
                             phone = "059",
                             status = true,
                             totalAmount = 100L,
@@ -384,10 +384,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("fullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
 
@@ -397,6 +393,10 @@ namespace Data.Migrations
 
                     b.Property<long?>("roleID")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -408,46 +408,46 @@ namespace Data.Migrations
                         new
                         {
                             ID = 1L,
-                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(2068),
+                            BirthDate = new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(6490),
                             address = "Ramallah",
                             department = "IT",
-                            fullName = "Admin",
                             password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
-                            roleID = 1L
+                            roleID = 1L,
+                            username = "Admin"
                         },
                         new
                         {
                             ID = 2L,
-                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4492),
+                            BirthDate = new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8500),
                             address = "Ramallah",
                             department = "CS",
-                            fullName = "Customer Service",
                             password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
-                            roleID = 4L
+                            roleID = 4L,
+                            username = "Customer Service"
                         },
                         new
                         {
                             ID = 3L,
-                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4547),
+                            BirthDate = new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8554),
                             address = "Ramallah",
                             department = "CS",
-                            fullName = "Finance Service",
                             password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
-                            roleID = 3L
+                            roleID = 3L,
+                            username = "Finance Service"
                         },
                         new
                         {
                             ID = 4L,
-                            BirthDate = new DateTime(2021, 11, 28, 13, 17, 36, 862, DateTimeKind.Utc).AddTicks(4552),
+                            BirthDate = new DateTime(2021, 12, 6, 9, 18, 12, 853, DateTimeKind.Utc).AddTicks(8559),
                             address = "Ramallah",
                             department = "CS",
-                            fullName = "CTO",
                             password = "MTIzNDU2dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=",
                             phone = "059",
-                            roleID = 2L
+                            roleID = 2L,
+                            username = "CTO"
                         });
                 });
 

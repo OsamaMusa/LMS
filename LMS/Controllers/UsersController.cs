@@ -22,7 +22,7 @@ namespace API.Controllers
             this._service = service;
         }
 
-        [HttpGet]
+        [HttpGet("all-users")]
         public Task<IEnumerable<UserVM>> getAllUsers()
         {     
             return _service.getAllUsers();
