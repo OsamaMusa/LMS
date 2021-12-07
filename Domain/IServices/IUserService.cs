@@ -14,5 +14,6 @@ namespace Domain.IServices
         public Task<bool> addUser(UserVM customer);
         public Task<bool> updateUserByID(long id, UserVM customer);
         public Task<UserVM> getUserByUserName(string username);
+        Task<bool> resetUserPassword(ResetUserPassword userPassword);
     }
 }

@@ -61,6 +61,12 @@ namespace API.Controllers
         public Task<bool> addUser(UserVM user)
         {
             return _service.addUser(user);
+
+        }
+        [HttpPost("reset-password")]
+        public Task<bool> resetPassword(ResetUserPassword userPassword)
+        {
+            return _service.resetUserPassword(userPassword);
         }
 
     }

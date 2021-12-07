@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Domain.Services
 {
     public class UserService :  IUserService
@@ -20,17 +19,10 @@ namespace Domain.Services
             }
            public Task<bool> addUser(UserVM user)
            {
-            user.password = encreptPassword(user.password);
             return _userRepository.addUserAsync(user);
            }
 
-         private string encreptPassword(string password)
-         {
-            if (String.IsNullOrEmpty(password)) return "";
-            password += "this is my custom Secret key for authnetication";
-            var result = Encoding.UTF8.GetBytes(password);
-            return Convert.ToBase64String(result);
-        }
+   
 
         public  Task<bool> deleteUserByID(long ID)
             {
@@ -62,6 +54,11 @@ namespace Domain.Services
       
                 return  _userRepository.UpdateUserAsync(ID, user);
    
+        }
+
+        public Task<bool> resetUserPassword(ResetUserPassword userPassword)
+        {
+            return _userRepository.resetUserPassword(userPassword);
         }
     }
  }

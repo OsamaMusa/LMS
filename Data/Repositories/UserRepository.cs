@@ -26,7 +26,9 @@ namespace Data.Repositories
 
         public async Task<bool> addUserAsync(UserVM user)
         {
-            await _context.Users.AddAsync(_mapper.Map<Users>(user));
+            var item = _mapper.Map<Users>(user);
+            item.password = EncreptPassword.EncodePass(item.password);
+            await _context.Users.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -77,11 +79,32 @@ namespace Data.Repositories
             if (item != null)
             {
                 item = _mapper.Map<Users>(user);
+                item.password = EncreptPassword.EncodePass(item.password);
                 _context.Users.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
+
+        public async Task<bool> resetUserPassword(ResetUserPassword userPassword)
+        {
+            Users item = Get(e => e.ID == userPassword.ID).FirstOrDefault();
+            if (item != null)
+            {
+                if (EncreptPassword.EncodePass(userPassword.oldPassword) == item.password)
+                {
+                    item.password = EncreptPassword.EncodePass(userPassword.newPassword);
+                    _context.Users.Update(item);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                               
+            }
+            return false;
+
+        }
+
+   
     }
 }

@@ -14,5 +14,6 @@ namespace Domain.IRepositories
         public Task<bool> addUserAsync(UserVM user);
         public Task<bool> UpdateUserAsync(long Id , UserVM user);
         public Task<UserVM> getUserByUserName(string username);
+        Task<bool> resetUserPassword(ResetUserPassword userPassword);
     }
 }
