@@ -79,7 +79,6 @@ namespace Data.Repositories
             if (item != null)
             {
                 item = _mapper.Map<Users>(user);
-                item.password = EncreptPassword.EncodePass(item.password);
                 _context.Users.Update(item);
                 await _context.SaveChangesAsync();
                 return true;
