@@ -7,10 +7,11 @@ namespace Domain.Enums
     public enum UserLookups
     {
 
-        Admin,
-        CTO,
-        Libarian,
-        Finance
+        Admin=1,
+        CTO=2,
+        Finance = 3,
+        Libarian =4,
+       
 
     }
 
