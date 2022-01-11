@@ -26,9 +26,9 @@ namespace API.Controllers
         [HttpGet("getReservations")]
         public IActionResult GetAll()
         {
-            var items = _service.getAllBookCustomers().Result;
+            var items = _service.getAllBookCustomers();
             if(items != null)
-               return Ok(items);
+               return Ok(items.Result);
             return BadRequest();
         }
 
@@ -36,9 +36,9 @@ namespace API.Controllers
         [HttpGet("getReserve/{id}")]
         public IActionResult getReservationsByID(long id)
         {
-            var res =  _service.getBookCustomerByID(id).Result;
+            var res =  _service.getBookCustomerByID(id);
             if (res != null)
-                return Ok(res);
+                return Ok(res.Result);
             return NoContent();
         }
 
